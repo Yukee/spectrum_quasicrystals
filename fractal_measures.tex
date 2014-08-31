@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel} %français
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{mathtools} %dcases
+\usepackage{braket} %quantum mechanics
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
+
+% the equal sign I use to define something
+\newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
+
+% differential element
+\renewcommand{\d}[1]{\mathrm{d}#1}
+
+\title{\textbf{Fractal measures and their characterization:} \\ fractal dimensions and the $f-\alpha$ way.}
+\author{Nicolas Macé}
+\date{31 août 2014}
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+We consider a topological space $X$, and a (fractal) subspace $F$.
+One way of characterizing $F$ is to compute its so-called \emph{Hausdorff dimension}.
+
+\section{Hausdorff dimension and box counting}
+
+In a euclidean space of dimension $d$, balls of radius $l$ have a volume of $l^d$. 
+So we expect to need of the order of $1/l^d$ such balls to cover a unit sphere. 
+Let us now introduce $N(l)$, the minimal number of (open) balls of radius $l$ needed to cover our subspace $F$. If $N(l)$ scales as $1/l^D$ as $l$ goes to zero, then we say that $D$ is the Hausdorff dimension of $F$.
+
+Sometimes there is no such $D$, ie $N(r)$ does behave as a power law... This happens if $F$ is not a mono fractal, but is a multifractal.
+The problem comes from the fact that we limit ourselves to a covering with balls of \emph{uniform} radius. Authorizing now the covering to consist of balls (or equivalently of open sets) of various radii $l_i$ such that  $l_i < l$, we define
+\begin{equation}
+	H^s(F) \define \lim_{l \rightarrow 0} \inf_{l_i} \Big\{ \sum_i l_i^s \Big| \text{~the balls cover $F$} \Big\} \leq N(l) l^s
+\end{equation}
+If $s$ is too small, $H^s(F)$ will be infinite. Conversely if $s$ is large enough, $H^s(F)$ is zero. So there is a unique positive $s \define D$ such that 
+\begin{equation}
+	H^{s < D}(F) = \infty, ~ H^{s > D}(F) = 0
+\end{equation}
+This $D$ is the Hausdorff dimension of $F$!
+
+This is a great theoretical definition of the Hausdorff dimension, but for practical purposes it appears better to use the following characterization. Consider
+\begin{equation}
+	\Gamma(\tau,l) \define \sum_i l_i^{-\tau}
+\end{equation}
+When $l$ goes to zero, there subsists a unique $\tau \define -D$ such that $\Gamma(-D,l)$ does not diverge\footnote{In fact it seems to me that this $D$ is the box-counting dimension rather than the Hausdorff dimension of the set. To do: take $F = \mathbb{Q}$ and see whether using $\Gamma$ we obtain $\tau=0$ (the Hausdorff dimension of $\mathbb{Q}$, a countable set) or $\tau=1$ (the box dimension of $\mathbb{Q}$).}.
+
+\subsection{Computation of the Hausdorff dimension of some (mono)fractals}
+For these simple examples, we can take all the balls to be of the same radius $l$. We then have
+\begin{equation}
+	N(l) \propto \frac{1}{l^D}
+\end{equation}
+as $l \rightarrow 0$, so that we have $D = \lim_{l\rightarrow 0} \frac{\log N(l)}{\log 1/l}$. 
+By a shift of viewpoint, we can imagine having covered $F$ with $N(l)$ \emph{boxes} of length $l$. $N(l)$ is the number of such boxes, and in a space of dimension $d$, $1/l^d$ is their density. \emph{At scale $l$} (ie if the unit of length is $l$), the length of $F$ is $N(l)$. Furthermore if $F$ is embedded in a compact space of unit volume, then 
+\begin{equation}
+	D = \lim_{l\rightarrow 0} \frac{\log N(l)}{\log N_b^{1/d}}
+\end{equation}
+where $N_b$ is the number of boxes covering the entire space.
+
+\subsubsection{Cantor set}
+We consider the triadic Cantor set, embedded in the unit interval. Because the unit interval is, well, an interval, our boxes are just subintervals of the unit interval.
+
+\begin{itemize}
+	\item If the unit of length is 1, the Cantor set has length 1. We have thus obtained $N(1) = 1$.
+	\item If the unit of length is $1/3$, the Cantor set has length $2$: $N(1/3) = 2$
+	\item Thanks to the fractal nature of the Cantor set, it is easy to see that $N((1/3)^n) = 2^n$.
+\end{itemize}
+Therefore the Hausdorff dimension of the triadic Cantor set is
+\begin{equation}
+	D^{\text{Cantor}} = \frac{\log 2}{\log 3}
+\end{equation}
+
+\subsubsection{Koch snowflake}
+
+\begin{itemize}
+	\item If the unit of length is 1, the snowflake has length 1.
+	\item If the unit of length is $1/3$, the snowflake has length 4.
+\end{itemize}
+Therefore, owing to the fractal nature of this set,
+\begin{equation}
+	D^{\text{snowflake}} = \frac{\log 4}{\log 3}
+\end{equation}
+
+\subsubsection{Sierpinski gasket}
+This is a set embedded in the plane! So this time we use 2D boxes, triangularly shaped.
+\begin{itemize}
+	\item If the unit of surface is 1, the gasket has surface 1.
+	\item If the unit of surface is $1/4$, the gasket has surface 3.
+\end{itemize}
+So, 
+\begin{equation}
+	D^{\text{gasket}} = \frac{\log 3}{\log 4^{1/2}} = \frac{\log 3}{\log 2}
+\end{equation}
+\end{document}
