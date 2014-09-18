@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel} %français
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{mathtools} %dcases
+\usepackage{braket} %quantum mechanics
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
+\usepackage{tikz} % drawing in LaTeX
+
+% the equal sign I use to define something
+\newcommand{\define}{\ensuremath{ \overset{\text{déf}}{=} }}
+
+% differential element
+\renewcommand{\d}[1]{\mathrm{d}#1}
+
+\title{\textbf{Méthode des perturbations sur la chaîne hiérarchique}}
+\author{Nicolas Macé}
+\date{lundi 15 septembre 2014}
+\begin{document}
+
+\maketitle
+
+\section{Perturbation aux premiers ordres}
+
+On considère le Hamiltonien :
+\begin{equation}
+H = H_0 + \lambda H_1
+\end{equation}
+avec $\lambda$ un petit paramètre.
+
+On considère $\ket{\psi}$, un vecteur propre du Hamiltonien complet.
+On peut le développer en puissances de $\lambda$ :
+\begin{equation}
+	\ket{\psi} = \ket{\psi^0} + \lambda \ket{\psi^1} + \lambda^2 \ket{\psi^2} + ...
+\end{equation}
+Par ailleurs on peut faire agir $\ket{\psi}$ sur le Hamiltonien complet, et développer le résultat en puissances de $\lambda$ :
+\begin{equation}
+	H \ket{\psi} = \left( W^{(0)} + \lambda W^{(1)} + \lambda^2 W^{(2)} + ...  \right) \ket{\psi}
+\end{equation}
+En utilisant que $H = H_0 + \lambda H_1$ on obtient
+\begin{align}
+	H_0 \ket{\psi^0} &= W^{(0)} \ket{\psi^{0}} \\
+	H_0 \ket{\psi^1} + H_1\ket{\psi^0} &= W^{(0)} \ket{\psi^{1}} + W^{(1)} \ket{\psi^0} \\
+	H_0 \ket{\psi^2} + H_1\ket{\psi^1} &= W^{(0)} \ket{\psi^{2}} + W^{(1)} \ket{\psi^1} + W^{(2)} \ket{\psi^0} \\
+\text{etc.}  
+\end{align}
+
+\textbf{Perturbation à l'ordre 0}\\
+Soit $E_n$ une énergie propre du Hamiltonien non perturbé $H_0$. On appelle $\ket{n,r}$ le $r^\text{ième}$ vecteur propre associé à $E_n$. 
+On suppose que $\ket{\psi^0} \rightarrow \ket{\psi^0_{n,q}}$ vit dans le sous-espace propre de $H_0$ associé à $E_n$.
+Alors, la première des relations précédentes nous dit que 
+\begin{equation}
+	W^{(0)}_{n,q}  = E_n
+\end{equation}
+À cet ordre, les énergies propres de $H$ sont celles de $H_0$, et les fonctions propres aussi.
+
+\textbf{Perturbation à l'ordre 1}\\
+En prenant le produit scalaire de la deuxième relation avec $\ket{n,r}$, on obtient
+\begin{equation}
+\label{ordre1}
+	\braket{ n,r | H_1| \psi^0_{n,q} } = W^{(1)}_{nq} \braket{ n,r | \psi^0_{nq} }
+\end{equation}
+par conséquent, $\ket{\psi^0_{n,q}}$ est un vecteur propre de la restriction de $H_1$ au sous-espace propre de $H_0$ d'énergie $E_n$, et $W^{(1)}_{n,q}$ est la valeur propre associée.
+
+À cet ordre, les énergies propres sont donc les 
+\begin{align*}
+	\varepsilon_{n,q} &= W^{(0)}_{n,q} + \lambda W^{(1)}_{n,q} \\
+	\varepsilon_{n,q} &= E_n + \lambda W^{(1)}_{n,q}
+\end{align*}
+et les vecteurs propres associés sont les $\ket{\psi^0_{n,q}}$, combinaisons linéaires des $\ket{n,r}$. Les coefficients de $\ket{\psi^0_{n,q}}$ ainsi que les $W^{(1)}_{n,q}$ sont déterminés par l'équation aux valeurs propres \eqref{ordre1} (aussi appelée équation séculaire, parce qu'elle a servi en premier à Lagrange et Laplace pour déterminer perturbativement l'effet à long terme des interactions gravitationnelles entre les planètes du système solaire dans le cadre de la mécanique newtonienne).
+
+\textbf{Perturbation à l'ordre 2}\\
+Soit $P_{n,q}$ le projecteur orthogonal à $\ket{\psi^0_{n,q}}$. On réutilise la deuxième relation pour obtenir
+\begin{equation}
+	P_{n,q} \ket{\psi^1_{n,q}} = (E_n - H_0)^{-1} P_{n,q} H_1 \ket{\psi^0_{n,q}}
+\end{equation}
+Comme le vecteur propre total $\ket{\psi_{n,q}}$ est de norme 1, $\Re \braket{\psi^0_{n,q} | \psi^1_{n,q}} = 0$. Par ailleurs, on peut choisir la phase de $\ket{\psi_{n,q}}$ de telle sorte que $\Im \braket{\psi^0_{n,q} | \psi^1_{n,q}} = 0$. 
+Cela étant fait, $P_{n,q} \ket{\psi^1_{n,q}} = \ket{\psi^1_{n,q}}$ et
+\begin{equation}
+\label{ordre2}
+	\ket{\psi^1_{n,q}} = (E_n - H_0)^{-1} P_{n,q} H_1 \ket{\psi^0_{n,q}}
+\end{equation}
+À cet ordre, le vecteur propre est donc
+\begin{align*}
+	\ket{\psi_{n,q}} &= \ket{\psi^0_{n,q}} + \lambda \ket{\psi^1_{n,q}}  \\
+	\ket{\psi_{n,q}} &= \ket{\psi^0_{n,q}} + \lambda (E_n - H_0)^{-1} P_{n,q} H_1 \ket{\psi^0_{n,q}}
+\end{align*}
+À cet ordre les valeurs propres sont aussi modifées par l'ajout de $W^{(2)}_{n,q}$, que je ne vais pas calculer ici ! Si on voulait le faire, il faudrait prendre le produit scalaire par $\ket{n,r}$ de la troisième relation.
+
+\section{Application à la chaîne hiérarchique}
+
+\begin{center}
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$t_0$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$t_1$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$t_0$};			
+    	
+    		% sites
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+
+		\end{tikzpicture}
+\end{center}
+
+On écrit
+\begin{equation}
+	H = H_0 + H_1
+\end{equation}
+où $H_0$ contient les termes de saut sur les sites liés par le couplage $t_0$, et $H_1$ les termes de saut sur les sites liés par le couplage $t_1$. 
+Ici, le petit paramètre est $\lambda = t_1/t_0$.
+
+\textbf{Perturbation à l'ordre 0}\\
+Les états propres de $H_0$ sont
+\begin{align*}
+	\ket{0,\pm} = \frac{1}{\sqrt{2}} \left( \ket{0} \pm \ket{1} \right) \\
+	\ket{2,\pm} = \frac{1}{\sqrt{2}} \left( \ket{2} \pm \ket{3} \right)
+\end{align*}
+Les états $\ket{i,+}$ sont associés à l'énergie $t_0$, tandis que les états $\ket{i,-}$ sont associés à l'énergie $-t_0$.
+
+\textbf{Perturbation à l'ordre 1}\\
+On cherche maintenant les valeurs propres des restrictions $Q_{\pm} H_1 Q_{\pm}$ de $H_1$ aux deux sous-espaces propres de $H_0$, associés à $\pm t_0$.
+
+On a
+\begin{align*}
+	H^{\pm}_{\text{eq}} &= H_0 + Q_\pm H_1 Q_\pm \\
+	&= H_0 + \frac{t_1}{2} \left( \ket{0,\pm}\bra{1,\pm} + \ket{1,\pm}\bra{0,\pm} \right)
+\end{align*}
+Les états propres que l'on va déterminer seront ceux que l'on avait noté $\ket{\psi^0_{n,q}}$ précédemment. Ici, $n=\pm$ et $q=\pm$. On a
+\begin{align*}
+	\ket{\psi^0_{++}} = \frac{1}{\sqrt{2}} \left( \ket{0,+} + \ket{1,+} \right) &\leftrightarrow W^{(0)}_{+} + W^{(1)}_{++} = +t_0 + \frac{t_1}{2} \\
+	\ket{\psi^0_{+-}} = \frac{1}{\sqrt{2}} \left( \ket{0,+} - \ket{1,+} \right) &\leftrightarrow W^{(0)}_+ + W^{(1)}_{+-} = +t_0 - \frac{t_1}{2} \\
+	\ket{\psi^0_{-+}} = \frac{1}{\sqrt{2}} \left( \ket{0,-} - \ket{1,-} \right) &\leftrightarrow W^{(0)}_- + W^{(1)}_{-+} = -t_0 + \frac{t_1}{2} \\
+	\ket{\psi^0_{--}} = \frac{1}{\sqrt{2}} \left( \ket{0,-} + \ket{1,-} \right) &\leftrightarrow W^{(0)}_- + W^{(1)}_{--} = -t_0 - \frac{t_1}{2}
+\end{align*}
+
+\textbf{Perturbation à l'ordre 2}\\
+On calcule maintenant le déplacement des vecteurs propres à l'ordre 2, $\ket{\psi^1_{\pm \pm}}$.
+Ici, la formule \eqref{ordre2} donne
+\begin{equation}
+	\ket{\psi^1_{\varepsilon_1 \varepsilon_2}} = \sum_{(\varepsilon_1',\varepsilon_2') \neq (\varepsilon_1, \varepsilon_2)} \frac{\braket{\psi^0_{\varepsilon_1' \varepsilon_2'}| H_1 | \psi^0_{\varepsilon_1 \varepsilon_2}}}{E_{\varepsilon_1 \varepsilon_2} - E_{\varepsilon_1'\varepsilon_2'}} \ket{\psi^0_{\varepsilon_1' \varepsilon_2'}}
+\end{equation}
+On obtient
+\begin{align*}
+	\ket{\psi^1_{++}} = - \frac{t_1}{4t_0} \ket{\psi^0_{-+}} \\
+	\ket{\psi^1_{+-}} = + \frac{t_1}{4t_0} \ket{\psi^0_{--}} \\
+	\ket{\psi^1_{-+}} = + \frac{t_1}{4t_0} \ket{\psi^0_{++}} \\
+	\ket{\psi^1_{--}} = - \frac{t_1}{4t_0} \ket{\psi^0_{+-}}
+\end{align*}
+Soit, dans la base $\ket{0,+},\ket{0,-},\ket{1,+},\ket{1,-}$ :
+\begin{align}
+	\ket{++} = \frac{1}{\sqrt{2}} \left\{1,-\frac{\text{t1}}{4},1,\frac{\text{t1}}{4}\right\} \\
+	\ket{+-} = \frac{1}{\sqrt{2}} \left\{1,\frac{\text{t1}}{4},-1,\frac{\text{t1}}{4}\right\} \\
+	\ket{-+} = \frac{1}{\sqrt{2}} \left\{\frac{\text{t1}}{4},1,\frac{\text{t1}}{4},-1\right\} \\
+	\ket{--} = \frac{1}{\sqrt{2}} \left\{-\frac{\text{t1}}{4},1,\frac{\text{t1}}{4},1\right\}
+\end{align}
+
+
+(À vérifier avec la méthode des perturbations)
+\begin{align}
+	\ket{\psi^1_{+++}} = -\frac{t_2}{4 t_1} \ket{\psi^0_{+-+}} + \frac{t_2}{8 t_0}\left( +\ket{\psi^0_{-++}} - \ket{\psi^0_{--+}} \right) \\
+	\ket{\psi^1_{++-}} = +\frac{t_2}{4 t_1} \ket{\psi^0_{+--}} + \frac{t_2}{8 t_0} \left( -\ket{\psi^0_{-+-}} + \ket{\psi^0_{---}} \right) \\
+	\ket{\psi^1_{+-+}} = +\frac{t_2}{4 t_1} \ket{\psi^0_{+++}} +  \frac{t_2}{8 t_0} \left( -\ket{\psi^0_{-++}} + \ket{\psi^0_{--+}} \right) \\
+\end{align}
+\end{document}
