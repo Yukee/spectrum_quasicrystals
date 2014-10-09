@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel} %français
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{mathtools} %dcases
+\usepackage{braket} %quantum mechanics
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
+\usepackage{tikz} % drawing in LaTeX
+
+% the equal sign I use to define something
+\newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
+
+% differential element
+\renewcommand{\d}[1]{\mathrm{d}#1}
+
+% Hermitian conjugate
+\DeclareMathOperator{\hc}{h.c.}
+
+\title{\textbf{The hierarchical chain (tight binding model)}}
+\author{}
+\date{October 9, 2014}
+\begin{document}
+
+% I'm writing in english
+\selectlanguage{english}
+
+\maketitle
+
+\section{The model}
+
+\begin{center}
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$t_0$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$t_1$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$t_0$};			
+    	
+    		% sites
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+
+		\end{tikzpicture}
+\end{center}
+
+We consider the tight-binding Hamiltonian:
+\begin{equation}
+	H = \sum_i t(i) \ket{i-1} \bra{i} + \hc
+\end{equation}
+where
+\begin{equation}
+	t(i) \define t_k\text{, with $k$ the number of times 2 divides $i$.}
+\end{equation}
+Such a Hamiltonian has a the structure of a binary tree. This binary hierarchy must somehow show up in its spectrum, at least given a reasonable set of $t_k$s.
+
+\subsection{$t_0 \gg t_1 \gg ... \gg t_1^2 \gg t_2^2 \gg ... \gg t_1^3 \gg t_2^3 \gg ...$}
+In that case, we can treat the problem perturbatively ; first integrate out the diatomic molecules (two atoms liked by a $t_0$ bond), then the the diatomic molecules of diatomic molecules (two diatomic molecules linked by a $t_1$ bond), etc.
+
+At the first order in perturbation theory the spectrum is
+\begin{equation}
+	E_{\epsilon_1\epsilon_2...} = (-1)^{\epsilon_1} t_0 + (-1)^{\epsilon_2} \frac{t_1}{2} + (-1)^{\epsilon_3} \frac{t_2}{4} + ...
+\end{equation} 
+At zeroth order in
+\end{document}
