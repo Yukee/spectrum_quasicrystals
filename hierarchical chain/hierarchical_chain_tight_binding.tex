@@ -13,6 +13,10 @@
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
 \usepackage{tikz} % drawing in LaTeX
 
+% subfigure
+\usepackage{caption}
+\usepackage{subcaption}
+
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
 
@@ -63,12 +67,145 @@ where
 \end{equation}
 Such a Hamiltonian has a the structure of a binary tree. This binary hierarchy must somehow show up in its spectrum, at least given a reasonable set of $t_k$s.
 
-\subsection{$t_0 \gg t_1 \gg ... \gg t_1^2 \gg t_2^2 \gg ... \gg t_1^3 \gg t_2^3 \gg ...$}
+\section{Strong hierarchy: $t_0 \gg t_1 \gg ... \gg t_1^2 \gg t_2^2 \gg ... \gg t_1^3 \gg t_2^3 \gg ...$}
 In that case, we can treat the problem perturbatively ; first integrate out the diatomic molecules (two atoms liked by a $t_0$ bond), then the the diatomic molecules of diatomic molecules (two diatomic molecules linked by a $t_1$ bond), etc.
 
 At the first order in perturbation theory the spectrum is
 \begin{equation}
 	E_{\epsilon_1\epsilon_2...} = (-1)^{\epsilon_1} t_0 + (-1)^{\epsilon_2} \frac{t_1}{2} + (-1)^{\epsilon_3} \frac{t_2}{4} + ...
 \end{equation} 
-At zeroth order in
+At zeroth order in perturbation theory, the eigenstate assiated to $E_{\epsilon_1\epsilon_2...}$ can be constructed using the following procedure:
+\begin{itemize}
+	\item If $\epsilon_1 = 0/1$ construct the symmetric/antisymmetric linear combination of atomic states linked by a $t_0$ bond. That is to say, construct the vector
+	\begin{equation}
+		\ket{\psi^0_{\epsilon_1}} = \frac{1}{\sqrt{2}} ( \ket{0} + (-1)^{\epsilon_1} \ket{1} ) + \frac{1}{\sqrt{2}} ( \ket{2} + (-1)^{\epsilon_1} \ket{3} ) + ...
+	\end{equation}
+	We shall define $\ket{i,\epsilon_1} \define ( \ket{2i} + (-1)^{\epsilon_1} \ket{2i+1} )/\sqrt{2} $. We shall call the $\ket{i,\epsilon_1}$ the \emph{diatomic states}. If $\epsilon_1=0/1$ we say that the diatomic state $i$ is \emph{antibonding/bonding}.
+	
+	\item If $\epsilon_2 = 0/1$ construct the symmetric/antisymmetric linear combination of diatomic states linked by a $t_1$ bond. That is to say, construct the vector
+	\begin{equation}
+		\ket{\psi^1_{\epsilon_1 \epsilon_2}} = \frac{1}{\sqrt{2}} ( \ket{0,\epsilon_1} + (-1)^{\epsilon_2} \ket{1,\epsilon_1} ) + \frac{1}{\sqrt{2}} ( \ket{2,\epsilon_1} + (-1)^{\epsilon_2} \ket{3,\epsilon_1} ) + ...
+	\end{equation}
+	We shall define the \emph{quadriatomic states} $\ket{i,\epsilon_1 \epsilon_2} \define ( \ket{2i,\epsilon_1} + (-1)^{\epsilon_2} \ket{2i+1,\epsilon_1} )/\sqrt{2} $
+	\item If $\epsilon_n = 0/1$ construct the symmetric/antisymmetric linear combination of $2^{n-1}$-atomic states linked by a $t_{n-1}$ bond.
+\end{itemize}
+At the $n^\text{th}$ step of this procedure, we obtain $\ket{\psi^{n-1}_{\epsilon_1...\epsilon_n}}$, the zeroth order eigenvector of a $2^n$ size hierarchical chain associated with the energy $E_{\epsilon_1...\epsilon_n}$.
+
+\begin{figure}[htp]
+\centering
+  \includegraphics[width=.9\linewidth]{data/eigenfunctions_zeroth_order.pdf}
+  \caption{From left to right: $2^4$-atomic states associated with the energies $\epsilon_1\epsilon_2\epsilon_3\epsilon_4 = 0010, 0011, 0100$, in the atomic states basis.}
+  \label{fig:eigenfunctions_strong_hierarchy}
+\end{figure}
+
+\section{Geometric hierarchy: $t_{k\geq2} = R t_{k-1}$}
+In that case, we may no longer be able to organize the perturbation theory hierarchically (for example second order perturbation theory applied to the $2^2$ chain will involve corrections of order $t_2^2 = R^2 t_1^2$, but since $t_3 = R^2 t_1 = t_2^2/t_1$, depending on the value of $t_1$, these second order corrections may be involved when dealing with the $2^{3}$ chain at first order.).
+
+Following \cite{transitionmatrix}, we chose
+\begin{equation}
+t_k = \begin{dcases*}
+        1  & if $k=0$ \\
+        V & if $k=1$\\
+        R^{k-2} V & if $k > 1$
+        \end{dcases*}
+\end{equation}
+
+\subsection{Spectrum and wavefunctions}
+
+
+\begin{figure}[htp]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{data/spectrum_isolated_hchain.pdf}
+  \caption{Spectrum of the isolated chain of $N$ atomic sites.}
+  \label{fig:sp_isolated}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{data/ground_state_isolated_hchain.pdf}
+  \caption{Ground state of the chain of $N$ atomic sites.}
+  \label{fig:gs_isolated}
+\end{subfigure}
+\caption{Numerical results for the isolated chain with geometric hierarchy.}
+\label{fig:num_geom}
+\end{figure}
+
+As before, we consider an isolated chain of $N=2^n$ atoms.
+
+\begin{center}
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$V$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$1$};
+			\draw[-,dotted] (\orig+3*\trans,0) -- (\orig+4*\trans,0) node [midway, above] {$RV$};
+			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+5*\trans,0) -- (\orig+6*\trans,0) node [midway, above] {$V$};
+			\draw[-] (\orig+6*\trans,0) -- (\orig+7*\trans,0) node [midway, above] {$1$};
+    	
+    		% sites
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+			\filldraw (\orig+4*\trans,0) circle (0.05) node [below] {$\ket{4}$};
+			\filldraw (\orig+5*\trans,0) circle (0.05) node [below] {$\ket{5}$};
+			\filldraw (\orig+6*\trans,0) circle (0.05) node [below] {$\ket{6}$};
+			\filldraw (\orig+7*\trans,0) circle (0.05) node [below] {$\ket{7}$};
+
+		\end{tikzpicture}
+\end{center}
+
+Numerically, we can easily compute its spectrum (fig. \eqref{fig:sp_isolated}) and the corresponding wavefunctions (fig. \eqref{fig:gs_isolated}). It looks like both spectrum and wavefunctions have a hierarchical structure.
+
+To further analize the hierarchical character of the spectrum, we wish to compute its fractal dimensions (aka Rényi dimensions or Rényi entropy or generalized dimensions)
+
+\subsection{Fractal dimensions}
+
+We consider our spectrum as a subset of some set (say the unit interval $I=[0,1]$), that we partition into boxes of length $\epsilon$. 
+Following \cite{Halsey1986} we then define $p_i$ as the fraction of points of our spectrum lying inside the $i^\text{th}$ box. The $q^\text{th}$ generalized/fractal/Rényi dimension is then 
+\begin{equation}
+	D_q = \frac{1}{q-1}\lim_{\epsilon \rightarrow 0} \frac{\log \sum_i p_i^q}{\log \epsilon^{-1}}
+\end{equation}
+
+\subsubsection{Box-counted Hausdorff dimension}
+
+We have
+\begin{equation}
+	D_0 = - \lim_{\epsilon \rightarrow 0} \frac{\log N_b}{\log \epsilon^{-1}}
+\end{equation}
+where $N_b$ is the number of boxes containing at least one point of the spectrum.
+This is the reason why $D_0$ is called the \emph{box-counting} dimension.
+In most cases the Hausdorff dimension coincides with the box-counting dimension\footnote{In fact $D_0$ is always greater or equal to the Hausdorff dimension. Indeed, countable sets increase the dimension $D_0$ -- obtained by box-counting -- when they have accumulation points, while they do not contribute to the Hausdorff dimension.}. 
+
+\begin{figure}[htp]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{data/box_counting.pdf}
+  \caption{$D_0$ obtained by direct box-counting.}
+  \label{fig:direct_bc}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{data/hausdorff.pdf}
+  \caption{$D_0$ obtained with the partition function.}
+  \label{fig:partition_bc}
+\end{subfigure}
+\caption{Box-counting.}
+\label{fig:bc}
+\end{figure}
+
+Figure \eqref{fig:direct_bc} shows how $\log N_b$ evolve as $\epsilon \rightarrow 0$, in $\log-\log$ scale. 
+For an infinite size system (that is, for the spectrum of the infinite chain) we expect this function to have a linear asymptotic behaviour, the slope of the asymptote being $-D_0$.
+For our numerical, finite size spectrum however, we expect finite size effects to come into play when $\epsilon$ is too small.
+This is indeed what happens (fig. \eqref{fig:direct_bc}). For this computation we took a sequence of boxes of length $\epsilon_i = \delta^{-i}$. We noted that when $\delta$ is taken to be a power of 2, $\log N_b$ becomes constant when $\epsilon$ is sufficiently small (in fig. \eqref{fig:direct_bc} $\delta$ was set to 2). Whereas when $\delta$ is not a power of 2, $\log N_b$ seems to be taking random values when $\epsilon$ is sufficiently small. 
+This probably means that the energy states are indexed by a binary integer, at least for finite size chains.
+
+\bibliography{bib/hierarchical_chain_tight_binding.bib}{}
+\bibliographystyle{plain}
 \end{document}
