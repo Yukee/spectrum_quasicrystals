@@ -26,6 +26,9 @@
 % Hermitian conjugate
 \DeclareMathOperator{\hc}{h.c.}
 
+% Trace
+\DeclareMathOperator{\tr}{tr}
+
 \title{\textbf{The hierarchical chain (tight binding model)}}
 \author{}
 \date{October 9, 2014}
@@ -251,6 +254,153 @@ The latter method seems more accurate. We solved $\Gamma_{n+1}/\Gamma_n = 1$ for
 The Hausdorff dimension obtained with this method agrees with the one obtained by direct box-counting up to the third decimal place.
 
 \subsection{Transition matrices}
+
+\subsubsection{Definition}
+For a nearest-neighbours tight-binding system, the Schrödinger equation writes
+\begin{equation}
+	E \psi_n = t_{n,n-1} \psi_{n-1} + t_{n,n+1} \psi_{n+1}
+\end{equation}
+where $\psi_n = \braket{n|\psi}$. In the hierarchical chain case, the hopping amplitudes are real-valued: $t_{n,n+1} = t_{n+1,n}^* = t_{n+1,n} \define t(n)$.
+
+In general, we can define a \emph{transition matrix}:
+\begin{equation}
+	T(t_r,t_l;E) \define 
+	\begin{bmatrix}
+		\frac{E}{t_r} & -\frac{t_l}{t_r}\\
+		1 & 0\\
+	\end{bmatrix}
+\end{equation}
+and we have the important property that
+\begin{equation}
+	\underbrace{T(t_{n,n+1},t_{n,n-1};E)}_{ \define T_{n,n-1} } 
+	\begin{pmatrix}
+		\psi_n\\
+		\psi_{n-1}\\
+	\end{pmatrix}
+	= 
+	\begin{pmatrix}
+		\psi_{n+1}\\
+		\psi_{n}\\
+	\end{pmatrix}
+\end{equation}
+
+\subsubsection{Application to the (periodic) hierarchical chain}
+
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$V$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+3*\trans,0) -- (\orig+4*\trans,0) node [midway, above] {$V$};
+    	
+    		% sites
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+			\filldraw (\orig+4*\trans,0) circle (0.05) node [below] {$\ket{4}$};
+		\end{tikzpicture}
+	\caption{First periodic approximant of the hierarchical chain. Two periods are shown.}
+\end{figure}
+
+We now consider the $n^\text{th}$ periodic approximant of the infinite hierarchical chain. It is defined as the infinite chain obtained by the replacement
+\begin{equation}
+	t_{k > n} \rightarrow t_{n}
+\end{equation}
+The $n^\text{th}$ periodic approximant has period $2^n$.
+
+\textbf{First periodic approximant:} because the first periodic approximant has period $2$, we have
+\begin{equation}
+	T(1,V;E)T(V,1;E)
+	\begin{pmatrix}
+		\psi_1\\
+		\psi_{0}\\
+	\end{pmatrix} = T_{2,1}T_{1,0}
+	\begin{pmatrix}
+		\psi_1\\
+		\psi_{0}\\
+	\end{pmatrix} = 
+	\begin{pmatrix}
+		\psi_3\\
+		\psi_{2}\\
+	\end{pmatrix}
+	= e^{2ik} 
+	\begin{pmatrix}
+		\psi_1\\
+		\psi_{0}\\
+	\end{pmatrix}
+\end{equation}
+We see that the vector $(\psi_1,\psi_0)$ is an eigenvector of $T_{2,1} T_{1,0}$, associated to the eigenvalue $\lambda_1 = \exp(2ik)$.
+Moreover, because of the periodicity,
+\begin{equation}
+	\det T_{2,1}T_{1,0} = 1
+\end{equation}
+So that $\lambda_1 \lambda_2 = 1$. Thus $\lambda_2 = \lambda_1^* = \exp(-2ik)$, and
+\begin{equation}
+	\tr T_{2,1}T_{1,0} = \frac{E^2-V^2-1}{V} = 2 \cos(2 k)
+\end{equation}
+Solving this second-order polynomial in $E$ gives us the two energy bands of this first periodic approximant.
+
+\textbf{Second periodic approximant and decimation:}
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+    		\draw[-,dotted,red] (\orig-\trans,0) -- (\orig,0) node [midway, above] {$RV$};
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$V$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$1$};
+			\draw[-,dotted] (\orig+3*\trans,0) -- (\orig+4*\trans,0) node [midway, above] {$RV$};
+
+    		% sites
+    		\filldraw [red] (\orig-\trans,0) circle (0.05) node [below] {$\ket{-1}$};
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+			\filldraw [red] (\orig+4*\trans,0) circle (0.05) node [below] {$\ket{4}$};
+		\end{tikzpicture}
+	\caption{Second periodic approximant. One period is shown (in black), as well as the surrounding environment (in red).}
+	\label{fig:decim_2}
+\end{figure}
+For this second periodic approximant, the period is $2^2=4$. We do not wish to compute directly the 4 bands, but rather to decimate half the sites of this period 4 system in order to recover a system equivalent to the previously studied period 2 system.
+
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+    		\draw[-,dashed,red] (\orig-\trans,0) -- (\orig,0) node [midway, above] {$V'$};
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$1$};
+			\draw[-,dashed] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$V'$};
+
+    		% sites
+    		\filldraw [red] (\orig-\trans,0) circle (0.05) node [below] {$\ket{-1'}$};
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0'}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1'}$};
+			\filldraw [red] (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2'}$};
+		\end{tikzpicture}
+	\caption{First periodic approximant with renormalized couplings.}
+	\label{fig:decim_1}
+\end{figure}
+
+We chose to decimate the two sites surrounding the $V$ coupling (sites $\ket{1}$ and $\ket{2}$ in fig \eqref{fig:decim_2}). We will thus obtain a first periodic approximant with renormalized couplings (fig \eqref{fig:decim_1}).
+
+Using transition matrices, this means that we wish to make the identification
+\begin{align}
+	T(RV,1;E)T(1,V;E)T(V,1;E)T(1,RV;E) & = T(V',1;E')T(1,V';E') \\
+	T_{3,2}T_{2,1}T_{1,0}T_{0,-1} &= T'_{1',0'}T'_{0',-1'}
+\end{align}
 \bibliography{bib/hierarchical_chain_tight_binding.bib}{}
 \bibliographystyle{plain}
 \end{document}
