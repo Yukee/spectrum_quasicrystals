@@ -206,6 +206,51 @@ For our numerical, finite size spectrum however, we expect finite size effects t
 This is indeed what happens (fig. \eqref{fig:direct_bc}). For this computation we took a sequence of boxes of length $\epsilon_i = \delta^{-i}$. We noted that when $\delta$ is taken to be a power of 2, $\log N_b$ becomes constant when $\epsilon$ is sufficiently small (in fig. \eqref{fig:direct_bc} $\delta$ was set to 2). Whereas when $\delta$ is not a power of 2, $\log N_b$ seems to be taking random values when $\epsilon$ is sufficiently small. 
 This probably means that the energy states are indexed by a binary integer, at least for finite size chains.
 
+\subsubsection{Partition function}
+
+The \emph{partition function} $\Gamma$ is another tool one can use to compute the fractal dimensions. 
+
+Let us consider a partition $\mathcal{P}=\{ S_i \}_i$ of the set $S$ whose fractal dimensions we are interested in. Each subset $S_i$ is contained in a ball of radius $l_i$. This ball contains a fraction $p_i$ of the points of $S$. 
+We assume that the balls radii are smaller than a control radius $\epsilon$.
+Then we define the \emph{partition function}:
+\begin{equation}
+	\Gamma(q,\tau;\mathcal{P}, \{l_i\}) \define \sum_i \frac{p_i^q}{l_i^\tau}
+\end{equation}
+Next, we chose the partition such as to minimize/maximize $\Gamma$ depending on whether $q$ is positive/negative:
+\begin{equation}
+\Gamma(q,\tau) \define \begin{dcases*}
+        \inf_{\mathcal{P}} \Gamma(q,\tau;\mathcal{P}, \{l_i\}) & if $q>0$ \\
+        \max_{\mathcal{P}} \Gamma(q,\tau;\mathcal{P}, \{l_i\}) & if $q<0$
+        \end{dcases*}
+\end{equation}
+It is not clear for me at the moment how we chose the radii $l_i$.
+In the limit $\epsilon \rightarrow 0$, the above partition function is finite only when $\tau \define \tau(q)$. We have the important property
+\begin{equation}
+	\tau(q) = (q-1) D_q
+\end{equation}
+
+\begin{figure}[htp]
+\centering
+  \includegraphics[width=.8\linewidth]{data/spectra_vs_bc_hchain.pdf}
+  \caption{Spectrum of the chain with $2^3$ sites for different boundary conditions.}
+  \label{fig:spectra_bc}
+\end{figure}
+
+In our case, the set $S$ is the spectrum of the infinite chain. 
+We can compute a sequence of spectra $\{S^p_n\}_n, \{S^a_n\}_n$, $S^p_n$ and $S^a_n$ being the spectrum of the chain of length $2^n$ with periodic/antiperiodic boundary conditions. In the limit $n\rightarrow \infty$ both spectra become equal to $S$.
+If we wish to compute $\Gamma_n(q,\tau)$, the $n^\text{th}$ approximant of the partition function, we must find a suitable partition $\mathcal{P}_n$ and a suitable associated set of radii $l_i$.
+As the spectra $S^p_n, S^a_n$ are finite sets, it seems natural to partition them into insolated points. To each point we must now associate a ball of radius $l_i$. What should we take as a radius ? I don't know why, but it turns out to be a great idea to chose $l_i$ to be the distance betweeen a point $S^p_n$ and the corresponding point of $S^a_n$. 
+The chain of length $2^n$ with any boundary condition has energies sandwiched between the associated energy for the periodic boundary conditions and the associated energy for antiperiodic boundary conditions (fig \eqref{fig:spectra_bc}). Thus, we understand that $\Gamma_n(q,\tau;\mathcal{P},\{l_i\})$ is a good candidate for the partition function of the spectrum of the chain of length $2^n$ with any boundary condition
+Of course $p_i = 2^{-n}$ as the $2^n$ sites chain has $2^n$ (nondegenerate) energies.
+
+To evaluate numerically $\tau(q)$ we can either find $\tau$ such that $\Gamma_{n\rightarrow \infty}$ is finite, or find $\tau$ such that 
+\begin{equation}
+	\lim_{n\rightarrow \infty} \frac{\Gamma_{n+1}}{\Gamma_n} = 1
+\end{equation}
+The latter method seems more accurate. We solved $\Gamma_{n+1}/\Gamma_n = 1$ for increasing values of $n$. The result is fig \eqref{fig:partition_bc}. The convergence seems to be quite quick. 
+The Hausdorff dimension obtained with this method agrees with the one obtained by direct box-counting up to the third decimal place.
+
+\subsection{Transition matrices}
 \bibliography{bib/hierarchical_chain_tight_binding.bib}{}
 \bibliographystyle{plain}
 \end{document}
