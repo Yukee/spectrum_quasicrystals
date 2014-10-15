@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english, french]{babel} %français
+\usepackage[usenames,dvipsnames]{color} % color
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{makeidx}
@@ -28,6 +29,9 @@
 
 % Trace
 \DeclareMathOperator{\tr}{tr}
+
+% Equivalent sign in align environment
+\newcommand{\eq}{\llap{$\Leftrightarrow$ \qquad}}
 
 \title{\textbf{The hierarchical chain (tight binding model)}}
 \author{}
@@ -398,9 +402,43 @@ We chose to decimate the two sites surrounding the $V$ coupling (sites $\ket{1}$
 
 Using transition matrices, this means that we wish to make the identification
 \begin{align}
-	T(RV,1;E)T(1,V;E)T(V,1;E)T(1,RV;E) & = T(V',1;E')T(1,V';E') \\
-	T_{3,2}T_{2,1}T_{1,0}T_{0,-1} &= T'_{1',0'}T'_{0',-1'}
+	T(RV,1;E)T(1,V;E)T(V,1;E)T(1,RV;E) &= T(V',1;E')T(1,V';E') \\
+	\eq T_{3,2}T_{2,1}T_{1,0}T_{0,-1} &= T'_{1',0'}T'_{0',-1'} \\
+	\eq \begin{bmatrix}
+			\frac{(E^2-1)^2-E^2V^2}{RV^2} & -\frac{E}{V}(E^2-V^2-1)\\
+			\frac{E}{V}(E^2-V^2-1) & -R(E^2-V^2)\\
+		\end{bmatrix} &=
+		\begin{bmatrix}
+			\frac{E^{\prime2}-1}{V'} & -E'\\
+			E' & -V'\\
+		\end{bmatrix}
 \end{align}
+And thus, we conclude that the second approximant reduces to the first with the renormalized couplings
+\begin{equation}
+	\begin{dcases*}
+        	V' &= $R(E^2-V^2)$ \\
+        	E' &= $\frac{E}{V}(E^2-V^2-1)$
+     \end{dcases*}
+\end{equation}
+
+\textbf{$n^\text{th}$ periodic approximant and decimation:}
+We now wish to extend this decimation procedure to an arbitrary long approximant. 
+This is easily done, because
+\begin{equation}
+	T({R^{\color{red}2}}V,1;E)T(1,V;E)T(V,1;E)T(1,RV;E) = T({\color{red}R}V',1;E')T(1,V';E')
+\end{equation}
+and
+\begin{equation}
+	T(RV,1;E)T(1,V;E)T(V,1;E)T(1,{R^{\color{red}2}}V;E) = T(V',1;E')T(1,{\color{red}R}V';E')
+\end{equation}
+with the same renormalized couplings $E'$ and $V'$.
+The $n^\text{th}$ periodic approximant with couplings $E_n$ and $V_n$ thus reduces to the $(n-1)^\text{th}$ one with the renormalized couplings
+\begin{equation}
+	\begin{dcases*}
+        	V_{n-1} &= $R(E_n^2-V_n^2)$ \\
+        	E_{n-1} &= $\frac{E_n}{V_n}(E_n^2-V_n^2-1)$
+     \end{dcases*}
+\end{equation}
 \bibliography{bib/hierarchical_chain_tight_binding.bib}{}
 \bibliographystyle{plain}
 \end{document}
