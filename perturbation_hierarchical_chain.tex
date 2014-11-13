@@ -85,7 +85,7 @@ Cela étant fait, $P_{n,q} \ket{\psi^1_{n,q}} = \ket{\psi^1_{n,q}}$ et
 \begin{equation}
 \label{ordre2}
 	\ket{\psi^1_{n,q}} = (E_n - H_0)^{-1} P_{n,q} H_1 \ket{\psi^0_{n,q}}
-\end{equation}
+\end{equation}\footnote{Remarquons que $(E_n - H_0)^{-1}$ n'est bien défini que dans le sous-espace orthogonal à $E_n$. Pour que la théorie de perturbation à l'ordre 2 fonctionne, il faut donc que $\forall n, q$, $P_{n,q} H_1 \ket{\psi^0_{n,q}} \notin E_n$, c'est-à-dire que $H_1$ envoie $\ket{\psi^0_{n,q}}$ sur lui-même, et sur le sous-espace orthogonal à $E_n$. S'il n'y a pas de dégénérescence, cette condition est automatiquement vérifiée. S'il y a une dégénérescence, il faut donc que $\forall q, \forall p \neq q, \braket{\psi_{np}^{(0)} | H_1 | \psi_{nq}^{(0)}}=0$. Or $\braket{\psi_{np}^{(0)} | H_1 | \psi_{nq}^{(0)}}=W^{(1)}_{n,q} \braket{\psi_{np}^{(0)} | \psi_{nq}^{(0)}}$. Il suffit donc que les $\ket{\psi_{nq}^{(0)}}$ soient orthogonaux entre eux pour que la condition soit vérifiée. Or, c'est toujours possible d'orthogonaliser ces vecteurs. Ouf !}
 À cet ordre, le vecteur propre est donc
 \begin{align*}
 	\ket{\psi_{n,q}} &= \ket{\psi^0_{n,q}} + \lambda \ket{\psi^1_{n,q}}  \\
