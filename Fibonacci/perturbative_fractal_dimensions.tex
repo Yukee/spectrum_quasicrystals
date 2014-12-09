@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel} %français
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{mathtools} %dcases
+\usepackage{braket} %quantum mechanics
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
+\usepackage{tikz} % drawing in LaTeX
+
+% the equal sign I use to define something
+\newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
+
+% differential element
+\renewcommand{\d}[1]{\mathrm{d}#1}
+
+\title{\textbf{Fractal dimensions of the Fibonacci chain \emph{via} a perturbative renormalization group.}}
+\author{Nicolas Macé}
+\date{9 décembre 2014}
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\section{Misc. notes}
+
+In \cite{Zhong1991} one can find an exact renormalization group transformation linking a large chain (density of sites 1), to three smaller chains:
+\begin{itemize}
+	\item a chain of atomic sites (density of sites $1/\tau^3$)
+	\item two chains of molecular sites (density of sites $1/\tau^2$).
+\end{itemize}
+
+In view of passing to a perturbative framework, we define
+\begin{equation}
+	\rho \define \frac{t_w}{t_s}
+\end{equation}
+A renormalization group operation generically translates the spectrum (because the one-sites energy are all renormalized by the same amount), and rescales it (because the hopping energies are all renormalized by the samed amount).
+To take into account these effects, it is a good idea to look at the spectrum in the ``co-moving frame'':
+\begin{equation}
+	x_{\alpha}(E) \define \frac{E - V_{\alpha}}{t_{\alpha}}
+\end{equation}
+where $\alpha \in \{ s, w \}$.
+
+The renormalization equations given in \cite{Zhong1991} rewrite
+\begin{align}
+	\bar{x}_w = x_w + 2 \rho^2 \frac{1}{x_s(1-x_s^2)}
+\end{align}
+
+\bibliography{perturbative_fractal_dimensions.bib}{}
+\bibliographystyle{plain}
+\end{document}
