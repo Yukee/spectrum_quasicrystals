@@ -32,6 +32,35 @@
 
 \subsection{Threefold decimation}
 
+\begin{center}
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    		\newcommand{\vertspac}{-2.}
+    	
+    		% initial chain
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$t_w$};
+			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$t_s$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$t_w$};	
+			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0) node [midway, above] {$t_s$};
+			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0) node [midway, above] {$t_w$};
+			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0) node [midway, above] {$t_w$};
+			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0) node [midway, above] {$t_s$};
+			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0) node [midway, above] {$t_w$};
+    	
+    		% sites
+			\foreach \x in {0,...,8}
+		      \filldraw (\orig+\x*\trans,0) circle (0.05) node [below] {$\ket{\x}$};;
+		      
+		    % atomic chain
+        	\draw[-] (\orig, \vertspac) -- (\orig+\trans, \vertspac) node [midway, above] {$t_w$};		    
+		    
+
+		\end{tikzpicture}
+\end{center}
+
 \subsection{Renormalization of the couplings}
 
 \subsubsection{Atomic chain}
@@ -63,6 +92,25 @@ The renormalization equations given in \cite{Zhong1991} rewrite
 \subsection{Renormalization of the wavefunctions}
 
 \subsubsection{Atomic chain}
+
+\begin{center}
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{2}
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$t_0$};
+			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$t_1$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$t_0$};			
+    	
+    		% sites
+			\filldraw (\orig,0) circle (0.05) node [below] {$\ket{0}$};
+			\filldraw (\orig+\trans,0) circle (0.05) node [below] {$\ket{1}$};
+			\filldraw (\orig+2*\trans,0) circle (0.05) node [below] {$\ket{2}$};
+			\filldraw (\orig+3*\trans,0) circle (0.05) node [below] {$\ket{3}$};
+
+		\end{tikzpicture}
+\end{center}
 
 \subsubsection{Molecular chains}
 
