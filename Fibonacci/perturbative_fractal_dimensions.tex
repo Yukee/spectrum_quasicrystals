@@ -12,6 +12,7 @@
 \usepackage{braket} %quantum mechanics
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
 \usepackage{tikz} % drawing in LaTeX
+\usepackage{ dsfont } % hollow letters
 
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
@@ -28,38 +29,211 @@
 
 \maketitle
 
-\section{The renormalization equations}
+\section{Constructing the Fibonacci chain: the alphabet of couplings.}
 
-\subsection{Threefold decimation}
+\subsection{The Fibonacci sequence and its statistical properties}
 
-\begin{center}
+We consider the following inflation rule on the 2 letters alphabet $\mathcal{A} = \{t_s, t_w \}$:
+\begin{equation}
+	r \define \begin{cases}
+        t_{w} & \rightarrow t_w t_s \\
+        t_s & \rightarrow t_w
+      \end{cases}
+\end{equation} 
+Starting from the seed $t_s$, we define the $n^\text{th}$ \emph{Fibonacci word} (aka \emph{rabbit word}):
+\begin{equation}
+	S_n \define r^{n}(t_s)
+\end{equation}
+One can show the $S_n$ converges\footnote{For the product topology on $\mathcal{A}^\mathds{N}$ induced by the discrete topology on $\mathcal{A}$.}. We call $S_\infty = \lim_{n \rightarrow \infty} S_n$ the \emph{Fibonacci sequence}.
+
+\textbf{Statistical properties of the Fibonacci sequence}
+
+
+The inflation rule $r$ has the substitution matrix
+\begin{equation}
+	\text{Sub}(r) = 
+	\begin{bmatrix}
+	0 & 1\\
+	1 & 1\\
+\end{bmatrix}
+\end{equation}
+The eigenvalues of the substitution matrix are $\tau$ and $\omega \define -1/\tau$, where $\tau = (1+\sqrt{5})/2$ is the golden ratio.
+There are thus $\tau$ times more $t_w$ than $t_s$ in $S_\infty$.
+More precisely, we have 
+\begin{equation}
+	\text{Sub}(r) = \mathcal{R}(\theta) 
+	\begin{bmatrix}
+	\tau & 0\\
+	0 & \omega \\
+	\end{bmatrix}
+	\mathcal{R}(\theta)^{-1}
+\end{equation}
+where $\mathcal{R}(\theta)$ is the rotation by the angle $\theta$ such that
+\begin{equation}
+\begin{cases}
+\cos \theta = 1/\sqrt{2+\tau} \\
+\sin \theta = 1/\sqrt{2+\omega}
+\end{cases}
+\end{equation}
+Knowing this we can easily compute $\text{Sub}(r^n) = \text{Sub}(r)^n$. We immediately deduce the frequency of letters in $S_n$:
+\begin{equation}
+	\begin{cases}
+	\#\{ t_s \in S_n \}  & = F_{n-2} \\
+	\#\{ t_w \in S_n \} & = F_{n-1}
+	\end{cases}
+\end{equation}
+where $F_n$ is the $n^\text{th}$ \emph{Fibonacci number} ($F_0 = 1$, $F_1 = 1$, $F_2 = 2$, ...).
+
+\subsection{Deflation rules; atoms and molecules.}
+
+Consider the slightly different inflation rule
+\begin{equation}
+	\tilde{r} = \begin{cases}
+        t_{w} & \rightarrow t_s t_w \\
+        t_s & \rightarrow t_w
+      \end{cases}
+\end{equation} 
+It has the same substitution matrix as $r$, and therefore the words produced by this rule have the same frequency of letters as the Fibonacci words. Furthermore they are locally undistinguishable from the Fibonacci words\footnote{Both word sequences admit the same 3 local environments: $t_w t_s$, $t_s t_w$ and $t_w t_w$.}. 
+Any combination of these two substitution rules (eg $r \tilde{r} r r \tilde{r}...$) has again the same properties. We will also call words produced by such sequences Fibonacci words. 
+
+\textbf{Molecules} \\
+
+\begin{figure}[htp]
+\centering
     	\begin{tikzpicture}[scale=1]
     		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{2}
+    		\newcommand{\trans}{1.5}
     		\newcommand{\vertspac}{-2.}
     	
     		% initial chain
     	
     		% bonds 
-        	\draw[-] (\orig, 0) -- (\orig+\trans, 0) node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0) node [midway, above] {$t_s$};
-			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0) node [midway, above] {$t_w$};	
-			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0) node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0) node [midway, above] {$t_w$};
-			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0) node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0) node [midway, above] {$t_s$};
-			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0) node [midway, above] {$t_w$};
+        	\draw[-] (\orig, 0)  node [left] {$F_{n} (8)$}  -- (\orig+\trans, 0);
+			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
+			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
+			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
+			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
     	
     		% sites
-			\foreach \x in {0,...,8}
-		      \filldraw (\orig+\x*\trans,0) circle (0.05) node [below] {$\ket{\x}$};;
+			\foreach \x in {0,...,7}
+		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
+		      
+			% molecular chains
+			
+			\foreach \x in {1}
+			{
+				\draw[-] (\orig, \x*\vertspac) node [left] {$F_{n-2} (3)$} -- (\orig+1.5*\trans, \x*\vertspac);
+				\draw[-,double] (\orig+1.5*\trans, \x*\vertspac) -- (\orig+3.5*\trans, \x*\vertspac);
+				\draw[-] (\orig+3.5*\trans, \x*\vertspac) -- (\orig+6.5*\trans, \x*\vertspac);
+				\draw[-,double] (\orig+6.5*\trans, \x*\vertspac) -- (\orig+8*\trans, \x*\vertspac);
+				
+				\filldraw (\orig+1.5*\trans,\x*\vertspac) circle (0.05);
+				\filldraw (\orig+3.5*\trans,\x*\vertspac) circle (0.05);
+				\filldraw (\orig+6.5*\trans,\x*\vertspac) circle (0.05);
+			}
+		\end{tikzpicture}
+\caption{The molecular deflation rule $d_m$ illustrated on a length 8 Fibonacci word.}
+\label{fig:mol_defl}
+\end{figure}
+
+We have
+\begin{equation}
+	\tilde{r} r = \begin{cases}
+        t_{w} & \rightarrow t_s t_w t_w \\
+        t_s & \rightarrow t_s t_w
+      \end{cases}
+\end{equation} 
+Which admits as an inverse the \emph{deflation rule}
+\begin{equation}
+	d_m = \begin{cases}
+        t_{w} & \leftarrow t_s t_w t_w \\
+        t_s & \leftarrow t_s t_w
+      \end{cases}
+\end{equation}
+This deflation rule reduces a word of length $F_n$ to word of length $F_{n-2}$ (fig. \eqref{fig:mol_defl}).
+
+\textbf{Atoms} \\
+
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=1]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{1.5}
+    		\newcommand{\vertspac}{-2.}
+    	
+    		% initial chain
+    	
+    		% bonds 
+        	\draw[-] (\orig, 0)  node [left] {$F_{n} (8)$}  -- (\orig+\trans, 0);
+			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
+			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
+			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
+			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
+			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
+    	
+    		% sites
+			\foreach \x in {0,...,7}
+		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
 		      
 		    % atomic chain
-        	\draw[-] (\orig, \vertspac) -- (\orig+\trans, \vertspac) node [midway, above] {$t_w$};		    
 		    
-
+        	\draw[-] (\orig, \vertspac)  node [left] {$F_{n-3} (2)$}  -- (\orig+5*\trans, \vertspac);
+			\draw[-,double] (\orig+5*\trans,\vertspac) -- (\orig+8*\trans,\vertspac); % node [midway, above] {$t_s$};
+			
+			\filldraw (\orig,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
+			\filldraw (\orig+5*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
+%			\filldraw (\orig+8*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
 		\end{tikzpicture}
-\end{center}
+\caption{The atomic deflation rule $d_a$ illustrated on a length 8 Fibonacci word.}
+\end{figure}
+
+\subsection{The Fibonacci Hamiltonian and its approximants}
+
+There is a natural quantum system associated to $S_n$. 
+It is described by the tight-binding Hamiltonian $H_n$, whose sequence of couplings is given by $S_n$.
+
+\textbf{Boundary contiditons:} as there are $F_n$ words in $S_n$, $H_n$ has $F_n$ couplings. These $F_n$ couplings are jump amplitudes between two neighbouring atomic sites. There are thus \textit{a priori} $F_n + 1$ atomic sites, but we are going identify the first and the last atomic sites, ie use \textit{periodic boundary conditions}.
+See eq. \eqref{eq:h8} for the example of the sixth Hamiltonian, with $F_6 = 8$ atomis sites.
+
+\begin{equation}
+\label{eq:h8} 
+	H_6 = 
+	\begin{bmatrix}
+	0 & t_w &   &   &   &   &   & t_w\\
+	t_w & 0 & t_s &   &   &   &   &  \\
+	  & t_s & 0 & t_w &   &   &   &  \\
+	  &   & t_w & 0 & t_s &   &   &  \\
+	  &   &   & t_s & 0 & t_w &   &  \\
+	  &   &   &   & t_w & 0 & t_w &  \\
+	  &   &   &   &   & t_w & 0 & t_s\\
+	t_w &   &   &   &   &   & t_s & 0\\
+\end{bmatrix}
+\end{equation}
+
+Tha Hamiltonian $H_n$ is called the \textit{$n^\text{th}$ approximant}. $H_\infty = \lim_{n \rightarrow \infty} H_n$ is called the \textit{Fibonacci Hamiltonian}.
+
+\section{The renormalization equations}
+
+\subsection{Threefold decimation}
+We wish to consider the sequence of approximants in the \textit{strong quasiperiodicity limit}: $t_s/t_w \ll 1$.
+In view of passing to this perturbative framework, we define the small parameter
+\begin{equation}
+	\rho \define \frac{t_w}{t_s}
+\end{equation}
+
+\textbf{At leading order} in $\rho$ weak bonds disappear: $t_w = 0$. 
+Therefore we can diagonalize separately \textit{molecules}, ie atomic sites linked by a strong coupling, and \textit{atoms}, ie atomic sites surrounded by two weak couplings.
+
+\textbf{At next-to-leading order}, two neighbouring molecules/atoms can interact, and the study of the chain $S_n$ is naturally equivalent to the study of an atomic chain $d_a(S_n) = S_{n-3}$ and two molecular chains $d_m(S_n) = S_{n-2}$. 
+
+The \textit{deflation} of the chain $S_n$ translates into a \textit{renormalization} of the Hamiltonian $H_n$: $H_n$ is related to $H_{n-2}$ by the decimation of atomic sites, and to $H_{n-3}$ by the decimation of molecular sites. 
+Though the action of the deflation rules $d_a$ and $d_m$ on $S_n$ is simple, the action of the decimation rules on $H_n$ is far from trivial.
+In particular, after a decimation, couplings and wavefunctions are renormalized. We are now interested in characterizing this renormalization.
 
 \subsection{Renormalization of the couplings}
 
@@ -112,6 +286,75 @@ The renormalization equations given in \cite{Zhong1991} rewrite
 		\end{tikzpicture}
 \end{center}
 
+At leading order in $\rho$, an atomic wavefunction of energy $E$ is sent by $d_a$ to an atomic wavefunction of energy $\bar z E$.
+If $i$ is the label of an atomic site of the chain $S_n$, we have
+\begin{equation}
+	\psi_i(E)  = \beta_i\left(\{ \psi_{i'}(\bar z E) \}_{i'}\right)
+\end{equation} 
+We assume that the transformation $\beta$ is linear:
+\begin{equation}
+	\psi_i(E)  = \beta_{ii'}  \psi_{i'}(\bar z E)
+\end{equation}
+and even more than that, that it is a simple homothety: $\beta_{ii'} = \sqrt{\lambda} \delta_{d_a(i)i'}$.
+We therefore have
+\begin{equation}
+\label{eq:renorm_a}
+	\psi_i(E) = \sqrt{\lambda} \psi_{d_a(i)}(\bar z E)
+\end{equation}
+$\lambda$ is constrained by the unitarity of the wavefunction:
+\begin{equation}
+	\Sigma^n \define \sum_{i=1}^{F_n} |\psi_i|^2 = 1
+\end{equation}
+Let us note that we can partition the set of atomic sites of $S_n$ into the set of atomic sites that remain atomic sites after deflation $S_{a'}$ and the set atomic sites that become molecular sites after deflation $S_{m'}$.
+Using this partition to transform the sum on all sites, we get
+\begin{equation}
+	\sum_{i=1}^{F_n} |\psi_i|^2 = \sum_{i \in S_{a'}} \left( |\psi_i|^2 + |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i+4}|^2 + |\psi_{i-4}|^2 \right) + \sum_{i \in S_{m'}} \left( |\psi_i|^2 + |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i\pm4}|^2 \right)
+\end{equation}
+We can also partition this sum into a sum over atomic sites $\Sigma^n_a$ and over molecular sites $\Sigma^n_m$.
+We have
+\begin{equation}
+	\begin{cases}
+	\Sigma^n_a &= \sum_{i \in S_{a'}}  |\psi_i|^2  + \sum_{i \in S_{m'}}  |\psi_i|^2\\
+	\Sigma^n_m &= \sum_{i \in S_{a'}} \left( |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i+4}|^2 + |\psi_{i-4}|^2 \right) + \sum_{i \in S_{m'}} \left(|\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i\pm4}|^2 \right)
+	\end{cases}
+\end{equation}
+Now, beacause of the way we assumed the wavefunction on atomic sites is renormalized (eq. \eqref{eq:renorm_a}), we have
+\begin{align}
+	\Sigma_a^n &= \bar \lambda  \left(  \sum_{i \in S_{a'}}  |\psi_{d_a(i)}|^2  + \sum_{i \in S_{m'}}  |\psi_{d_a(i)}|^2 \right) \\
+	&= \bar \lambda \sum_{i = 1}^{F_{n-3}} |\psi_i|^2 \\
+	&= \bar \lambda \Sigma^{n-3}
+\end{align}
+and thus
+\begin{equation}
+\label{eq:renorm_aa}
+\boxed{
+	\Sigma_a^n = \bar \lambda
+	}
+\end{equation}
+
+Now, in the perturbative limit, the great thing is that the wafunction at molecular sites can be expressed in terms of the wavefunction at atomic sites\footnote{To derive these relations, we use the fact that $E$ being an atomic energy, it is at most of order $\rho$. We also use the fact that at leading order the wavefunction is of the same order on all atomic sites.}! 
+\begin{equation}
+	\begin{cases}
+	\psi_{i\pm2} &= - \rho \psi_i + \mathcal{O}(\rho E \psi_i) \\
+	\psi_{i\pm4} &= \phantom{-}\rho^2 \psi_i  + \mathcal{O}(\rho^4 \psi_i)
+	\end{cases}
+\end{equation}
+Using this together with \eqref{eq:renorm_a} we get\footnote{If energy really is at most of order $\rho$, the formula below is correct only up to order $\rho^2$, and the terms of order $\rho^4$ should be dropped!!},
+\begin{equation}
+	\Sigma_m^n = \bar \lambda \left( 2(\rho^2 + \rho^4) \Sigma_a^{n-3} + (2 \rho^2 + \rho^4) \Sigma_m^{n-3} \right)
+\end{equation}
+Since $\Sigma_m^{n-3} + \Sigma_a^{n-3} = 1$, and knowing that $\Sigma_a^{n-3} = \bar \lambda$, we have finally
+\begin{equation}
+\boxed{
+	\Sigma_m^n = \bar \lambda \left( 2 \rho^2 + \rho^4 + \bar \lambda \rho^4 \right)
+}
+\end{equation}
+Finally,
+\begin{equation}
+\boxed{
+	\bar \lambda(\rho) = \frac{1}{1+2\rho^2} +\mathcal{O}(\rho^2)
+}
+\end{equation}
 \subsubsection{Molecular chains}
 
 \section{The fractal dimensions}
