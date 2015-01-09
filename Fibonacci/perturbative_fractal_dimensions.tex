@@ -13,7 +13,6 @@
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
 \usepackage{tikz} % drawing in LaTeX
 \usepackage{ dsfont } % hollow letters
-
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
 
@@ -358,7 +357,62 @@ Finally,
 \subsubsection{Molecular chains}
 
 \section{The fractal dimensions}
+Conventions: 
+\begin{itemize}
+	\item Greek indices will be used to label energy bands, while roman indices will label sites.
+	\item The superscript $n$ is used to denote the $n^\text{th}$ approximant of the Fibonacci chain. This approximant is constituted of $F_n$ sites, with periodic boundary conditions.
+	\item Beacause $\alpha$ is already used to label energy bands, the $\aleph$ letter is used instead to denote the variable conjugated to $q$.
+\end{itemize}
 
+\subsection{Definitions}
+
+Spectral dimension $D_q$, are given by the partition function
+\begin{equation}
+	\Gamma(\tau) = \lim_{n\rightarrow \infty} \sum_{\alpha=1}^{F_n} \frac{(\mu^n(\alpha))^q}{(\Delta_\alpha^n)^\tau}
+\end{equation}
+which is finite and nonzero for a single value of $\tau$, 
+\begin{equation}
+	\tau(q) = (q-1)D_q
+\end{equation}
+$\mu^n(\alpha)$ is the spectral measure of the $\alpha^\text{th}$ energy band. Here, since the spectrum is non-degenerate, we have $\mu^n(\alpha)=1/F_n$.
+
+Local wavefunction dimension $D^x_q(\alpha)$ are given by
+\begin{equation}
+	D^x_q(\alpha) = \lim_{n\rightarrow \infty} \frac{1}{q-1} \frac{\log \chi^n_q(\alpha)}{\log F_n}
+\end{equation}
+where $\chi^n_q(\alpha)$ is the weighted probability sum
+\begin{equation}
+	\chi^n_q(\alpha) = \sum_{i=1}^{F_n} |\psi^n(i,\alpha)|^{2q}
+\end{equation}
+
+Global wavefunction dimension $\bar{D^x_q}$:
+\begin{equation}
+	\bar{\chi^n_q} = \sum_\alpha \sum_i |\psi^n(i,\alpha)|^{2q}
+\end{equation}
+
+Local spectral dimension $\tilde{D}_q(i)$
+\begin{equation}
+	\tilde{\Gamma}(\tau(i)) = \lim_n \sum_\alpha \frac{\mu^n(i,\alpha)^q}{(\Delta_\alpha^n)^\tau}
+\end{equation}
+where
+\begin{equation}
+	\d \mu^n(i,E) = \sum_\alpha |\psi^n(i,\alpha)|^2 \delta(E-E_\alpha) \d E
+\end{equation}
+Note that $\d \mu^n(i,E) = \d \mu^n(E)$ for plane waves.
+
+Local spectral dimension (bis) $D^\mu_q(i)$:
+\begin{equation}
+	\chi^n_q(i) = \sum_\alpha|\psi^n(i,\alpha)|^{2q}
+\end{equation}
+
+\subsection{Conjectures}
+\begin{equation}
+	D^\mu_q(i) = D^x_q(\alpha)
+\end{equation}
+if $\alpha=i$ (supposing we label energy bands by increasing energy, and that we label sites in the co-numerotation).
+\begin{equation}
+	\tilde{D}_q(i) = \aleph(i) D^\mu_q(i)
+\end{equation}
 \bibliography{perturbative_fractal_dimensions.bib}{}
 \bibliographystyle{plain}
 \end{document}
