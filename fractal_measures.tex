@@ -154,7 +154,7 @@ Furthermore we have a local power law behaviour:
 \end{equation}
 $\tau(q)$ and $\alpha_i(q)$ completely characterize the fractal behaviour of $F$.
 
-Now that we have define $\alpha$, we can use it to index the sum appearing in the definition of $\chi$:
+Now that we have defined $\alpha$, we can use it to index the sum appearing in the definition of $\chi$:
 \begin{equation}
 	\chi(q) \sim \sum_i l^{\alpha_i(q)q} = \sum_\alpha \# \{ \alpha_i(q) | \alpha_i(q) = \alpha\} l^{\alpha q} = \int \d{\alpha} \rho(\alpha) l^{\alpha q - f(\alpha)}
 \end{equation}
@@ -221,11 +221,13 @@ We construct the triadic Cantor set recursively:
 \begin{itemize}
 	\item  We start from the unit interval, which has total measure $p_0 = 1$. Thus $\Gamma^{(0)} = 1$.
 	\item At step 1, we subdivide $I$ into $[0,1/3]$, $[1/3,2/3]$, $[2/3,1]$. We give the first and the last subintervals measure $p_1 = p_2 = 1/2$. Thus $\Gamma^{(1)} = 2 \frac{(1/2)^q}{(1/3)^\tau}$.
-	\item At step $n+1$, $\Gamma^{(n+1)} = \Gamma^{(n)2}$
+	\item At step $n+1$, $\Gamma^{(n+1)} = \left(\Gamma^{(n)}\right)^2$
 \end{itemize}
 $\Gamma$ has a finite nonzero limit iff $\Gamma^{(1)} = 1$, that is,
 \begin{equation}
+\boxed{
 	\tau(q) =(q-1) \frac{\log 2}{\log 3}
+}
 \end{equation}
 In particular we recover the Hausdorff dimension $D = \log 2/ \log 3$. We see that the $\alpha$ spectrum consists only of one point: $\alpha(q) = D$. This is typical of a monofractal set.
 
@@ -233,10 +235,48 @@ In particular we recover the Hausdorff dimension $D = \log 2/ \log 3$. We see th
 As for the Cantor set, $\Gamma^{(n+1)} = \left( \Gamma^{(n)} \right)^2$. 
 This time $\Gamma^{(1)} = 4 \frac{(1/4)^q}{(1/3)^\tau}$ and thus
 \begin{equation}
+\boxed{
 	\tau(q) = (q-1)\frac{\log 4}{\log 3}
+}
 \end{equation}
 
-\subsubsection{Spectrum of the Fibonacci Hamiltonian}
+\subsection{Two scales Cantor set}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.70]{two_scales_cantor_set.pdf}
+\caption{Recursive construction of our two scales Cantor set.}
+\label{fig:2scal}
+\end{figure}
+
+We remove the second quarter of the unit interval. We apply this procedure recursively to the remaining intervals (fig. \eqref{fig:2scal}). 
+The limit is a Cantor set, but slightly more complicated than the usual one in the sense that it involves two length scales: $1/2$ and $1/4$.
+It has a nontrivial multifractal spectrum!
+
+Because we remove recursively pieces from an inverval, we have again
+\begin{equation}
+	\Gamma^{(n+1)} = \left( \Gamma^{(n)} \right)^2
+\end{equation}
+and this time
+\begin{equation}
+	\Gamma^{(1)} = \frac{\left( \frac{1}{3} \right)^q}{\left( \frac{1}{4} \right)^\tau} + \frac{\left( \frac{2}{3} \right)^q}{\left( \frac{1}{2} \right)^\tau}
+\end{equation}
+Letting $\tau(q) = \log x(q)/\log 2$ we can transform the equation $\Gamma^{(1)} = 1$ into a second order polynomail equation. We find
+\begin{equation}
+	x(q) = 2^{q-1} \left( \sqrt{1+ 4 \left( \frac{3}{4} \right)^q} -1 \right)
+\end{equation}
+Note that in particular the Hausdorff dimension is $\log \tau / \log 2$ where $\tau$ is the golden ratio.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.70]{f_alpha_2_scales_cantor_set.pdf}
+\caption{$f-\alpha$ graph of the two scales Cantor set.}
+\label{fig:falpha2scal}
+\end{figure}
+
+This time the $f - \alpha$ graph is nontrivial (fig. \eqref{fig:falpha2scal}).
+
+\subsubsection{Spectrum of the Fibonacci Hamiltonian in the strong quasiperiodicity limit.}
 
 Consider the $n^\text{th}$ approximant of the infinite Fibonacci chain. It is described by a $F_n \times F_n$ Hamiltonian, with periodic boundary conditions. The spectrum of this Hamiltonian consists of $F_n$ energy levels. We label the $i^\text{th}$ level $E^i_n$. At the (periodic) chain level, each $E^i_n$ give rise to a band $\Delta^i_n = |E^i_n(k=0) - E^i_n(k=\pi)|$.
 
@@ -248,8 +288,8 @@ The partition function is thus
 	\Gamma^{(n)}(q,\tau) = \sum_i \frac{(1/F_n)^q}{\left(\Delta^i_n\right)^\tau}
 \end{equation}
 
-In the framework of the hierarchical model \cite{Piechon95}, we assume that the weak hopping amplitude is far weaker than the strong one: $t_w \ll t_s$.
-We can then derive recurrence relations for the band widths, and from that deduce a recurrence relation on the partition function
+In the strong quasiperiodicity limit, we assume that the weak hopping amplitude is far weaker than the strong one: $t_w \ll t_s$.
+We can then derive recurrence relations for the band widths \cite{Piechon95}, and from that deduce a recurrence relation on the partition function
 \begin{equation}
 	\Gamma^{(n)}(q,\tau) = 2 \omega_n^{2q}z^{-\tau}\Gamma^{(n-2)}(q,\tau) + \omega_n^{3q}\bar{z}^{-\tau}\Gamma^{(n-3)}(q,\tau)
 \end{equation}
@@ -263,7 +303,9 @@ with
 This recurrence relation is quite different from the one for the triadic Cantor set and the Koch snowflake. 
 Requiering that $\Gamma^{(n)}$ has a nonzero limit when $\tau = \tau(q)$, we obtain $\tau(q)$ from an implicit equation:
 \begin{equation}
+\boxed{
 	1 = 2 \omega^{2q} z^{-\tau(q)} + \omega^{3q} \bar{z}^{-\tau(q)}
+}
 \end{equation}
 In particular, when $z = \bar{z}^{2/3}$, that is when $t_s = 8 t_w$, we have
 \begin{equation}
