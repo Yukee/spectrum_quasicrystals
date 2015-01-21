@@ -19,6 +19,9 @@
 % differential element
 \renewcommand{\d}[1]{\mathrm{d}#1}
 
+% similar symbol with a limit underneath
+\newcommand{\simlim}[2]{\ensuremath{ \underset{#1 \rightarrow #2}{\sim} }}
+
 \title{\textbf{Fractal dimensions of the Fibonacci chain \emph{via} a perturbative renormalization group.}}
 \author{Nicolas Macé}
 \date{9 décembre 2014}
@@ -285,20 +288,20 @@ The renormalization equations given in \cite{Zhong1991} rewrite
 		\end{tikzpicture}
 \end{center}
 
-At leading order in $\rho$, an atomic wavefunction of energy $E$ is sent by $d_a$ to an atomic wavefunction of energy $\bar z E$.
+At leading order in $\rho$, an atomic wavefunction of energy $E$ is sent by $d_a$ to a \emph{not necesarily atomic} wavefunction of energy $E/\bar z$.
 If $i$ is the label of an atomic site of the chain $S_n$, we have
 \begin{equation}
-	\psi_i(E)  = \beta_i\left(\{ \psi_{i'}(\bar z E) \}_{i'}\right)
+	\psi_i(E)  = \beta_i\left(\{ \psi_{i'}(E/\bar z) \}_{i'}\right)
 \end{equation} 
 We assume that the transformation $\beta$ is linear:
 \begin{equation}
-	\psi_i(E)  = \beta_{ii'}  \psi_{i'}(\bar z E)
+	\psi_i(E)  = \beta_{ii'}  \psi_{i'}(E/\bar z)
 \end{equation}
 and even more than that, that it is a simple homothety: $\beta_{ii'} = \sqrt{\lambda} \delta_{d_a(i)i'}$.
 We therefore have
 \begin{equation}
 \label{eq:renorm_a}
-	\psi_i(E) = \sqrt{\lambda} \psi_{d_a(i)}(\bar z E)
+	\psi_i(E) = \sqrt{\lambda} \psi_{d_a(i)}(E/\bar z)
 \end{equation}
 $\lambda$ is constrained by the unitarity of the wavefunction:
 \begin{equation}
@@ -359,59 +362,77 @@ Finally,
 \section{The fractal dimensions}
 Conventions: 
 \begin{itemize}
-	\item Greek indices will be used to label energy bands, while roman indices will label sites.
+	\item Indices $a,b,c...$ will be used to label energy bands, while indices $i,j,k...$ will label sites.
 	\item The superscript $n$ is used to denote the $n^\text{th}$ approximant of the Fibonacci chain. This approximant is constituted of $F_n$ sites, with periodic boundary conditions.
-	\item Beacause $\alpha$ is already used to label energy bands, the $\aleph$ letter is used instead to denote the variable conjugated to $q$.
+	\item $\alpha(x)$ is the pointwise Hölder exponent at point $x$, of some fractal set $X$ that could be the spectrum, or the set of components of a wavefunction, etc. $\alpha$ is also the conjugate variable (by a Legendre transform) of $q$. 
+	\item $f(\alpha)$ is the Hausdorff dimension of the set $H_\alpha = \{ x \in X | \alpha(x) = \alpha \}$. It is also the Legendre transform of $\tau$.
 \end{itemize}
 
 \subsection{Definitions}
 
-Spectral dimension $D_q$, are given by the partition function
+\textbf{Spectral dimension} $\boxed{D_q}$, is given by the partition function
 \begin{equation}
-	\Gamma(\tau) = \lim_{n\rightarrow \infty} \sum_{\alpha=1}^{F_n} \frac{(\mu^n(\alpha))^q}{(\Delta_\alpha^n)^\tau}
-\end{equation}
-which is finite and nonzero for a single value of $\tau$, 
-\begin{equation}
-	\tau(q) = (q-1)D_q
-\end{equation}
-$\mu^n(\alpha)$ is the spectral measure of the $\alpha^\text{th}$ energy band. Here, since the spectrum is non-degenerate, we have $\mu^n(\alpha)=1/F_n$.
-
-Local wavefunction dimension $D^x_q(\alpha)$ are given by
-\begin{equation}
-	D^x_q(\alpha) = \lim_{n\rightarrow \infty} \frac{1}{q-1} \frac{\log \chi^n_q(\alpha)}{\log F_n}
-\end{equation}
-where $\chi^n_q(\alpha)$ is the weighted probability sum
-\begin{equation}
-	\chi^n_q(\alpha) = \sum_{i=1}^{F_n} |\psi^n(i,\alpha)|^{2q}
-\end{equation}
-
-Global wavefunction dimension $\bar{D^x_q}$:
-\begin{equation}
-	\bar{\chi^n_q} = \sum_\alpha \sum_i |\psi^n(i,\alpha)|^{2q}
-\end{equation}
-
-Local spectral dimension $\tilde{D}_q(i)$
-\begin{equation}
-	\tilde{\Gamma}(\tau(i)) = \lim_n \sum_\alpha \frac{\mu^n(i,\alpha)^q}{(\Delta_\alpha^n)^\tau}
+	\Gamma(\tau) = \lim_{n\rightarrow \infty} \sum_{a=1}^{F_n} \frac{(\mu^n(I_a))^q}{(\Delta_a^n)^\tau}
 \end{equation}
 where
 \begin{equation}
-	\d \mu^n(i,E) = \sum_\alpha |\psi^n(i,\alpha)|^2 \delta(E-E_\alpha) \d E
+	\d \mu^n(E) = \frac{1}{F_n}\sum_a \delta(E-E_a) \d E
+\end{equation}
+or rather
+\begin{equation}
+	\d \mu^n(E) = \frac{1}{F_n}\sum_a \d{m_a^n}(E)
+\end{equation}
+where $m_a^n$ is the spectral (Lebesgue) measure on the interval $I_a^n = [E_a,E_a+\Delta_a^n[$.
+Here, since the bands are non-degenerate, $m_a^n$ is normalized to unity: $m_a^n(I_b^n)=\delta_{a,b}$.
+
+$\Gamma(\tau)$ is finite and nonzero for a single value of $\tau$, 
+\begin{equation}
+	\tau(q) = (q-1)D_q
+\end{equation}
+
+\textbf{Local wavefunction dimension} $\boxed{D^x_q(a)}$ is given by
+\begin{equation}
+	D^x_q(a) = \lim_{n\rightarrow \infty} \frac{1}{q-1} \frac{\log \chi^n_q(a)}{\log F_n}
+\end{equation}
+where $\chi^n_q(a)$ is the weighted probability sum
+\begin{equation}
+	\chi^n_q(a) = \sum_{i=1}^{F_n} |\psi^n(i,a)|^{2q}
+\end{equation}
+
+\textbf{Averaged wavefunction dimension} $\boxed{\overline{D^x_q}}$:
+\begin{equation}
+	\overline{\chi^n_q} = \frac{1}{F_n}\sum_a \sum_i |\psi^n(i,a)|^{2q}
+\end{equation}
+
+\textbf{Local spectral dimension} $\boxed{D^\mu_q(i)}$
+\begin{equation}
+	\Gamma^\mu(\tau(i)) = \lim_n \sum_a \frac{\left(\mu^n(i,\Delta_a^n)\right)^q}{(\Delta_a^n)^\tau}
+\end{equation}
+where
+\begin{equation}
+	\d \mu^n(i,E) = \sum_a |\psi^n(i,a)|^2 \delta(E-E_a) \d E
+\end{equation}
+or rather
+\begin{equation}
+	\d \mu^n(i,E) = \sum_a |\psi^n(i,a)|^2 \d{m_a}(E)
 \end{equation}
 Note that $\d \mu^n(i,E) = \d \mu^n(E)$ for plane waves.
 
-Local spectral dimension (bis) $D^\mu_q(i)$:
+\textbf{Local spectral wavefunction dimension} $\boxed{\tilde D_q(i)}$
 \begin{equation}
-	\chi^n_q(i) = \sum_\alpha|\psi^n(i,\alpha)|^{2q}
+	\tilde \chi^n_q(i) = \sum_a|\psi^n(i,a)|^{2q}
 \end{equation}
 
 \subsection{Conjectures}
 \begin{equation}
-	D^\mu_q(i) = D^x_q(\alpha)
+	\tilde{D}_q(i)  \simlim{\rho}{0} D^x_q(a)
 \end{equation}
-if $\alpha=i$ (supposing we label energy bands by increasing energy, and that we label sites in the co-numerotation).
+if $a=i$ (assuming we label energy bands by increasing energy, and that we label sites in the co-numerotation).
+Clearly this does no longer hold when $\rho$ is finite.
+However there may exist a value of $q$ for which the equality holds nonperturbatively.
+
 \begin{equation}
-	\tilde{D}_q(i) = \aleph(i) D^\mu_q(i)
+	\tilde{D}_q(i) = \alpha(i) D^\mu_q(i)
 \end{equation}
 \bibliography{perturbative_fractal_dimensions.bib}{}
 \bibliographystyle{plain}
