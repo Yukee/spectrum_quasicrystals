@@ -370,7 +370,9 @@ Conventions:
 
 \subsection{Definitions}
 
-\textbf{Spectral dimension} $\boxed{D_q}$, is given by the partition function
+We distinguish between \emph{spectral dimensions} depending on the spectral index $a$, and \emph{local dimensions} depending on the spatial index $i$.
+
+\textbf{Dimension of the spectrum} $\boxed{D_q}$, is given by the partition function
 \begin{equation}
 	\Gamma(\tau) = \lim_{n\rightarrow \infty} \sum_{a=1}^{F_n} \frac{(\mu^n(I_a))^q}{(\Delta_a^n)^\tau}
 \end{equation}
@@ -390,7 +392,7 @@ $\Gamma(\tau)$ is finite and nonzero for a single value of $\tau$,
 	\tau(q) = (q-1)D_q
 \end{equation}
 
-\textbf{Local wavefunction dimension} $\boxed{D^x_q(a)}$ is given by
+\textbf{Spectral dimension of the wavefunctions} $\boxed{D^x_q(a)}$ is given by
 \begin{equation}
 	D^x_q(a) = \lim_{n\rightarrow \infty} \frac{1}{q-1} \frac{\log \chi^n_q(a)}{\log F_n}
 \end{equation}
@@ -399,12 +401,12 @@ where $\chi^n_q(a)$ is the weighted probability sum
 	\chi^n_q(a) = \sum_{i=1}^{F_n} |\psi^n(i,a)|^{2q}
 \end{equation}
 
-\textbf{Averaged wavefunction dimension} $\boxed{\overline{D^x_q}}$:
+\textbf{Averaged dimension of the wavefunctions} $\boxed{\overline{D^x_q}}$:
 \begin{equation}
 	\overline{\chi^n_q} = \frac{1}{F_n}\sum_a \sum_i |\psi^n(i,a)|^{2q}
 \end{equation}
 
-\textbf{Local spectral dimension} $\boxed{D^\mu_q(i)}$
+\textbf{Local dimension of the local spectral measure} $\boxed{D^\mu_q(i)}$
 \begin{equation}
 	\Gamma^\mu(\tau(i)) = \lim_n \sum_a \frac{\left(\mu^n(i,\Delta_a^n)\right)^q}{(\Delta_a^n)^\tau}
 \end{equation}
@@ -418,7 +420,7 @@ or rather
 \end{equation}
 Note that $\d \mu^n(i,E) = \d \mu^n(E)$ for plane waves.
 
-\textbf{Local spectral wavefunction dimension} $\boxed{\tilde D_q(i)}$
+\textbf{Local dimension of the wavefunctions} $\boxed{\tilde D_q(i)}$
 \begin{equation}
 	\tilde \chi^n_q(i) = \sum_a|\psi^n(i,a)|^{2q}
 \end{equation}
@@ -434,6 +436,37 @@ However there may exist a value of $q$ for which the equality holds nonperturbat
 \begin{equation}
 	\tilde{D}_q(i) = \alpha(i) D^\mu_q(i)
 \end{equation}
+Actually, at least in the perturbative limit we find that \emph{spatial} fractal dimensions only depend on the fraction of (renormalization group) time spent in molecular/atomic clusters, and on the fraction of time we switch from molecular to atomic clusters, and not on the order in which we visit atomic/molecular clusters. \\
+Similarly, \emph{spectral} fractal dimensions only depends on the fraction of time spent in lateral/central energy clusters, and on the fraction of time we switch from lateral to central clusters.
+
+So, \textit{a priori} the spatial fractal dimensions depend on $n_m$, time spent on molecular clusters, $n_a$, time spent on atomic clusters and on $n_{ma}$, time spent switching from molecular to atomic clusters. 
+This makes 3 variables, but they are not independant! Because when we renormalize to an atomic cluster the number of sites is reduced by a factor $F_{n-3}/F_n$, while when we renormalize to a molecular cluster the reduction factor is $F_{n-2}/F_n$, we have
+\begin{equation}
+	3 n_a + 2 n_m = n
+\end{equation}
+where $n$ is the total number of renormalization steps\footnote{This is only valid in the limit $n \rightarrow \infty$. For $n$ finite we actually have $3 n_a + 2 n_m = n \pm 1$.}.
+So, in practice we only have to independant variables.
+
+To encode these informations, for \emph{spatial} dimensions we let
+\begin{equation}
+	  \begin{cases}
+        x = n_m/n \\
+        y = n_{ma}/n
+      \end{cases}
+\end{equation} 
+while for \emph{spectral} dimensions we let
+\begin{equation}
+	  \begin{cases}
+        x = n_l/n \\
+        y = n_{lc}/n
+      \end{cases}
+\end{equation} 
+
+In the perturbative limit, we thus have the slightly more general relation
+\begin{equation}
+	\tilde{D}_q(x,y) = \alpha(x) D^\mu_q(x,y)
+\end{equation}
+where $x$ is a spatial label for spatial dimensions, and a spectral label for $\alpha$.
 \bibliography{perturbative_fractal_dimensions.bib}{}
 \bibliographystyle{plain}
 \end{document}
