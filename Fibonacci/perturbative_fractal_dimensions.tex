@@ -22,6 +22,11 @@
 % similar symbol with a limit underneath
 \newcommand{\simlim}[2]{\ensuremath{ \underset{#1 \rightarrow #2}{\sim} }}
 
+\newcommand{\om}{\ensuremath{\omega}}
+\newcommand{\lb}{\ensuremath{\lambda}}
+\newcommand{\lbbar}{\ensuremath{\overline{\lambda}}}
+\newcommand{\zbar}{\ensuremath{\overline{z}}}
+
 \title{\textbf{Fractal dimensions of the Fibonacci chain \emph{via} a perturbative renormalization group.}}
 \author{Nicolas Macé}
 \date{9 décembre 2014}
@@ -31,193 +36,30 @@
 
 \maketitle
 
-\section{Constructing the Fibonacci chain: the alphabet of couplings.}
+\section{Notations}
 
-\subsection{The Fibonacci sequence and its statistical properties}
+\subsection{General}
+\begin{itemize}
+	\item Indices $a,b,c...$ will be used to label energy bands, while indices $i,j,k...$ will label sites.
+	\item The superscript $n$ is used to denote the $n^\text{th}$ approximant of the Fibonacci chain. This approximant is constituted of $F_n$ sites, with periodic boundary conditions.
+\end{itemize}
 
-We consider the following inflation rule on the 2 letters alphabet $\mathcal{A} = \{t_s, t_w \}$:
-\begin{equation}
-	r \define \begin{cases}
-        t_{w} & \rightarrow t_w t_s \\
-        t_s & \rightarrow t_w
-      \end{cases}
-\end{equation} 
-Starting from the seed $t_s$, we define the $n^\text{th}$ \emph{Fibonacci word} (aka \emph{rabbit word}):
-\begin{equation}
-	S_n \define r^{n}(t_s)
-\end{equation}
-One can show the $S_n$ converges\footnote{For the product topology on $\mathcal{A}^\mathds{N}$ induced by the discrete topology on $\mathcal{A}$.}. We call $S_\infty = \lim_{n \rightarrow \infty} S_n$ the \emph{Fibonacci sequence}.
+\subsection{Multifractal analysis}
+\begin{itemize}
+	\item $\alpha(x)$ is the pointwise Hölder exponent at point $x$, of some fractal set $X$ that could be the spectrum, or the set of components of a wavefunction, etc. $\alpha$ is also the conjugate variable (by a Legendre transform) of $q$. 
+	\item $f(\alpha)$ is the Hausdorff dimension of the set $H_\alpha = \{ x \in X | \alpha(x) = \alpha \}$. It is also the Legendre transform of $\tau$.
+\end{itemize}
 
-\textbf{Statistical properties of the Fibonacci sequence}
-
-
-The inflation rule $r$ has the substitution matrix
-\begin{equation}
-	\text{Sub}(r) = 
-	\begin{bmatrix}
-	0 & 1\\
-	1 & 1\\
-\end{bmatrix}
-\end{equation}
-The eigenvalues of the substitution matrix are $\tau$ and $\omega \define -1/\tau$, where $\tau = (1+\sqrt{5})/2$ is the golden ratio.
-There are thus $\tau$ times more $t_w$ than $t_s$ in $S_\infty$.
-More precisely, we have 
-\begin{equation}
-	\text{Sub}(r) = \mathcal{R}(\theta) 
-	\begin{bmatrix}
-	\tau & 0\\
-	0 & \omega \\
-	\end{bmatrix}
-	\mathcal{R}(\theta)^{-1}
-\end{equation}
-where $\mathcal{R}(\theta)$ is the rotation by the angle $\theta$ such that
-\begin{equation}
-\begin{cases}
-\cos \theta = 1/\sqrt{2+\tau} \\
-\sin \theta = 1/\sqrt{2+\omega}
-\end{cases}
-\end{equation}
-Knowing this we can easily compute $\text{Sub}(r^n) = \text{Sub}(r)^n$. We immediately deduce the frequency of letters in $S_n$:
-\begin{equation}
-	\begin{cases}
-	\#\{ t_s \in S_n \}  & = F_{n-2} \\
-	\#\{ t_w \in S_n \} & = F_{n-1}
-	\end{cases}
-\end{equation}
-where $F_n$ is the $n^\text{th}$ \emph{Fibonacci number} ($F_0 = 1$, $F_1 = 1$, $F_2 = 2$, ...).
-
-\subsection{Deflation rules; atoms and molecules.}
-
-Consider the slightly different inflation rule
-\begin{equation}
-	\tilde{r} = \begin{cases}
-        t_{w} & \rightarrow t_s t_w \\
-        t_s & \rightarrow t_w
-      \end{cases}
-\end{equation} 
-It has the same substitution matrix as $r$, and therefore the words produced by this rule have the same frequency of letters as the Fibonacci words. Furthermore they are locally undistinguishable from the Fibonacci words\footnote{Both word sequences admit the same 3 local environments: $t_w t_s$, $t_s t_w$ and $t_w t_w$.}. 
-Any combination of these two substitution rules (eg $r \tilde{r} r r \tilde{r}...$) has again the same properties. We will also call words produced by such sequences Fibonacci words. 
-
-\textbf{Molecules} \\
-
-\begin{figure}[htp]
-\centering
-    	\begin{tikzpicture}[scale=1]
-    		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{1.5}
-    		\newcommand{\vertspac}{-2.}
-    	
-    		% initial chain
-    	
-    		% bonds 
-        	\draw[-] (\orig, 0)  node [left] {$F_{n} (8)$}  -- (\orig+\trans, 0);
-			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
-			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
-    	
-    		% sites
-			\foreach \x in {0,...,7}
-		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
-		      
-			% molecular chains
-			
-			\foreach \x in {1}
-			{
-				\draw[-] (\orig, \x*\vertspac) node [left] {$F_{n-2} (3)$} -- (\orig+1.5*\trans, \x*\vertspac);
-				\draw[-,double] (\orig+1.5*\trans, \x*\vertspac) -- (\orig+3.5*\trans, \x*\vertspac);
-				\draw[-] (\orig+3.5*\trans, \x*\vertspac) -- (\orig+6.5*\trans, \x*\vertspac);
-				\draw[-,double] (\orig+6.5*\trans, \x*\vertspac) -- (\orig+8*\trans, \x*\vertspac);
-				
-				\filldraw (\orig+1.5*\trans,\x*\vertspac) circle (0.05);
-				\filldraw (\orig+3.5*\trans,\x*\vertspac) circle (0.05);
-				\filldraw (\orig+6.5*\trans,\x*\vertspac) circle (0.05);
-			}
-		\end{tikzpicture}
-\caption{The molecular deflation rule $d_m$ illustrated on a length 8 Fibonacci word.}
-\label{fig:mol_defl}
-\end{figure}
-
-We have
-\begin{equation}
-	\tilde{r} r = \begin{cases}
-        t_{w} & \rightarrow t_s t_w t_w \\
-        t_s & \rightarrow t_s t_w
-      \end{cases}
-\end{equation} 
-Which admits as an inverse the \emph{deflation rule}
-\begin{equation}
-	d_m = \begin{cases}
-        t_{w} & \leftarrow t_s t_w t_w \\
-        t_s & \leftarrow t_s t_w
-      \end{cases}
-\end{equation}
-This deflation rule reduces a word of length $F_n$ to word of length $F_{n-2}$ (fig. \eqref{fig:mol_defl}).
-
-\textbf{Atoms} \\
-
-\begin{figure}[htp]
-\centering
-    	\begin{tikzpicture}[scale=1]
-    		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{1.5}
-    		\newcommand{\vertspac}{-2.}
-    	
-    		% initial chain
-    	
-    		% bonds 
-        	\draw[-] (\orig, 0)  node [left] {$F_{n} (8)$}  -- (\orig+\trans, 0);
-			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
-			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
-    	
-    		% sites
-			\foreach \x in {0,...,7}
-		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
-		      
-		    % atomic chain
-		    
-        	\draw[-] (\orig, \vertspac)  node [left] {$F_{n-3} (2)$}  -- (\orig+5*\trans, \vertspac);
-			\draw[-,double] (\orig+5*\trans,\vertspac) -- (\orig+8*\trans,\vertspac); % node [midway, above] {$t_s$};
-			
-			\filldraw (\orig,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-			\filldraw (\orig+5*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-%			\filldraw (\orig+8*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-		\end{tikzpicture}
-\caption{The atomic deflation rule $d_a$ illustrated on a length 8 Fibonacci word.}
-\end{figure}
-
-\subsection{The Fibonacci Hamiltonian and its approximants}
-
-There is a natural quantum system associated to $S_n$. 
-It is described by the tight-binding Hamiltonian $H_n$, whose sequence of couplings is given by $S_n$.
-
-\textbf{Boundary contiditons:} as there are $F_n$ words in $S_n$, $H_n$ has $F_n$ couplings. These $F_n$ couplings are jump amplitudes between two neighbouring atomic sites. There are thus \textit{a priori} $F_n + 1$ atomic sites, but we are going identify the first and the last atomic sites, ie use \textit{periodic boundary conditions}.
-See eq. \eqref{eq:h8} for the example of the sixth Hamiltonian, with $F_6 = 8$ atomis sites.
-
-\begin{equation}
-\label{eq:h8} 
-	H_6 = 
-	\begin{bmatrix}
-	0 & t_w &   &   &   &   &   & t_w\\
-	t_w & 0 & t_s &   &   &   &   &  \\
-	  & t_s & 0 & t_w &   &   &   &  \\
-	  &   & t_w & 0 & t_s &   &   &  \\
-	  &   &   & t_s & 0 & t_w &   &  \\
-	  &   &   &   & t_w & 0 & t_w &  \\
-	  &   &   &   &   & t_w & 0 & t_s\\
-	t_w &   &   &   &   &   & t_s & 0\\
-\end{bmatrix}
-\end{equation}
-
-Tha Hamiltonian $H_n$ is called the \textit{$n^\text{th}$ approximant}. $H_\infty = \lim_{n \rightarrow \infty} H_n$ is called the \textit{Fibonacci Hamiltonian}.
+\subsection{Renormalization parameters}
+\begin{align}
+	z &= \rho/2\\
+	\zbar &= \rho^2\\
+	\lb &= 1/(2+\rho^2)\\
+	\lbbar &= 1/(1+2\rho^2)\\
+	c &= 1+\rho^2 \\
+	s &= 1-\rho^2
+\end{align}
+We also introduce the notation $f_q(\rho) = f(\rho^q)$, where $f$ can be any of the above renormalization parameters.
 
 \section{The renormalization equations}
 
@@ -240,28 +82,6 @@ In particular, after a decimation, couplings and wavefunctions are renormalized.
 \subsection{Renormalization of the couplings}
 
 \subsubsection{Atomic chain}
-
-In \cite{Zhong1991} one can find an exact renormalization group transformation linking a large chain (density of sites 1), to three smaller chains:
-\begin{itemize}
-	\item a chain of atomic sites (density of sites $1/\tau^3$)
-	\item two chains of molecular sites (density of sites $1/\tau^2$).
-\end{itemize}
-
-In view of passing to a perturbative framework, we define
-\begin{equation}
-	\rho \define \frac{t_w}{t_s}
-\end{equation}
-A renormalization group operation generically translates the spectrum (because the one-sites energy are all renormalized by the same amount), and rescales it (because the hopping energies are all renormalized by the samed amount).
-To take into account these effects, it is a good idea to look at the spectrum in the ``co-moving frame'':
-\begin{equation}
-	x_{\alpha}(E) \define \frac{E - V_{\alpha}}{t_{\alpha}}
-\end{equation}
-where $\alpha \in \{ s, w \}$.
-
-The renormalization equations given in \cite{Zhong1991} rewrite
-\begin{align}
-	\bar{x}_w = x_w + 2 \rho^2 \frac{1}{x_s(1-x_s^2)}
-\end{align}
 
 \subsubsection{Molecular chains}
 
@@ -360,13 +180,6 @@ Finally,
 \subsubsection{Molecular chains}
 
 \section{The fractal dimensions}
-Conventions: 
-\begin{itemize}
-	\item Indices $a,b,c...$ will be used to label energy bands, while indices $i,j,k...$ will label sites.
-	\item The superscript $n$ is used to denote the $n^\text{th}$ approximant of the Fibonacci chain. This approximant is constituted of $F_n$ sites, with periodic boundary conditions.
-	\item $\alpha(x)$ is the pointwise Hölder exponent at point $x$, of some fractal set $X$ that could be the spectrum, or the set of components of a wavefunction, etc. $\alpha$ is also the conjugate variable (by a Legendre transform) of $q$. 
-	\item $f(\alpha)$ is the Hausdorff dimension of the set $H_\alpha = \{ x \in X | \alpha(x) = \alpha \}$. It is also the Legendre transform of $\tau$.
-\end{itemize}
 
 \subsection{Definitions}
 
@@ -467,6 +280,21 @@ In the perturbative limit, we thus have the slightly more general relation
 	D^\mu_q(x,y) = \alpha(x) \tilde{D}_q(x,y)
 \end{equation}
 where $x$ is a spatial label for spatial dimensions, and a spectral label for $\alpha$.
+
+\section{Asymptotic results}
+
+\textbf{Averaged dimension of the wavefunctions} $\boxed{\overline{D^x_q}}$:
+
+\begin{equation}
+	\tilde{D}_q(x,y) \log \om = \frac{q}{q-1} \left( x \log \lb + \frac{1-2x}{3} \log \lbbar \right) - \frac{1}{q-1}\left( (x-y) \log\left(\frac{1}{2 c_q}\right) + y \log\left(\frac{1}{2 s_q}\right) \right)
+\end{equation} 
+since $\lb, \lbbar, c_q, s_q$ are only known up to second order in $\rho$, we also have
+\begin{equation}
+	\tilde{D}_q(x,y) \log \om = x \log\left( \frac{1}{2} \right) -\frac{q}{q-1} \frac{4-5x}{6} \rho^2 -\frac{1}{q-1}(-x+2y) \rho^{2q}
+\end{equation}
+\footnote{In particular, we have $\tilde{D}_q(x,y) \simlim{\rho}{0} x\frac{\log 2}{\log \tau}$. This makes perfect sense: in that limit only isolated molecules remain, and on each molecular site we have presence probability $1/(2 F_n)$.}
+
+
 \bibliography{perturbative_fractal_dimensions.bib}{}
 \bibliographystyle{plain}
 \end{document}
