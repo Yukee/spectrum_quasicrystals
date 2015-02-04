@@ -7,7 +7,7 @@
 \usepackage{amsfonts}
 \usepackage{makeidx}
 \usepackage{graphicx}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+%\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{mathtools} %dcases
 \usepackage{braket} %quantum mechanics
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
@@ -25,6 +25,7 @@
 \newcommand{\om}{\ensuremath{\omega}}
 \newcommand{\lb}{\ensuremath{\lambda}}
 \newcommand{\lbbar}{\ensuremath{\overline{\lambda}}}
+\newcommand{\nth}{$n^\text{th}$}
 
 \title{\textbf{Generalities on the Fibonacci Hamiltonian.}}
 \author{Nicolas Macé}
@@ -35,7 +36,7 @@
 
 \maketitle
 
-\section{Constructing the Fibonacci chain: the alphabet of couplings.}
+\section{Constructing the Fibonacci Hamiltonian: the alphabet of couplings.}
 
 \subsection{The Fibonacci sequence and its statistical properties}
 
@@ -106,7 +107,7 @@ Any combination of these two substitution rules (eg $r \tilde{r} r r \tilde{r}..
 
 \begin{figure}[htp]
 \centering
-    	\begin{tikzpicture}[scale=1]
+    	\begin{tikzpicture}[scale=.7]
     		\newcommand{\orig}{-1.5}
     		\newcommand{\trans}{1.5}
     		\newcommand{\vertspac}{-2.}
@@ -165,7 +166,7 @@ This deflation rule reduces a word of length $F_n$ to word of length $F_{n-2}$ (
 
 \begin{figure}[htp]
 \centering
-    	\begin{tikzpicture}[scale=1]
+    	\begin{tikzpicture}[scale=.7]
     		\newcommand{\orig}{-1.5}
     		\newcommand{\trans}{1.5}
     		\newcommand{\vertspac}{-2.}
@@ -223,4 +224,45 @@ See eq. \eqref{eq:h8} for the example of the sixth Hamiltonian, with $F_6 = 8$ a
 
 Tha Hamiltonian $H_n$ is called the \textit{$n^\text{th}$ approximant}. $H_\infty = \lim_{n \rightarrow \infty} H_n$ is called the \textit{Fibonacci Hamiltonian}.
 
+\section{Some results on the Fibonacci Hamiltonian}
+
+The transformation $\lambda \rightarrow \lambda H$ leaves the spectrum and the wavefunctions unchanged.
+Therefore, the properties of the Fibonacci Hamiltonian relevant for the physics only depend on the parameter
+\begin{equation}
+	\rho = \frac{t_w}{t_s}
+\end{equation}
+
+\subsection{The $\rho = 1$ case.}
+
+In that case the Hamiltonian is periodic. As we are going to see, this case is very special, and differs from the case $\rho < 1$ in almost every respect.
+
+However, we start by analyzing this well known case to gain some insight on the physics of the model.
+\\
+
+\textbf{Spectrum of the \nth{} approximant}
+It is a tedious but easy exercice of linear algebra to diagonalize the $H_n$ matrix.
+One finds that the $F_n$ energy states are indexed by an integer $a \in [0, F_n)$, and write
+\begin{equation}
+	E_a = 2 \cos \left( \frac{2 a \pi}{F_n} \right)
+\end{equation}
+Then, finding the wavefunction $\ket{\psi_a}$ associated to $E_a$ is easy enought. Calling $\psi(i,a)$ the coefficient of this wavefunction at site $i$, we have the recurrence relation
+\begin{equation}
+	\psi(i-1,a) + \psi(i+1,a) = E_a \psi(i,a)
+\end{equation}
+for a site $i$ that is not at the edges of the chain: $i > 0$ and $i < F_n -1$.
+Thus $\psi(i,a)$ is a linear combination of $\exp( 2 I \pi i a/F_n )$ and $\exp( -2 I \pi i a/F_n )$. 
+Because the coefficients must be real ($H_n$ being a symmetric matrix, it can be diagonalized by real vectors), we have, for $i$ integer, $i \in [0, F_n)$,
+\begin{equation}
+	\psi(i,a) = \mathcal{N}_a \cos \left( \frac{2 a i \pi}{F_n} \right)
+\end{equation}
+where $\mathcal{N}_a$ is a normalization coefficient. Note that in the limit $n \rightarrow \infty$ it is no longer possible to normalize these extended eigenstates.
+
+I find
+\begin{equation}
+	\mathcal{N}_a \simlim{n}{\infty} \frac{1}{\sqrt{F_n}} \frac{1}{\sqrt{\frac{1}{2}\left( 1 + \frac{\sin(4 a \pi)}{4 a \pi} \right)}}
+\end{equation}
+\subsection{The $\rho \rightarrow 1$ limit}
+
+In this limit the Hamiltonian is periodic. Interestingly, physical quantities does not have a smooth limit when $\rho \rightarrow 1$. 
+For example if $\rho = 1$ the spectrum is absolutely continuous, but as soon as $\rho < 1$, the spectrum becomes singular continuous. Physically that means that gaps open almost everywhere in the -- previously -- continuous spectral band $[-2,2]$.
 \end{document}
