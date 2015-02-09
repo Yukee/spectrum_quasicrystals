@@ -204,7 +204,7 @@ This deflation rule reduces a word of length $F_n$ to word of length $F_{n-2}$ (
 There is a natural quantum system associated to $S_n$. 
 It is described by the tight-binding Hamiltonian $H_n$, whose sequence of couplings is given by $S_n$.
 
-\textbf{Boundary contiditons:} as there are $F_n$ words in $S_n$, $H_n$ has $F_n$ couplings. These $F_n$ couplings are jump amplitudes between two neighbouring atomic sites. There are thus \textit{a priori} $F_n + 1$ atomic sites, but we are going identify the first and the last atomic sites, ie use \textit{periodic boundary conditions}.
+\textbf{Boundary conditions:} as there are $F_n$ words in $S_n$, $H_n$ has $F_n$ couplings. These $F_n$ couplings are jump amplitudes between two neighbouring atomic sites. There are thus \textit{a priori} $F_n + 1$ atomic sites, but we are going identify the first and the last atomic sites, ie use \textit{periodic boundary conditions}.
 See eq. \eqref{eq:h8} for the example of the sixth Hamiltonian, with $F_6 = 8$ atomis sites.
 
 \begin{equation}
@@ -265,4 +265,80 @@ I find
 
 In this limit the Hamiltonian is periodic. Interestingly, physical quantities does not have a smooth limit when $\rho \rightarrow 1$. 
 For example if $\rho = 1$ the spectrum is absolutely continuous, but as soon as $\rho < 1$, the spectrum becomes singular continuous. Physically that means that gaps open almost everywhere in the -- previously -- continuous spectral band $[-2,2]$.
+
+\subsection{The $\rho \rightarrow 0$ limit}
+
+In this limit, the $t_s$ is much stronger than $t_w$.
+As $t_s$ becomes stronger and stronger, the gap width becomes larger and larger. 
+
+To begin with, we investigate the $\rho = 0$ case. 
+In that -- rather trival -- case, because $t_w = 0$ the chain decouples into isolated atoms (the ones linked to their neighbours by weak bounds), and isolated molecules (two atoms linked by a strong bound). We will in the following refer to them respectively as ``atoms'' and ``molecules''.
+
+The Hamiltonian is then a direct sum of Hamiltonians decribing an atom or a molecule. Atomic Hamiltonians give rise to a $0$ energy level, while molecular Hamiltonians give rise to two levels: $\pm t_s$.
+The spectrum has thus a boring zero Hausdorff dimension. As for the wavefunctions, their fractal dimensions are not even properly defined since the energy levels are degenerate\footnote{The fractal dimension of a linear combination is not the linear combination of the fractal dimensions. But a linear combination of eigenfunctions of a degenerate energy level is again an eigenfunction. Hence the fractal dimensions of the eigenfunctions of a degenerate level are ill-defined.}.
+
+In the $\rho \rightarrow 0$ limit, the atoms and the molecules weakly couple to each other, thus rising the degeneracy of the energy levels. To our delight, the Fibonacci hierarchy of gaps -- indexed according to the gap labelling theorem -- appears.
+The Hausdorff dimension of the spectrum satisfyingly becomes non trivial. It is given by
+\begin{equation}
+\label{eq:haus}
+	D(q=0) = \frac{\log( \sqrt{2} - 1 )}{\log \rho}
+\end{equation}
+Let us show it! 
+We use the thermodynamic formalism to compute the fractal dimensions. We introduce the thermodynamic function on the \nth{} approximant:
+\begin{equation}
+	\Gamma_n(q,\tau; \rho) = \sum_{a=0}^{F_n-1} \frac{(1/F_n)^q}{(\Delta_a^n(\rho))^\tau}
+\end{equation}
+At first order in $\rho$, atomic and molecular chains are decoupled. Each of the 2 molecular chains involves a fraction $F_{n-2}/F_n$ of the sites, while the atomic chain involves the remaining $F_{n-3}/F_n$ fraction of the sites. So,
+\begin{equation}
+	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q \Gamma_{n-2}(q, \tau; d_m(\rho)) + \left( \frac{F_{n-3}}{F_n} \right)^q \Gamma_{n-3}(q,\tau; d_a(\rho))
+\end{equation}
+After a molecular deflation, the coupling $\rho$ is renormalized: $d_m(\rho) = z \rho$ with $z = \rho/2$. Similarly, $d_a(\rho) = \bar z \rho$ with $\bar z = \rho^2$. 
+Because the bandwidths are proportional to the coupling, we obtain,
+\begin{equation}
+	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q z^{-\tau} \Gamma_{n-2}(q, \tau; \rho) + \left( \frac{F_{n-3}}{F_n} \right)^q \bar{z}^{-\tau} \Gamma_{n-3}(q,\tau; \rho)
+\end{equation}
+In the thermodynamic limit $n \rightarrow \infty$ the thermodynamic function $\Gamma_n$ is stationnary when $\tau = (q-1) D(q)$. Thus,
+\begin{equation}
+	1 = 2 \om^{2q} z^{-(q-1)D(q)} + \om^{3q} \bar{z}^{-(q-1) D(q)}
+\end{equation}
+Now, we look for the Hausdorff dimension, so we take $q=0$. 
+We search a $D(0)$ of the form
+\begin{equation}
+	D(0) = \frac{\log x}{\log \rho}
+\end{equation}
+then we have an almost-second order equation for $x$:
+\begin{equation}
+	x^2 = 1 + 2 x 2^{\frac{\log x}{\log \rho}}
+\end{equation}
+Assuming that $x$ oblidgingly converges to a non-zero constant as $\rho \rightarrow 0$, we have in this limit
+\begin{equation}
+	x^2 = 1 + 2 x
+\end{equation}
+hence the result \eqref{eq:haus}.
+
+What about the dimensions of the wavefunctions?
+We have
+\begin{equation}
+\label{eq:wf}
+	D(q;a) = x_a \frac{\log 2}{\log \tau}
+\end{equation}
+where $x_a$ is the fraction of renormalization time the energy labelled by $a$ spends in molecular clusters.
+
+Let us prove it!
+Call $\psi_n(i,a)$ the wavefunction associated to the energy $E_a$, at site $i$. Call $I_n(i,a) = |\psi_n(i,a)|^2$ the associated intensity (or presence probability).
+We are interested in computing
+\begin{equation}
+	\chi_n(q;a) = \sum_{i=0}^{F_n - 1} (I_n(i,a))^q
+\end{equation}
+In the $\rho \rightarrow 0$ limit the intensity at site $i$, at energy $E_a$, only depends on $x_a$. So, given $a$, the intensity does not depend on the site! In other words the intensity is uniform, which means that the fractal dimensions are independant of $q$.
+
+Normalization gives us $I_n(i,a) = 2^{-nx_a}$, so that
+\begin{equation}
+	\chi_n(q;a) = \left( \frac{1}{2^{n x_a}} \right)^{q-1}
+\end{equation}
+and
+\begin{equation}
+	D_n(q;a) = x_a \frac{\log 2}{\log( F_n^{1/n} )}
+\end{equation}
+hence the result \eqref{eq:wf}.
 \end{document}
