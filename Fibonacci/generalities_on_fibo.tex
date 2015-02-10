@@ -240,10 +240,10 @@ However, we start by analyzing this well known case to gain some insight on the 
 \\
 
 \textbf{Spectrum of the \nth{} approximant}
-It is a tedious but easy exercice of linear algebra to diagonalize the $H_n$ matrix.
+It is a tedious but easy exercice of linear algebra to diagonalize the $H_n(k)$ matrix.
 One finds that the $F_n$ energy states are indexed by an integer $a \in [0, F_n)$, and write
 \begin{equation}
-	E_a = 2 \cos \left( \frac{2 a \pi}{F_n} \right)
+	E_a(k) = 2 \cos \left( \frac{2 a \pi + k}{F_n} \right)
 \end{equation}
 Then, finding the wavefunction $\ket{\psi_a}$ associated to $E_a$ is easy enought. Calling $\psi(i,a)$ the coefficient of this wavefunction at site $i$, we have the recurrence relation
 \begin{equation}
@@ -251,7 +251,7 @@ Then, finding the wavefunction $\ket{\psi_a}$ associated to $E_a$ is easy enough
 \end{equation}
 for a site $i$ that is not at the edges of the chain: $i > 0$ and $i < F_n -1$.
 Thus $\psi(i,a)$ is a linear combination of $\exp( 2 I \pi i a/F_n )$ and $\exp( -2 I \pi i a/F_n )$. 
-Because the coefficients must be real ($H_n$ being a symmetric matrix, it can be diagonalized by real vectors), we have, for $i$ integer, $i \in [0, F_n)$,
+If $k = 0, \pi$, the coefficients must be real ($H_n(0,\pi)$ being a \emph{real} symmetric matrix, it can be diagonalized by real vectors), we have, for $i$ integer, $i \in [0, F_n)$,
 \begin{equation}
 	\psi(i,a) = \mathcal{N}_a \cos \left( \frac{2 a i \pi}{F_n} \right)
 \end{equation}
