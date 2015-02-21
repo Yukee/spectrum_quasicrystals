@@ -16,6 +16,12 @@
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
 
+\usepackage[%
+  figurewithin=section,
+  tablewithin=section
+]{caption}
+\numberwithin{equation}{section}
+
 % differential element
 \renewcommand{\d}[1]{\mathrm{d}#1}
 
@@ -65,7 +71,6 @@ The inflation rule $r$ has the substitution matrix
 \end{bmatrix}
 \end{equation}
 The eigenvalues of the substitution matrix are $\tau$ and $\omega \define -1/\tau$, where $\tau = (1+\sqrt{5})/2$ is the golden ratio.
-There are thus $\tau$ times more $t_w$ than $t_s$ in $S_\infty$.
 More precisely, we have 
 \begin{equation}
 	\text{Sub}(r) = \mathcal{R}(\theta) 
@@ -90,6 +95,7 @@ Knowing this we can easily compute $\text{Sub}(r^n) = \text{Sub}(r)^n$. We immed
 	\end{cases}
 \end{equation}
 where $F_n$ is the $n^\text{th}$ \emph{Fibonacci number} ($F_0 = 1$, $F_1 = 1$, $F_2 = 2$, ...).
+In particular, there are $\tau$ times more $t_w$ than $t_s$ in $S_\infty$.
 
 \subsection{Deflation rules; atoms and molecules.}
 
@@ -263,7 +269,7 @@ I find
 \end{equation}
 
 \textbf{Fractal dimensions}
-In the case $\rho = 1$ the fractal dimensions of the spectrum can be computed analytically without much effort. 
+In the case $\rho = 1$ the fractal dimensions of the spectrum can be computed analytically without much effort -- cf. appendix \ref{app:periodic}. 
 We find
 \begin{align}
 	\tau(q \leq 2) &= q-1 \\
@@ -309,40 +315,10 @@ In the $\rho \rightarrow 0$ limit, the atoms and the molecules weakly couple to 
 The Hausdorff dimension of the spectrum satisfyingly becomes non trivial. It is given by
 \begin{equation}
 \label{eq:haus}
-	D(q=0) = \frac{\log( \sqrt{2} - 1 )}{\log \rho}
+	D(q=0) \simlim{\rho}{0} \frac{\log( \sqrt{2} - 1 )}{\log \rho}
 \end{equation}
-Let us show it! 
-We use the thermodynamic formalism to compute the fractal dimensions. We introduce the thermodynamic function on the \nth{} approximant:
-\begin{equation}
-	\Gamma_n(q,\tau; \rho) = \sum_{a=0}^{F_n-1} \frac{(1/F_n)^q}{(\Delta_a^n(\rho))^\tau}
-\end{equation}
-At first order in $\rho$, atomic and molecular chains are decoupled. Each of the 2 molecular chains involves a fraction $F_{n-2}/F_n$ of the sites, while the atomic chain involves the remaining $F_{n-3}/F_n$ fraction of the sites. So,
-\begin{equation}
-	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q \Gamma_{n-2}(q, \tau; d_m(\rho)) + \left( \frac{F_{n-3}}{F_n} \right)^q \Gamma_{n-3}(q,\tau; d_a(\rho))
-\end{equation}
-After a molecular deflation, the coupling $\rho$ is renormalized: $d_m(\rho) = z \rho$ with $z = \rho/2$. Similarly, $d_a(\rho) = \bar z \rho$ with $\bar z = \rho^2$. 
-Because the bandwidths are proportional to the coupling, we obtain,
-\begin{equation}
-	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q z^{-\tau} \Gamma_{n-2}(q, \tau; \rho) + \left( \frac{F_{n-3}}{F_n} \right)^q \bar{z}^{-\tau} \Gamma_{n-3}(q,\tau; \rho)
-\end{equation}
-In the thermodynamic limit $n \rightarrow \infty$ the thermodynamic function $\Gamma_n$ is stationnary when $\tau = (q-1) D(q)$. Thus,
-\begin{equation}
-	1 = 2 \om^{2q} z^{-(q-1)D(q)} + \om^{3q} \bar{z}^{-(q-1) D(q)}
-\end{equation}
-Now, we look for the Hausdorff dimension, so we take $q=0$. 
-We search a $D(0)$ of the form
-\begin{equation}
-	D(0) = \frac{\log x}{\log \rho}
-\end{equation}
-then we have an almost-second order equation for $x$:
-\begin{equation}
-	x^2 = 1 + 2 x 2^{\frac{\log x}{\log \rho}}
-\end{equation}
-Assuming that $x$ oblidgingly converges to a non-zero constant as $\rho \rightarrow 0$, we have in this limit
-\begin{equation}
-	x^2 = 1 + 2 x
-\end{equation}
-hence the result \eqref{eq:haus}.
+
+
 
 What about the dimensions of the wavefunctions?
 We have
@@ -370,6 +346,120 @@ and
 \end{equation}
 hence the result \eqref{eq:wf}.
 
+\newpage
+\appendix
+
+\section{The thermodynamical formalism: a reminder.}
+\label{app:thermo}
+
+We make an extensive use of the thermodynamical formalism to compute the fractal dimensions of the spectrum and of the wavefunctions. We simply wish here to set up some definitions and recall some useful results.
+
+\subsection{General formalism}
+
+To compute the fractal dimensions of a fractal set $\mathcal{S}$, the thermodynamical formalism defines at each point $a \in \mathcal{S}$ a sequence of open sets $\Delta_a^n \supset \Delta_a^{n+1} \supset ... \supset \{a\}$.
+To each of these open sets is associated the propability to draw a point from $\mathcal{S}$ belonging to it. We call it $p_a^n$.
+We define the partition function
+\begin{equation}
+	\Gamma^n(q,\tau) = \sum_a \frac{(p_a^n)^q}{(\Delta_a^n)^\tau}
+\end{equation}
+Then, one can show \cite{Halsey1986} that the fractal dimensions are given by $\tau(q) = (q-1) D_q$ with $\tau(q)$ defined by
+\begin{align}
+	\Gamma^n(q,\tau > \tau(q)) &\rightarrow +\infty \\
+	\Gamma^n(a,\tau < \tau(q)) &\rightarrow 0
+\end{align}
+
+\subsection{Application to the spectrum and to the wavefunctions}
+We consider the \nth{} approximant of the infinite chain. 
+We will say that is has $L_n$ sites ($L_n = F_n$ in the case of the Fibonacci chain).
+
+In the case of the spectrum, we take $\Delta_a^n$ to be the width of the $a^\text{th}$ energy band. If each energy band has the same degeneracy, we can take $p_a^n = 1/L_n$.
+
+In the case of the wavefunctions, we let $p_i^n = |\psi_i^n|^2$. 
+
+\newpage
+\section{Fractal dimensions in the periodic limit.}
+\label{app:periodic}
+
+The periodic case is interesting, because the partition function (cf appendix \ref{app:thermo}) can be computed exactly.
+We have
+\begin{align}
+	\Gamma^n &= \left(\frac{1}{L_n}\right)^q\sum_{a=0}^{L_n -1} \frac{1}{(\Delta_a^n)^\tau} \\
+	&= 2\left(\frac{1}{L_n}\right)^q\sum_{a=0}^{L_n/2 -1} \frac{1}{(\Delta_a^n)^\tau}
+\end{align}
+because of the symmetry of the band structure.
+Also,
+\begin{equation}
+	\Delta_a^n \simlim{n}{\infty} \frac{\pi}{L_n} \bigg| \sin \left( \frac{2 a \pi}{L_n} + \frac{\pi}{2 L_n} \right) \bigg|
+\end{equation}
+We see that in the large $n$ limit, the bandwidths tend to be continuous functions of the band index. We will exploit this fact to transform the sum appearing in the partition function in an integral.
+To this end we define $u = 2(a+1/4)/L_n$.
+Then, 
+\begin{equation}
+	\Gamma^n \simlim{n}{\infty} \frac{(L_n)^{\tau + 1}}{(L_n)^q} \frac{1}{\pi^\tau} \underbrace{\int_{1/(2L_n)}^{1 - 3/(2L_n)} \frac{\d{u}}{|\sin(\pi u)|^\tau}}_{ = I_n(\tau)}
+\end{equation}
+At the edges, the integrand behaves as $1/u^\tau$. Thus if $\tau < 1$, $I_n(\tau)$ converges. We call $I_\infty(\tau)$ its limit.
+Thus,
+\begin{equation}
+	\Gamma^n(\tau <1) \simlim{n}{\infty} \frac{(L_n)^{\tau + 1}}{(L_n)^q} \frac{I_\infty(\tau)}{\pi^\tau}
+\end{equation}
+We deduce that
+\begin{equation}
+\boxed{
+	q(\tau < 1) = 1+ \tau
+	}
+\end{equation}
+This is the ``trivial'' case, where all the fractal dimensions are equal to 1.
+
+On the other hand, if $\tau > 1$, the integral diverges. We have to evaluate how fast $I_n(\tau)$ diverges. 
+The divergencies come from the 2 egdes. At these points, the integrand behaves as $1/u^\tau$, and thus
+\begin{equation}
+	I_n(\tau > 1) \simlim{n}{\infty} \text{cst}(\tau) \times (L_n)^{\tau -1}
+\end{equation}
+We conclude that
+\begin{equation}
+\boxed{
+	q(\tau > 1) = 2 \tau
+}
+\end{equation}
+
+\newpage
+\section{Fractal dimensions in the strong quasiperiodicity limit.}
+\label{app:qp}
+We use again the thermodynamic formalism to compute the fractal dimensions. We introduce the thermodynamic function on the \nth{} approximant:
+\begin{equation}
+	\Gamma_n(q,\tau; \rho) = \sum_{a=0}^{F_n-1} \frac{(1/F_n)^q}{(\Delta_a^n(\rho))^\tau}
+\end{equation}
+At first order in $\rho$, atomic and molecular chains are decoupled. Each of the 2 molecular chains involves a fraction $F_{n-2}/F_n$ of the sites, while the atomic chain involves the remaining $F_{n-3}/F_n$ fraction of the sites. So,
+\begin{equation}
+	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q \Gamma_{n-2}(q, \tau; d_m(\rho)) + \left( \frac{F_{n-3}}{F_n} \right)^q \Gamma_{n-3}(q,\tau; d_a(\rho))
+\end{equation}
+After a molecular deflation, the coupling $\rho$ is renormalized: $d_m(\rho) = z \rho$ with $z = \rho/2$. Similarly, $d_a(\rho) = \bar z \rho$ with $\bar z = \rho^2$. See \cite{Niu1990}, \cite{Piechon95}.
+Because the bandwidths are proportional to the coupling, we obtain,
+\begin{equation}
+	\Gamma_n(q,\tau;\rho) = 2 \left( \frac{F_{n-2}}{F_n} \right)^q z^{-\tau} \Gamma_{n-2}(q, \tau; \rho) + \left( \frac{F_{n-3}}{F_n} \right)^q \bar{z}^{-\tau} \Gamma_{n-3}(q,\tau; \rho)
+\end{equation}
+Thus, $\tau(q) = (q-1) D(q)$ is given by
+\begin{equation}
+\boxed{
+	1 = 2 \om^{2q} z^{-(q-1)D(q)} + \om^{3q} \bar{z}^{-(q-1) D(q)}
+}
+\end{equation}
+Now, we look for the Hausdorff dimension, so we take $q=0$. 
+We search a $D(0)$ of the form
+\begin{equation}
+	D(0) = \frac{\log x}{\log \rho}
+\end{equation}
+then we have an almost-second order equation for $x$:
+\begin{equation}
+	x^2 = 1 + 2 x 2^{\frac{\log x}{\log \rho}}
+\end{equation}
+Assuming that $x$ oblidgingly converges to a non-zero constant as $\rho \rightarrow 0$, we have in this limit
+\begin{equation}
+	x^2 = 1 + 2 x
+\end{equation}
+hence the result \eqref{eq:haus}.
+
+\newpage
 \bibliography{generalities_on_fibo.bib}{}
 \bibliographystyle{alpha}
 \end{document}
