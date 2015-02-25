@@ -277,10 +277,52 @@ while for \emph{spectral} dimensions we let
 
 In the perturbative limit, we thus have the slightly more general relation
 \begin{equation}
+\boxed{
 	D^\mu_q(x,y) = \alpha(x) \tilde{D}_q(x,y)
+}
 \end{equation}
 where $x$ is a spatial label for spatial dimensions, and a spectral label for $\alpha$.
 
+This result can be understood qualitatively. 
+Starting from
+\begin{equation}
+	\Gamma^\mu(\tau,q;i) = \sum_a \frac{|\psi_{i,a}|^{2q}}{(\Delta_a)^\tau}
+\end{equation}
+We use the local Hölder exponent of the spectrum to relate the bandwidth to the system size: $(\Delta_a)^{\alpha_a} \sim 1/F_n$. Thus,
+\begin{equation}
+	\Gamma^\mu(\tau,q;i) = \sum_a|\psi_{i,a}|^{2q} (F_n)^{\tau/\alpha_a}
+\end{equation}
+But now, for $q > 0$ and in the strong quasiperioidicity limit, $|\psi_{i,a}|^{2q}$ is large only if the energy label, $a$, and the site label, $i$, have similar renormalization paths, in the sense that $x_a = x_i \define x$. For these energy labels, $\alpha_a = \alpha(x)$.
+Thus,
+\begin{equation}
+	\Gamma^\mu(\tau,q>0;i) \simlim{\rho}{0} (F_n)^{\tau/\alpha(x)} \tilde \chi(q;i)
+\end{equation}
+We conclude that indeed,
+\begin{equation}
+	\tau^{\mu,x}_q = \alpha(x) \tilde{\tau}^x_q
+\end{equation}
+
+We also have that
+\begin{equation}
+\boxed{
+	\overline{\tau^\mu_q} = D_{1+\overline{\tilde{\tau}_q}}\times \overline{\tilde{\tau}_q} 
+}
+\end{equation}
+To test this relation, let us derive some inequalities:
+\begin{align}
+	\overline{\Gamma^\mu} &\leq \frac{1}{(\Delta_{\text{min}})^\tau} \overline{\tilde{\chi}}\\
+							&\geq \frac{1}{(\Delta_{\text{max}})^\tau} \overline{\tilde{\chi}}
+\end{align}
+and thus,
+\begin{align}
+	\overline{\tau^\mu} &\geq \alpha_\text{min} \overline{\tilde{\tau}} \\
+	\overline{\tau^\mu} &\leq \alpha_\text{max} \overline{\tilde{\tau}}
+\end{align}
+Since $q \rightarrow D_q$ is non-increasing, 
+\begin{equation}
+	D_{+\infty} = \alpha_\text{min} \leq D_q \leq D_{-\infty} = \alpha_\text{max}
+\end{equation}
+So, our relation seems plausible!
 \section{Asymptotic results}
 
 \textbf{Averaged dimension of the wavefunctions} $\boxed{\overline{D^x_q}}$:
