@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel} %français
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{mathtools} %dcases
+\usepackage{braket} %quantum mechanics
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
+\usepackage{tikz} % drawing in LaTeX
+\usepackage{ dsfont } % hollow letters
+% the equal sign I use to define something
+\newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
+
+% differential element
+\renewcommand{\d}[1]{\mathrm{d}#1}
+
+% similar symbol with a limit underneath
+\newcommand{\simlim}[2]{\ensuremath{ \underset{#1 \rightarrow #2}{\sim} }}
+
+\newcommand{\om}{\ensuremath{\omega}}
+\newcommand{\lb}{\ensuremath{\lambda}}
+\newcommand{\lbbar}{\ensuremath{\overline{\lambda}}}
+\newcommand{\zbar}{\ensuremath{\overline{z}}}
+
+\title{\textbf{Fractal dimensions of quasicrystals \emph{via} a perturbative renormalization group.}}
+\author{}
+\date{}
+\begin{document}
+
+\selectlanguage{english}
+
+\maketitle
+
+\abstract{}
+
+In this paper, we focus on tight-binding Hamiltonians on one-dimensional quasiperiodic tilings.
+Notable examples include the Harper model, and the family of quasiperiodic Hamiltonians constructed by the cut and project method. 
+Each of the latter is associated with an irrational number, $\alpha$.
+It has the geometrical interpretation of the tangent of the angle between the projection axis and the direction of one of the basis vectors of the two-dimensional superlattice.
+In such a model, if $\psi_i$ is the coefficient at site $i$ of the wavefunction associated to the energy $E$, we have
+\begin{equation}
+	E \psi_i = t^\alpha_i \psi_{i-1} + t^\alpha_{i+1} \psi_{i+1}
+\end{equation}
+where the jump amplitudes $t^\alpha_i$ can take two values $t_s$, $t_w$:
+\begin{equation}
+	t_i^\alpha = \begin{dcases*}
+	t_w & when $i \bmod(1+\alpha) \geq \alpha$ \\
+	t_s & otherwise.
+	\end{dcases*}
+\end{equation}
+If we replace the irrational $\alpha$ by a rational approximation $\alpha_n = p_n/q_n$, we obtain a periodic system of period $p_n + q_n$. 
+Thus, to a sequence of rationals $\{\alpha_n\}_n$ converging to $\alpha$ is associated in a natural way a sequence of periodic tight-binding Hamiltonians -- called approximants, converging to a quasiperidic Hamiltonian.
+It is convenient to consider such a sequence of periodic systems. In particular we will be able to find reccurence relations for the fractal dimensions in that way.
+
+
+Amongst all irrationals, the golden ratio and its inverse, $\omega = 2/(1+\sqrt{5})$, play a special role. They contain only the number 1 in their continued fraction expansion. In that sense, these two numbers are the hardest to approximate by rationnals. 
+We thus expect the quasiperiodicity to have the most spectacular consequences when the irrational is taken to be the golden ratio or its inverse.
+
+We restrict ourselves to the case $\alpha \leq 1$ (the other case being equivalent up the exchange of $t_s$ and $t_w$). As an example, we are going to chose $\alpha = \omega$. The tight-binding Hamiltonian resulting from this choice is called the Fibonacci Hamiltonian.
+However, our results are general and apply to every Hamiltonian constructed by the cut and project method.
+
+\section{Co-numbering and energy levels.}
+
+
+
+
+\bibliography{fractal_dimensions_quasicrystals.bib}{}
+\bibliographystyle{plain}
+\end{document}
