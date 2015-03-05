@@ -42,9 +42,9 @@ In this paper, we focus on tight-binding Hamiltonians on one-dimensional quasipe
 Notable examples include the Harper model, and the family of quasiperiodic Hamiltonians constructed by the cut and project method. 
 Each of the latter is associated with an irrational number, $\alpha$.
 It has the geometrical interpretation of the tangent of the angle between the projection axis and the direction of one of the basis vectors of the two-dimensional superlattice.
-In such a model, if $\psi_i$ is the coefficient at site $i$ of the wavefunction associated to the energy $E$, we have
+The Hamiltonian of such a model writes
 \begin{equation}
-	E \psi_i = t^\alpha_i \psi_{i-1} + t^\alpha_{i+1} \psi_{i+1}
+	H^\alpha = \sum_i t^\alpha_i \left( \ket{i-1} \bra{i} + \ket{i} \bra{i-1} \right)
 \end{equation}
 where the jump amplitudes $t^\alpha_i$ can take two values $t_s$, $t_w$:
 \begin{equation}
