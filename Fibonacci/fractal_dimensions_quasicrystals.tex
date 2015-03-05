@@ -44,16 +44,23 @@ Each of the latter is associated with an irrational number, $\alpha$.
 It has the geometrical interpretation of the tangent of the angle between the projection axis and the direction of one of the basis vectors of the two-dimensional superlattice.
 The Hamiltonian of such a model writes
 \begin{equation}
-	H^\alpha = \sum_i t^\alpha_i \left( \ket{i-1} \bra{i} + \ket{i} \bra{i-1} \right)
+	H^\alpha = \sum_i t^\alpha_i \left( \ket{i} \bra{i+1} + \ket{i+1} \bra{i} \right)
 \end{equation}
 where the jump amplitudes $t^\alpha_i$ can take two values $t_s$, $t_w$:
 \begin{equation}
 	t_i^\alpha = \begin{dcases*}
-	t_w & when $i \bmod(1+\alpha) \geq \alpha$ \\
+	t_w & when $i \bmod(1+\alpha) \geq \alpha$, \\
 	t_s & otherwise.
 	\end{dcases*}
 \end{equation}
-If we replace the irrational $\alpha$ by a rational approximation $\alpha_n = p_n/q_n$, we obtain a periodic system of period $p_n + q_n$. 
+If we replace the irrational $\alpha$ by a rational approximation $\alpha_n = p_n/q_n$, the sequence of couplings is modified:
+\begin{equation}
+	t_i^{p_n/q_n} = \begin{dcases*}
+	t_w & when $q_n i \bmod(p_n+q_n) \geq p_n$, \\
+	t_s & otherwise,
+	\end{dcases*}
+\end{equation}
+and we obtain a periodic system of period $p_n + q_n$. 
 Thus, to a sequence of rationals $\{\alpha_n\}_n$ converging to $\alpha$ is associated in a natural way a sequence of periodic tight-binding Hamiltonians -- called approximants, converging to a quasiperidic Hamiltonian.
 It is convenient to consider such a sequence of periodic systems. In particular we will be able to find reccurence relations for the fractal dimensions in that way.
 
@@ -64,10 +71,25 @@ We thus expect the quasiperiodicity to have the most spectacular consequences wh
 We restrict ourselves to the case $\alpha \leq 1$ (the other case being equivalent up the exchange of $t_s$ and $t_w$). As an example, we are going to chose $\alpha = \omega$. The tight-binding Hamiltonian resulting from this choice is called the Fibonacci Hamiltonian.
 However, our results are general and apply to every Hamiltonian constructed by the cut and project method.
 
-\section{Co-numbering and energy levels.}
+\section{Co-numbering, atoms and molecules.}
 
-
-
+We consider a periodic approximant given by the rational $\alpha_n = p_n/q_n$. Later, we are going to specialize to the case of the Fibonacci Hamiltonian, but for the moment we wish to stay as general as possible.
+We have already seen already that the integer
+\begin{equation}
+	i'_k = q_n k \bmod(p_n+q_n)
+\end{equation}
+determines the sequence of jump amplitudes. How does $i'_k$ changes when we jump from one site to the next, i.e. when we increase $k$ by one unit? It is easy to check that
+\begin{equation}
+	i'_{k+1} = \begin{dcases*}
+	i'_k + p_n & when sites $k$ and $k+1$ are linked by $t_w$, \\
+	i'_k + q_n & when sites $k$ and $k+1$ are linked by $t_s$.
+	\end{dcases*}
+\end{equation}
+Thus, the sequence of $i'_k$ furnishes a natural renumbering of the sites.
+In the basis where sites are numbered using $i'$, the Hamiltonian rewrites as a long-range, Toeplitz matrix:
+\begin{equation}
+	H = 
+\end{equation}
 
 \bibliography{fractal_dimensions_quasicrystals.bib}{}
 \bibliographystyle{plain}
