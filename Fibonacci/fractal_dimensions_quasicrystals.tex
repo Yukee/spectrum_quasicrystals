@@ -36,9 +36,9 @@
 
 \maketitle
 
-\abstract{}
+%\abstract{}
 
-In this paper, we focus on tight-binding Hamiltonians on one-dimensional quasiperiodic tilings.
+We focus on tight-binding Hamiltonians on one-dimensional quasiperiodic tilings.
 Notable examples include the Harper model, and the family of quasiperiodic Hamiltonians constructed by the cut and project method. 
 Each of the latter is associated with an irrational number, $\alpha$.
 It has the geometrical interpretation of the tangent of the angle between the projection axis and the direction of one of the basis vectors of the two-dimensional superlattice.
@@ -326,7 +326,58 @@ From that, we hope to characterize the multifractality of the quasiperiodic chai
 
 \subsection{Renormalization paths, equivalence between energy labels and co-numbers.}
 
-The co-numbering naturally distinguishes between molecules and atoms: the first $p_n$ sites are the left part of a molecule, the next $q_n - p_n$ sites are the atomic sites, and the last $p_n$ sites are the right part of a molecule.
+The co-numbering naturally distinguishes between molecules and atoms.
+For the $n^\text{th}$ approximant, the first $p_n = F_{n-2}$ sites are the left part of a molecule. We will attach to these sites a label $m_l$. The next $q_n - p_n = F_{n-3}$ sites are the atomic sites, and we will label then $a$. The last $p_n = F_{n-2}$ sites are the right part of a molecule, we will label them $m_r$.
+We can repeat this procedure at the step $n-2$ for molecular sites, $n-3$ for atomic sites, until we reach the trivial state $n=1$ or $n=0$. 
+We see that there is a one-to-one mapping between the co-number of a site, $i$, and the sequence of labels $l_n l_{n-2/n-3} \dots l_s \dots$, where $l_s = m_l, a$ or $m_r$ is the label of the site at step $s$.
+
+In the perturbative picture, we can thus represent each state as a sequence of labels, which we call its \emph{renormalization path}. 
+We can plot these sequences on a trifurcating tree (fig. \eqref{fig:tree_states})
+
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=.7]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{1.5}
+    		\newcommand{\vertspac}{-2.}
+    		\newcommand{\vertsize}{.5} % vertical spand of the rectangles
+    		\newcommand{\del}{.2}
+		\end{tikzpicture}
+\caption{Trifurcating tree of states.}
+\label{fig:tree_states}
+\end{figure}
+
+Since the Hamiltonian of an approximant is the direct sum of three Hamiltonians, the energy spectrum is split into three bands.
+The upper band, associated to molecular bounding states, will be given a +  label.
+The middle band, associated to atomic states, will be given a 0 label, and the lower band , associated to molecular antibonding states will be given a - label.
+At step $n-2$ for molecular bands, and at step $n-3$ for the atomic band, we can repeat this procedure.
+So, we can similarly index each energy level of the $n^\text{th}$ approximant by a sequence of energy labels $e_n e_{n-2/n-3} \dots e_s \dots$ where $e_s = +, 0$ or $-$ is the label of the energy level at step $s$.
+We can plot these sequences on a trifurcating tree (fig. \eqref{fig:tree_en})
+
+\begin{figure}[htp]
+\centering
+    	\begin{tikzpicture}[scale=.7]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{1.5}
+    		\newcommand{\vertspac}{-2.}
+    		\newcommand{\vertsize}{.5} % vertical spand of the rectangles
+    		\newcommand{\del}{.2}
+		\end{tikzpicture}
+\caption{Trifurcating tree of energies.}
+\label{fig:tree_en}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.30]{wf_idos.png}
+\caption{Presence probability in the co-numbered basis, for each energy state. (Exact diagonalization on a system of 89 sites, for a coupling $\rho = 1/10$.)}
+\label{fig:wf_idos}
+\end{figure}
+
+The similarities of behaviour of energy levels and states is of course not a coïncidence. 
+It emerges from the fact that the state corresponding to a given energy level has a non-zero amplitude only at positions whose renormalization path matches the one of the energy level.
+
+Plotting the presence probability (amplitude squared) for each site (ordered by co-number) and each energy (ordered by increasing energy), as was done fig. \eqref{fig:en_idos} shows the symmetry between energy labels and co-numbers.
 
 \bibliography{fractal_dimensions_quasicrystals.bib}{}
 \bibliographystyle{plain}
