@@ -1,0 +1,57 @@
+%\documentclass[../fractal_dimensions_quasicrystals.tex]{subfiles}
+\documentclass{standalone}
+
+\usepackage{tikz} % drawing in LaTeX
+\usepackage[english, french]{babel} %français
+
+\begin{document}
+
+
+    	\begin{tikzpicture}[scale=.7]
+    		\newcommand{\orig}{-1.5}
+    		\newcommand{\trans}{1.5}
+    		\newcommand{\vertspac}{-2.}
+    		\newcommand{\vertsize}{.5} % vertical spand of the rectangles
+    		\newcommand{\del}{.2}
+    	
+    		% initial chain
+    	
+    		% bonds 
+			\draw[-] (\orig+0*\trans,0) -- (\orig+1*\trans,0);
+			\draw[-,double] (\orig+1*\trans,0) -- (\orig+2*\trans,0);
+			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0);
+			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0);
+			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0);
+			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0);
+			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); 
+			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); 
+			\draw[-,double] (\orig+8*\trans,0) -- (\orig+9*\trans,0); 
+			\draw[-] (\orig+9*\trans,0) -- (\orig+10*\trans,0); 
+    	
+    	
+    		% sites
+			\foreach \x in {0,...,10}
+		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
+		      
+		    % amplitudes
+		    \node at (\orig+5*\trans,0) [above] {$\psi_i$};
+		    \node at (\orig+3*\trans,0) [above] {$-\rho \psi_i$};
+		    \node at (\orig+7*\trans,0) [above] {$-\rho \psi_i$};
+		    \node at (\orig+9*\trans,0) [above] {$\rho^2 \psi_i$};
+		    \node at (\orig+1*\trans,0) [above] {$\rho^2 \psi_i$};
+		    
+		   	% arrows below rectangles
+		    \draw [->] (\orig,-\del) -- (\orig,\vertspac+\del);
+		    \draw [->] (\orig+5*\trans,-\del) -- (\orig+5*\trans,\vertspac+\del);
+		    \draw [->] (\orig+10*\trans,-\del) -- (\orig+10*\trans,\vertspac+\del);
+		    
+		    % decimated chain
+		    \draw[-] (\orig+0*\trans,\vertspac) -- (\orig+5*\trans,\vertspac);
+		    \draw[-] (\orig+5*\trans,\vertspac) -- (\orig+10*\trans,\vertspac);
+		    
+		    \filldraw (\orig+0*\trans,\vertspac) circle (0.05);
+		    \filldraw (\orig+5*\trans,\vertspac) circle (0.05) node [below] {$\psi_{d_a(i)}$};
+		    \filldraw (\orig+10*\trans,\vertspac) circle (0.05);
+		\end{tikzpicture}
+
+\end{document}

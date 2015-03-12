@@ -13,6 +13,17 @@
 \usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref} % hyperlinks
 \usepackage{tikz} % drawing in LaTeX
 \usepackage{ dsfont } % hollow letters
+
+% compile child documents using this preamble
+\usepackage{subfiles}
+
+% compile child files with separate preambles, and include them in the document
+\usepackage{standalone}
+
+% subfigure
+\usepackage{caption}
+\usepackage{subcaption} 
+
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
 
@@ -23,8 +34,7 @@
 \newcommand{\simlim}[2]{\ensuremath{ \underset{#1 \rightarrow #2}{\sim} }}
 
 \newcommand{\om}{\ensuremath{\omega}}
-\newcommand{\lb}{\ensuremath{\lambda}}
-\newcommand{\lbbar}{\ensuremath{\overline{\lambda}}}
+\newcommand{\lb}{\ensuremath{\overline{\lambda}}}
 \newcommand{\zb}{\ensuremath{\overline{z}}}
 
 \title{\textbf{Fractal dimensions of quasicrystals \emph{via} a perturbative renormalization group.}}
@@ -85,7 +95,7 @@ determines the sequence of jump amplitudes. How does $i'_k$ changes when we jump
 	\end{dcases*}
 \end{equation}
 Thus, the sequence of $i'_k$ furnishes a natural renumbering of the sites, as was first noted by R. Mosseri \cite{Moss}. A generalization of this renumbering to higher dimensional quasicrystals can be found in \cite{MossSire}.
-In the basis where sites are numbered using $i'$, up to a suitable shift of the origin, the Hamiltonian rewrites as a long-range, Toeplitz matrix:
+In the basis where sites are numbered using $i'$, up to a suitable shift of the origin, the Hamiltonian rewrites as a two-banded Toeplitz matrix:
 \begin{equation}
 	H_n = 
 	\bordermatrix{ 
@@ -110,37 +120,9 @@ The $n^\text{th}$ Fibonacci approximant consists of a block of $F_{n-2} + F_{n-1
 Figure \eqref{fig:fib8} shows the molecules and atoms of the fifth Fibonacci approximant, together with the co-numbering of the sites.
 
 \begin{figure}[htp]
-\centering
-    	\begin{tikzpicture}[scale=.7]
-    		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{1.5}
-    		\newcommand{\vertspac}{-2.}
-    	
-    		% initial chain
-    	
-    		% bonds 
-        	\draw[-,double] (\orig, 0)  node [left] {$F_{5} = 8$}  -- (\orig+\trans, 0);
-			\draw[-] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-,double] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
-			\draw[-] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-,double] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
-    	
-    	
-    		% sites
-		    \filldraw (\orig+0*\trans,0) circle (0.05) node [below] {1};
-		    \filldraw (\orig+1*\trans,0) circle (0.05) node [below] {6};
-		    \filldraw (\orig+2*\trans,0) circle (0.05) node [below] {3};
-		    \filldraw (\orig+3*\trans,0) circle (0.05) node [below] {8};
-		    \filldraw (\orig+4*\trans,0) circle (0.05) node [below] {5};
-		    \filldraw (\orig+5*\trans,0) circle (0.05) node [below] {2};
-		    \filldraw (\orig+6*\trans,0) circle (0.05) node [below] {7};
-		    \filldraw (\orig+7*\trans,0) circle (0.05) node [below] {4};
-		      
-		\end{tikzpicture}
-\caption{The periodically repeated block of the fifth approximant to the Fibonacci chain. Weak couplings $t_w$ are represented by a single line, and strong couplings $t_s$ by a double line. Below each site is its co-numbered label.}
+	\centering
+	\subfile{img/fibonacci_approximant.tex}
+	\caption{The periodically repeated block of the fifth approximant to the Fibonacci chain. Weak couplings $t_w$ are represented by a single line, and strong couplings $t_s$ by a double line. Below each site is its co-numbered label.}
 \label{fig:fib8}
 \end{figure}
 
@@ -173,55 +155,9 @@ decimates all sites except molecular ones. Fig. \eqref{fig:mol_defl} examplifies
 Crucially, the deflated chain is again a Fibonacci chain. More precisely, the molecular deflation relates the approximant of size $n$ to the approximant of size $n-2$: $d_m(C_n C_n \dots) = C_{n-2} C_{n-2} \dots$.
 
 \begin{figure}[htp]
-\centering
-    	\begin{tikzpicture}[scale=.7]
-    		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{1.5}
-    		\newcommand{\vertspac}{-2.}
-    		\newcommand{\vertsize}{.5} % vertical spand of the rectangles
-    		\newcommand{\del}{.2}
-    	
-    		% initial chain
-    	
-    		% bonds 
-        	\draw[-] (\orig, 0)  node [left] {}  -- (\orig+\trans, 0);
-			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
-			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
-    	
-    		% sites
-			\foreach \x in {0,...,7}
-		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
-		      
-		    % rectangles around molecules
-		    \draw [rounded corners] (\orig +\trans-\del,-\vertsize) rectangle (\orig+2*\trans+\del,\vertsize);
-		    \draw [rounded corners] (\orig +3*\trans-\del,-\vertsize) rectangle (\orig+4*\trans+\del,\vertsize);
-		    \draw [rounded corners] (\orig +6*\trans-\del,-\vertsize) rectangle (\orig+7*\trans+\del,\vertsize);
-		    
-		    % arrows below rectangles
-		    \draw [->] (\orig+1.5*\trans,-\vertsize-\del) -- (\orig+1.5*\trans,\vertspac+\del);
-		    \draw [->] (\orig+3.5*\trans,-\vertsize-\del) -- (\orig+3.5*\trans,\vertspac+\del);
-		    \draw [->] (\orig+6.5*\trans,-\vertsize-\del) -- (\orig+6.5*\trans,\vertspac+\del);
-		      
-			% molecular chains
-			
-			\foreach \x in {1}
-			{
-				\draw[-] (\orig, \x*\vertspac) node [left] {} -- (\orig+1.5*\trans, \x*\vertspac);
-				\draw[-,double] (\orig+1.5*\trans, \x*\vertspac) -- (\orig+3.5*\trans, \x*\vertspac);
-				\draw[-] (\orig+3.5*\trans, \x*\vertspac) -- (\orig+6.5*\trans, \x*\vertspac);
-				\draw[-,double] (\orig+6.5*\trans, \x*\vertspac) -- (\orig+8*\trans, \x*\vertspac);
-				
-				\filldraw (\orig+1.5*\trans,\x*\vertspac) circle (0.05);
-				\filldraw (\orig+3.5*\trans,\x*\vertspac) circle (0.05);
-				\filldraw (\orig+6.5*\trans,\x*\vertspac) circle (0.05);
-			}
-		\end{tikzpicture}
-\caption{The molecular deflation rule illustrated. Here we relate the fifth approximant to the third.}
+	\centering
+	\subfile{img/molecular_deflation.tex}
+	\caption{The molecular deflation rule illustrated. Here we relate the fifth approximant to the third.}
 \label{fig:mol_defl}
 \end{figure}
 
@@ -231,48 +167,9 @@ The atomic decimation relates the approximant of size $n$ to the approximant of 
 Fig. \eqref{fig:at_defl} examplifies the procedure.
 
 \begin{figure}[htp]
-\centering
-    	\begin{tikzpicture}[scale=.7]
-    		\newcommand{\orig}{-1.5}
-    		\newcommand{\trans}{1.5}
-    		\newcommand{\vertspac}{-2.}
-    		\newcommand{\vertsize}{.5} % vertical spand of the rectangles
-    		\newcommand{\del}{.2}
-    	
-    		% initial chain
-    	
-    		% bonds 
-        	\draw[-] (\orig, 0)  node [left] {}  -- (\orig+\trans, 0);
-			\draw[-,double] (\orig+\trans,0) -- (\orig+2*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+2*\trans,0) -- (\orig+3*\trans,0); % node [midway, above] {$t_w$};	
-			\draw[-,double] (\orig+3*\trans,0) -- (\orig+4*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+4*\trans,0) -- (\orig+5*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-] (\orig+5*\trans,0) -- (\orig+6*\trans,0); % node [midway, above] {$t_w$};
-			\draw[-,double] (\orig+6*\trans,0) -- (\orig+7*\trans,0); % node [midway, above] {$t_s$};
-			\draw[-] (\orig+7*\trans,0) -- (\orig+8*\trans,0); % node [midway, above] {$t_w$};
-    	
-    		% sites
-			\foreach \x in {0,...,7}
-		      \filldraw (\orig+\x*\trans,0) circle (0.05); % node [below] {$\ket{\x}$};
-		      
-		    % rectangles around atoms
-		    \draw [rounded corners] (\orig-\vertsize,-\vertsize) rectangle (\orig+\vertsize,\vertsize);
-		    \draw [rounded corners] (\orig-\vertsize+5*\trans,-\vertsize) rectangle (\orig+\vertsize+5*\trans,\vertsize);
-		    
-		    % arrows below rectangles
-		    \draw [->] (\orig,-\vertsize-\del) -- (\orig,\vertspac+\del);
-		    \draw [->] (\orig+5*\trans,-\vertsize-\del) -- (\orig+5*\trans,\vertspac+\del);
-		      
-		    % atomic chain
-		    
-        	\draw[-] (\orig, \vertspac)  node [left] {}  -- (\orig+5*\trans, \vertspac);
-			\draw[-,double] (\orig+5*\trans,\vertspac) -- (\orig+8*\trans,\vertspac); % node [midway, above] {$t_s$};
-			
-			\filldraw (\orig,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-			\filldraw (\orig+5*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-%			\filldraw (\orig+8*\trans,\vertspac) circle (0.05); % node [below] {$\ket{\x}$};
-		\end{tikzpicture}
-\caption{The atomic deflation rule illustrated. Here we relate the fifth approximant to the second.}
+	\centering
+	\subfile{img/atomic_deflation.tex}
+	\caption{The atomic deflation rule illustrated. Here we relate the fifth approximant to the second.}
 \label{fig:at_defl}
 \end{figure}
 
@@ -416,11 +313,48 @@ In this appendix, we derive the expression of the renoralization factors $\lambd
 
 \subsection{Atomic eigenstates}
 
-We have
+Let $\ket{\psi(E)}$ be an eigenstate for an energy $E$ belonging to the atomic energy cluster, at step $n$.
+At first order, $\ket{\psi(E)}$ is an eigenstate of $\zb H_{n-3}$, with the sites rearranged on the $n^\text{th}$ approximant.
+Therefore, at first order $\ket{\psi(E)}$ is only nonzero on some atomic sites of the $n^\text{th}$ chain. Let $i$ label one of these sites.
+
+The fact that $\ket{\psi(E)}$ is an eigenstate of $\zb H_{n-3}$, with the sites rearranged on the $n^\text{th}$ approximant translates into the equation
+\begin{equation}
+\label{eq:renorm_a_first}
+	\psi_i(E) = \psi_{d_a(i)}(E/\bar z)
+\end{equation}
+where $d_a(i)$ is the new numbering of the site $i$ after an atomic deflation operation.
+
+Now, at the next order, some of the intensity, that was at first order concentrated only on some atomic sites, ``leaks'' on the molecular sites neighbouring these atomic sites. 
+This translates into the fact that the intensity on these atomic sites is reduced by a factor $\lb$.
+So, at second order, equation \eqref{eq:renorm_a_first} becomes
 \begin{equation}
 \label{eq:renorm_a}
-	\psi_i(E) = \sqrt{\lambda} \psi_{d_a(i)}(E/\bar z)
+	\psi_i(E) = \sqrt{\lb} \psi_{d_a(i)}(E/\bar z)
 \end{equation}
+To determine $\lb$, we just have to compute how much intensity has leaked out of site $i$.
+
+\begin{figure}[htp]
+
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includestandalone[width=.82\textwidth]{img/local_environment_atoms1}
+  \caption{Atomic site surrounded by strong and weak effective couplings.}
+  \label{fig:mod1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includestandalone[width=1.\textwidth]{img/local_environment_atoms2}
+  \caption{Atomic site surrounded by two weak effective couplings.}
+  \label{fig:atom1}
+\end{subfigure} \\
+
+\caption{The two types of local environments of an atomic site. }
+\label{fig:energyconf1}
+\end{figure}
+
+
+
 $\lambda$ is constrained by the unitarity of the wavefunction:
 \begin{equation}
 	\Sigma^n \define \sum_{i=1}^{F_n} |\psi_i|^2 = 1
