@@ -320,7 +320,7 @@ Therefore, at first order $\ket{\psi(E)}$ is only nonzero on some atomic sites o
 The fact that $\ket{\psi(E)}$ is an eigenstate of $\zb H_{n-3}$, with the sites rearranged on the $n^\text{th}$ approximant translates into the equation
 \begin{equation}
 \label{eq:renorm_a_first}
-	\psi_i(E) = \psi_{d_a(i)}(E/\bar z)
+	\psi_i(E) = \psi_{d_a(i)}(E/\bar z),
 \end{equation}
 where $d_a(i)$ is the new numbering of the site $i$ after an atomic deflation operation.
 
@@ -329,7 +329,7 @@ This translates into the fact that the intensity on these atomic sites is reduce
 So, at second order, equation \eqref{eq:renorm_a_first} becomes
 \begin{equation}
 \label{eq:renorm_a}
-	\psi_i(E) = \sqrt{\lb} \psi_{d_a(i)}(E/\bar z)
+	\psi_i(E) = \sqrt{\lb} \psi_{d_a(i)}(E/\bar z).
 \end{equation}
 To determine $\lb$, we just have to compute how much intensity has leaked out of site $i$.
 
@@ -340,72 +340,31 @@ To determine $\lb$, we just have to compute how much intensity has leaked out of
   \centering
   \includestandalone[width=.82\textwidth]{img/local_environment_atoms1}
   \caption{Atomic site surrounded by strong and weak effective couplings.}
-  \label{fig:mod1}
+  \label{fig:atom1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includestandalone[width=1.\textwidth]{img/local_environment_atoms2}
   \caption{Atomic site surrounded by two weak effective couplings.}
-  \label{fig:atom1}
+  \label{fig:atom2}
 \end{subfigure} \\
 
 \caption{The two types of local environments of an atomic site. }
 \label{fig:energyconf1}
 \end{figure}
 
+The atomic site $i$ we consider can either be surrounded by one weak effective bond (fig. \eqref{fig:atom1}), or by two effective weak bonds (fig. \eqref{fig:atom2}).
+In both cases, it is straighforward to compute, at leading order in $\rho$, the fraction of the amplitude at site $i$ who is transferred to neighbouring molecular sites.
+Note that destructive interferences result in half the molecular sites being unaffected at leading order.
 
-
-$\lambda$ is constrained by the unitarity of the wavefunction:
+As we already said, at first order in $\rho$, the amplitude in concentrated at site $i$. We call $I$ the intensity at this site: $I=|\psi_i|^2$. 
+At second order in $\rho$, the intensity $I$ has spread out at neighbouring molecular sites, and therefore the intensity at site $i$ is attenuated by a factor $\lb$. We have
 \begin{equation}
-	\Sigma^n \define \sum_{i=1}^{F_n} |\psi_i|^2 = 1
+	\lb I ( 1 + 2\rho^2 + \mathcal{O}(\rho^4)) = I,
 \end{equation}
-Let us note that we can partition the set of atomic sites of $S_n$ into the set of atomic sites that remain atomic sites after deflation $S_{a'}$ and the set atomic sites that become molecular sites after deflation $S_{m'}$.
-Using this partition to transform the sum on all sites, we get
+And thus
 \begin{equation}
-	\sum_{i=1}^{F_n} |\psi_i|^2 = \sum_{i \in S_{a'}} \left( |\psi_i|^2 + |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i+4}|^2 + |\psi_{i-4}|^2 \right) + \sum_{i \in S_{m'}} \left( |\psi_i|^2 + |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i\pm4}|^2 \right)
-\end{equation}
-We can also partition this sum into a sum over atomic sites $\Sigma^n_a$ and over molecular sites $\Sigma^n_m$.
-We have
-\begin{equation}
-	\begin{cases}
-	\Sigma^n_a &= \sum_{i \in S_{a'}}  |\psi_i|^2  + \sum_{i \in S_{m'}}  |\psi_i|^2\\
-	\Sigma^n_m &= \sum_{i \in S_{a'}} \left( |\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i+4}|^2 + |\psi_{i-4}|^2 \right) + \sum_{i \in S_{m'}} \left(|\psi_{i+2}|^2 + |\psi_{i-2}|^2 + |\psi_{i\pm4}|^2 \right)
-	\end{cases}
-\end{equation}
-Now, beacause of the way we assumed the wavefunction on atomic sites is renormalized (eq. \eqref{eq:renorm_a}), we have
-\begin{align}
-	\Sigma_a^n &= \bar \lambda  \left(  \sum_{i \in S_{a'}}  |\psi_{d_a(i)}|^2  + \sum_{i \in S_{m'}}  |\psi_{d_a(i)}|^2 \right) \\
-	&= \bar \lambda \sum_{i = 1}^{F_{n-3}} |\psi_i|^2 \\
-	&= \bar \lambda \Sigma^{n-3}
-\end{align}
-and thus
-\begin{equation}
-\label{eq:renorm_aa}
-\boxed{
-	\Sigma_a^n = \bar \lambda
-	}
-\end{equation}
-
-Now, in the perturbative limit, the wafunction at molecular sites can be expressed in terms of the wavefunction at atomic sites\footnote{To derive these relations, we use the fact that $E$ being an atomic energy, it is at most of order $\rho$. We also use the fact that at leading order the wavefunction is of the same order on all atomic sites.}: 
-\begin{equation}
-	\begin{cases}
-	\psi_{i\pm2} &= - \rho \psi_i + \mathcal{O}(\rho E \psi_i) \\
-	\psi_{i\pm4} &= \phantom{-}\rho^2 \psi_i  + \mathcal{O}(\rho^4 \psi_i)
-	\end{cases}
-\end{equation}
-Using this together with \eqref{eq:renorm_a} we get\footnote{If energy really is at most of order $\rho$, the formula below is correct only up to order $\rho^2$, and the terms of order $\rho^4$ should be dropped!!},
-\begin{equation}
-	\Sigma_m^n = \bar \lambda \left( 2(\rho^2 + \rho^4) \Sigma_a^{n-3} + (2 \rho^2 + \rho^4) \Sigma_m^{n-3} \right)
-\end{equation}
-Since $\Sigma_m^{n-3} + \Sigma_a^{n-3} = 1$, and knowing that $\Sigma_a^{n-3} = \bar \lambda$, we have finally
-\begin{equation}
-\boxed{
-	\Sigma_m^n = \bar \lambda \left( 2 \rho^2 + \rho^4 + \bar \lambda \rho^4 \right)
-}
-\end{equation}
-Finally,
-\begin{equation}
-	\bar \lambda(\rho) = \frac{1}{1+2\rho^2} +\mathcal{O}(\rho^4)
+	\lb = \frac{1}{1+2 \rho^2} + \mathcal{O}(\rho^4).
 \end{equation}
 
 \subsection{Molecular eigenstates}
