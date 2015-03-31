@@ -234,6 +234,7 @@ From that, we hope to characterize the multifractality of the quasiperiodic chai
 Since the Hamiltonian of an approximant is the direct sum of three Hamiltonians, the energy spectrum is split into three bands.
 Specifically, the spectrum $\mathcal{S}_n$ of the $n^\text{th}$ approximant is the union of scaled version of the spectra at step $n-2$ and $n-3$:
 \begin{equation}
+\label{eq:recur_spectrum}
 	\mathcal{S}_n = \left( z \mathcal{S}_{n-2} - 1 \right) \bigcup \left( \zb \mathcal{S}_{n-3} \right) \bigcup \left( z \mathcal{S}_{n-2} + 1 \right) 
 \end{equation}
  
@@ -256,9 +257,22 @@ We can plot these sequences on a trifurcating tree (fig. \eqref{fig:tree_en}), a
 \end{figure}
 
 \begin{figure}[htp]
+
 \centering
-\includegraphics[scale=0.30]{wf_idos.png}
-\caption{Presence probability in the co-numbered basis, for each energy state. (Exact diagonalization on a system of 89 sites, for a coupling $\rho = 1/10$.)}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\textwidth]{img/amplitude_asym.png}
+  \caption{Amplitude, asymptoptic expression.}
+  \label{fig:wf_idos_asym}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\textwidth]{img/wf_idos.png}
+  \caption{Amplitude, numerical expression.}
+  \label{fig:wf_idos_num}
+\end{subfigure} \\
+
+\caption{The amplitude of the wavefunctions coefficients, ordered by co-numbering and energy. }
 \label{fig:wf_idos}
 \end{figure}
 
@@ -274,6 +288,21 @@ This result has important consequences. In particular, it implies a symmetry bet
 \section{Eigenstates renormalization}
 
 At leading order in $\rho$ the renormalization of the eigenstates is trivial: an atomic eigenstate at step $n$ is just an eigenstate of the system at step $n-3$, while a molecular eigenstate is just an eigenstate of the system at step $n-2$, divided by a factor of $\sqrt{2}$ because we have two molecular clusters.
+
+At this order, the recursion relation between energies \eqref{eq:recur_spectrum} makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
+\begin{equation}
+	2 \omega^2 \zb^{-(q-1)D_q}+\omega^3 z^{-(q-1)D_2} = 0
+\end{equation}
+In particular, we find for the Hausdorff dimension
+\begin{equation}
+	D_0 = \frac{\log( \sqrt{2} -1 )}{\log \rho}
+\end{equation}
+Note that Damanik \& Gorodetski \cite{DamanikGorodetski} found the same Hausdorff dimension for the diagonal model, in the weak-coupling regime, using trace-map-based methods. Perhaps is there a mapping between the two?
+
+Moreover, we can compute the fractal dimensions of the wavefunctions. We find
+\begin{equation}
+	D_q(i) = x_i \frac{\log 2}{\log \tau}
+\end{equation}
 
 To go beyond the leading order -- where the interesting physics lies! -- we have to consider overlap between atoms and molecules. We are now going to suppose that atomic eigenstates have non zero presence probability on molecules, an vice-versa.
 
