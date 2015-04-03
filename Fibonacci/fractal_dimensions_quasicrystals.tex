@@ -291,17 +291,17 @@ At leading order in $\rho$ the renormalization of the eigenstates is trivial: an
 
 At this order, the recursion relation between energies \eqref{eq:recur_spectrum} makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
 \begin{equation}
-	2 \omega^2 \zb^{-(q-1)D_q}+\omega^3 z^{-(q-1)D_2} = 0
+	2 \omega^{2 q} z^{-(q-1)D_q}+\omega^{3 q} \zb^{-(q-1)D_q} = 1
 \end{equation}
 In particular, we find for the Hausdorff dimension
 \begin{equation}
-	D_0 = \frac{\log( \sqrt{2} -1 )}{\log \rho}
+	D_0 = \frac{\log( \sqrt{2} -1 )}{\log \rho} + \mathcal{O}\left( \frac{1}{(\log \rho)^2} \right)
 \end{equation}
-Note that Damanik \& Gorodetski \cite{DamanikGorodetski} found the same Hausdorff dimension for the diagonal model, in the weak-coupling regime, using trace-map-based methods. Perhaps is there a mapping between the two?
+Note that Damanik \& Gorodetski \cite{DamanikGorodetski} found the same result, using trace-map-based methods.
 
 Moreover, we can compute the fractal dimensions of the wavefunctions. We find
 \begin{equation}
-	D_q(i) = x_i \frac{\log 2}{\log \tau}
+	D_q(i) = x_i \frac{\log 2}{\log \tau} + \mathcal{O}(\rho^2)
 \end{equation}
 
 To go beyond the leading order -- where the interesting physics lies! -- we have to consider overlap between atoms and molecules. We are now going to suppose that atomic eigenstates have non zero presence probability on molecules, an vice-versa.
