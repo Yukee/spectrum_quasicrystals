@@ -301,7 +301,20 @@ Now that we have completely characterized the spectrum and the wavefunction to l
 
 \subsection{Fractal dimensions of the spectrum}
 
-At leading order, the recursion relation between energies \eqref{eq:recur_spectrum} makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
+We compute the fractal dimensions of the spectrum using the thermodynamical formalism \cite{Halsey1986}. We define the partition function
+\begin{equation}
+	\Gamma^n(q,\tau) = \sum_{a} \frac{\left( 1/F_n \right)^q}{(\Delta_a^n)^\tau}
+\end{equation}
+where $\Delta_a^n$ is taken to be the width of the energy band associated to the energy level labelled $a$.
+One can show \cite{Halsey1986} that the generalized fractal dimensions of the spectrum $D_q$ are given by $D_q = \tau_q/(q-1)$ where $\tau_q$ is defined by
+\begin{align}
+	\Gamma^n(q,\tau > \tau_q) &\rightarrow +\infty \\
+	\Gamma^n(a,\tau < \tau_q) &\rightarrow 0
+\end{align}
+In practice, a good approximation of $\tau_q$ is given by $\Gamma^{n+1}(q,\tau_q)/\Gamma^n(q,\tau_q) = 1$ for $n$ large.
+
+At leading order, the recursion relation between energies \eqref{eq:recur_spectrum} translates into a recursion relation between partition functions. 
+This makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
 \begin{equation}
 	2 \omega^{2 q} z^{-(q-1)D_q}+\omega^{3 q} \zb^{-(q-1)D_q} = 1
 \end{equation}
@@ -317,13 +330,21 @@ in agreement with the result of Damanik \& Gorodetski \cite{DamanikGorodetski}, 
 
 \subsection{Fractal dimensions of the wavefunctions}
 
+The fractal dimensions $D_q(a)$ of the wavefunction associated to the energy level $a$ are defined by
+\begin{equation}
+	\chi_q^n(a) = \sum_i |\psi_i^n(a)|^{2q} \simlim{n}{\infty} \left( \frac{1}{F_n} \right)^{(q-1)D_q(a)}
+\end{equation}
+Note that $D_2(a)$ is the inverse participation ratio.
+$D_2(a) = 1$ indicates that the state $a$ is extended, while $D_2(a) = 0$ characterizes a localized state.
+An intermediate value $0 < D_2(a) < 1$ is the signature of a critical state, whose multifractal properties can be probed by varying $q$.
+
 At leading order in $\rho$ the renormalization of the eigenstates is trivial. 
 On a site whose renormalization path matches the one of the energy level we consider, the amplitude at step $n$ is just the amplitude at step $n-3$ if the energy is in the atomic cluster, while the amplitude is the one at step $n-2$ divided by a factor $\sqrt{2}$ if the energy is in the molecular cluster.
 The division by a factor of $\sqrt{2}$ simply comes from the fact that molecular sites are in pairs.
 
 Therefore, we have for the fractal dimensions of the wavefunction of the energy level labelled by $a$,
 \begin{equation}
-	D_q(a) = x_a \frac{\log 2}{\log \tau} + \mathcal{O}(\rho^2),
+	D_q(a) = x_a \frac{\log 2}{\log \omega^{-1}} + \mathcal{O}(\rho^2),
 \end{equation}
 where
 \begin{equation}
@@ -332,17 +353,32 @@ where
 with $n_\pm(a)$ the number of $+$/$-$ letters in the renormalization path of $a$.
 In other words, $x_a$ is the fraction of renormalization steps in which the level $a$ was in a molecular cluster.
 
-Since $x_a \leq 1/2$, we have $D_q(a) < 1$: the wavefunctions are fractal, as we expect for a quasiperiodic system.
+Since $x_a \leq 1/2$, we have $0 < D_q(a) < 1$: the wavefunctions are critical, as we expect for a quasiperiodic system.
 We have $x_a = 0$ for the level that has the renormalization path $00...$, ie for the energy level $E=0$, at the center of the atomic cluster. The corresponding eigenstate has a zero fractal dimension, and is thus completely localized. As we approach the $E=0$ level, $x_a$ approaches monotonously $0$ and the wavefunctions becomes more and more localized.
 $x_a$ reaches its maximal value, $1/2$, for the levels having the renormalization path $++...$ and $--...$, ie for the levels $E=E_\text{min}, E_\text{max} = \pm 1/(1+z)$ at the edges of the spectrum.
-The corresponding eigenstates are the most extended.
+The corresponding eigenstates are the most extended. They occupy a fraction $(1/F_n)^{\frac{\log 2}{\log \omega^{-2}}}$ of the sites.
 
 It is also interesting to note that the fractal dimensions of the wavefunction does not depend on $q$: the wavefunctions are not multifractal.
 We expect multifractality to appear at the next-to-leading order in $\rho$.
-To go beyond the leading order -- where the interesting physics lies! -- we have to consider overlap between atoms and molecules. 
-At this order the picture of molecular and atomic eigenstates and energies remains relevant, however it is now possible to form an atomic eigenstate to have nonzero amplitude on molecular sites, and vice-versa.
-A complete analysis of the situation would require pushing perturbation theory to the next-to-leading order.
+To go beyond the leading order -- where the interesting physics lies! -- we have to consider overlap between atoms and molecules.
+
+\section{Fractal dimensions at next-to-leading order and multifractality}
+ 
+At next-to-leading order the picture of molecular and atomic eigenstates and energies remains relevant, but it is now possible to form an atomic eigenstate to have nonzero amplitude on molecular sites, and vice-versa.
+A complete analysis of the situation would require pushing perturbation theory to the next order.
 However, as long as we are interested in computing fractal dimensions, we only need to know the correction to the wavefunctions at the sites where they have nonzero amplitude at leading order.
+
+It is easier to encode the corrections to leading order in a multiplicative factor:
+\begin{equation}
+	\psi_i(a) = \sqrt{\lambda_i(a)} \psi^{(0)}_i(a),
+\end{equation}
+Where $\psi^{(0)}$ is the wavefunction at leading order.
+
+Numerically, we observe that the fluctuations are negligible relative to the mean value. More precisely, we have
+\begin{equation}
+	\lambda(a)^q \gg \lambda(a)^{q-k} \Delta \lambda_i(a)^k, \text{~} \forall k \in [1,q]
+\end{equation}
+The validity of the approximation improves as $q$ becomes larger.
 
 However, since for example an energy $E$ of the atomic cluster at step $n$ corresponds to an energy $E/\zb$ at step $n-3$, we still hope to relate the amplitudes of the atomic eigenstate if energy $E$ on atomic sites, to the amplitude of the eigenstate of energy $E/\zb$ at step $n-3$. Specifically, we are going to assume that they are simply related by scaling factor:
  \begin{equation}
