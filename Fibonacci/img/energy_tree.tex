@@ -1,0 +1,42 @@
+\documentclass{standalone}
+
+\usepackage{tikz} % drawing in LaTeX
+
+\begin{document}
+
+
+    	\begin{tikzpicture}[scale=.7,
+    	 grow=right,
+    	 level 1/.style={sibling distance=5cm, level distance=4cm}, 
+    	 level 2/.style={sibling distance=1.5cm, level distance=4cm},
+    	 level 3/.style={level distance=1cm}]
+    	 
+    	 % style of the vertices
+    	 \tikzstyle{vertex}=[circle,fill,scale=0.7]
+    	 
+			\node [vertex] {}
+				child {node [vertex] {}
+					child {node [vertex] {}
+						child {node {$--$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$-0$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$-+$} edge from parent[draw=none] }}}
+				child {node [vertex] {}
+					child {node [vertex] {}
+						child {node {$0-$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$00$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$0+$} edge from parent[draw=none] }}}
+				child {node [vertex] {}
+					child {node [vertex] {}
+						child {node {$+-$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$+0$} edge from parent[draw=none] }}
+					child {node [vertex] {}
+						child {node {$++$} edge from parent[draw=none] }}};
+    		
+		\end{tikzpicture}
+
+\end{document}
