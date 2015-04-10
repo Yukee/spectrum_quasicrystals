@@ -313,10 +313,14 @@ One can show \cite{Halsey1986} that the generalized fractal dimensions of the sp
 \end{align}
 In practice, a good approximation of $\tau_q$ is given by $\Gamma^{n+1}(q,\tau_q)/\Gamma^n(q,\tau_q) = 1$ for $n$ large.
 
+In particular, the Hausdorff dimension, $D_0$, helps characterizing the nature of the spectrum. 
+$D_0 = 0$ for a pure-point spectrum, while $D_0 = 1$ indicates that the spectrum has an absolutely continuous component.
+An intermediate value $0 < D_0 < 1$ is the signature of a fractal spectrum, whose multifractal properties can be probed by varying $q$.
+
 At leading order, the recursion relation between energies \eqref{eq:recur_spectrum} translates into a recursion relation between partition functions. 
 This makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
 \begin{equation}
-	2 \omega^{2 q} z^{-(q-1)D_q}+\omega^{3 q} \zb^{-(q-1)D_q} = 1
+	2 \omega^{2 q} z^{-(q-1)D_q}+\omega^{3 q} \zb^{-(q-1)D_q} = 1.
 \end{equation}
 Thus, we have
 \begin{equation}
@@ -327,6 +331,9 @@ In particular, we find for the Hausdorff dimension
 	D_0 = \frac{\log( \sqrt{2} -1 )}{\log \rho} + \mathcal{O}\left( \frac{1}{(\log \rho)^2} \right)
 \end{equation}
 in agreement with the result of Damanik \& Gorodetski \cite{DamanikGorodetski}, using trace-map-based methods.
+
+We have $0 < D_0 < 1$ for $\rho > 0$. 
+Therefore we recover the well-established result that the spectrum of the Fibonacci hamiltonian is fractal as soon as $\rho > 0$.
 
 \subsection{Fractal dimensions of the wavefunctions}
 
@@ -344,6 +351,7 @@ The division by a factor of $\sqrt{2}$ simply comes from the fact that molecular
 
 Therefore, we have for the fractal dimensions of the wavefunction of the energy level labelled by $a$,
 \begin{equation}
+\label{eq:dqpsi0}
 	D_q(a) = x_a \frac{\log 2}{\log \omega^{-1}} + \mathcal{O}(\rho^2),
 \end{equation}
 where
@@ -364,45 +372,120 @@ To go beyond the leading order -- where the interesting physics lies! -- we have
 
 \section{Fractal dimensions at next-to-leading order and multifractality}
  
-At next-to-leading order the picture of molecular and atomic eigenstates and energies remains relevant, but it is now possible to form an atomic eigenstate to have nonzero amplitude on molecular sites, and vice-versa.
+At next-to-leading order the picture of molecular and atomic eigenstates and energies remains relevant, but it is now possible for an atomic eigenstate to have nonzero amplitude on molecular sites, and vice-versa.
 A complete analysis of the situation would require pushing perturbation theory to the next order.
-However, as long as we are interested in computing fractal dimensions, we only need to know the correction to the wavefunctions at the sites where they have nonzero amplitude at leading order.
+However, as long as we are interested in computing fractal dimensions, we only need to know the corrections to the wavefunction amplitudes at the sites where they had nonzero amplitude at leading order.
 
 It is easier to encode the corrections to leading order in a multiplicative factor:
 \begin{equation}
-	\psi_i(a) = \sqrt{\lambda_i(a)} \psi^{(0)}_i(a),
+	\psi_i^n(a) = \sqrt{\lambda_i(a)} \psi^{n,(0)}_i(a),
 \end{equation}
-Where $\psi^{(0)}$ is the wavefunction at leading order.
+where $\psi^{(0)}$ is the wavefunction at leading order. This is more than a simple formal rewriting of the expansion of the wavefunction around $\rho = 0$. Indeed, $\psi^{n,(0)}_i(a)$ is related by the renormalization group to a wavefunction coefficient of a smaller approximant.
+specifically we have $\psi^{n,(0)}_i(a) = \psi^{n-3,(0)}_{i'}(a')$ for an energy of the atomic cluster, and $\psi^{n,(0)}_i(a) = \psi^{n-2,(0)}_{i'}(a')/\sqrt{2}$ for an energy of the molecular clusters.
+Thus, $\lambda_i(a)$ has the meaning of the correction to the renormalization of the wavefunctions, appearing when we take into account higher order terms in $\rho$. 
 
+We call $\lambda(a)$ the average of $\lambda_i(a)$ over all sites, at fixed energy $E_a$.
+We can formally write
+\begin{equation}
+	\lambda_i(a) = \lambda(a) + \Delta \lambda_i(a).
+\end{equation}
 Numerically, we observe that the fluctuations are negligible relative to the mean value. More precisely, we have
 \begin{equation}
 	\lambda(a)^q \gg \lambda(a)^{q-k} \Delta \lambda_i(a)^k, \text{~} \forall k \in [1,q]
 \end{equation}
 The validity of the approximation improves as $q$ becomes larger.
 
-However, since for example an energy $E$ of the atomic cluster at step $n$ corresponds to an energy $E/\zb$ at step $n-3$, we still hope to relate the amplitudes of the atomic eigenstate if energy $E$ on atomic sites, to the amplitude of the eigenstate of energy $E/\zb$ at step $n-3$. Specifically, we are going to assume that they are simply related by scaling factor:
- \begin{equation}
-\label{eq:renorm_a}
-	\psi_i^n(E) = \sqrt{\lambda} \psi^{n-3}_{d_a(i)}(E/\bar z)
+This means that, for $q \geq 1$, we can write
+\begin{equation}
+	\chi_q^n(a) = \begin{cases*}
+	\lambda(a)^q \chi_q^{n-3}(a') & if $a$ is an atomic level, \\
+	\left(\lambda(a)/2\right)^q \chi_q^{n-2}(a') & if $a$ is a molecular level. \\
+	\end{cases*}
 \end{equation}
-where $d_a(i)$ is the new numbering of the site $i$ after an atomic deflation operation.
+Iterating this recurrence relation, we find that 
+\begin{equation}
+\label{eq:rec_chi}
+	\chi_q^n(a) = \left( \lambda(a) \lambda(a')... \right)^q \chi_q^{n,(0)}(a).
+\end{equation}
+The product $\lambda(a)\lambda(a')...$ encodes the next-to-leading order corrections to $\chi$. 
+It depends only on the sequence $a, a', ...$ that the energy level $a$ follows under the action of the renormalization group.
+Said differently, the corrections to $\chi$, and therefore the fractal dimensions, depend only on the renormalization path of the level $a$.
 
-We can easily compute this factor perturbatively (see appendix \eqref{app:renorm}). We find
+We make the further approximation -- again supported by numerical evidences -- that the renormalization factor $\lambda(a)$ is constant over the atomic and the molecular clusters:
 \begin{equation}
-	\bar \lambda(\rho) = \frac{1}{1+2\rho^2} +\mathcal{O}(\rho^4).
+	\lambda(a) = \begin{cases*}
+	\lb & if $a$ is an atomic level, \\
+	\lambda & if $a$ is a molecular level. \\
+	\end{cases*}
 \end{equation}
-Now, knowing the amplitude of this atomic eigenstates on neighbouring \emph{molecular} sites is easy enough. We find
+We are able to compute $\lb$ and $\lambda$ (see the appendix \eqref{app:renorm} for the details). We find
 \begin{equation}
+\label{eq:lamb}
 	\begin{cases}
-	\psi^n_{i\pm1} &= \phantom{-}0 \\
-	\psi^n_{i\pm2} &= - \rho \psi^n_i \\
-	\psi^n_{i\pm3} &= \phantom{-}0 \\
-	\psi^n_{i\pm4} &= \phantom{-}\rho^2 \psi^n_i
+		\lb = 1/(1+2\rho^2) + \mathcal{O}(\rho^4), \\
+		\lambda = 1/(1+\rho^2/2) + \mathcal{O}(\rho^4).
 	\end{cases}
 \end{equation}
-at leading order.
+Furthermore, we are able to solve the reccurence relation \eqref{eq:rec_chi} completely. We find
+\begin{equation}
+	D_q(a) = D_q^{(0)}(a) - \frac{q}{q-1} \left( x_a \frac{\log \lambda}{\log \omega^{-1}} + \frac{1-2x_a}{3}\frac{\log \lb}{\log \omega^{-1}} \right).
+\end{equation}
+Note that this result is indenpendant of the specific values of $\lb$ and $\lambda$.
+Plugging in the values \eqref{eq:lamb}, we get
+\begin{equation}
+\label{eq:dqpsi2}
+	D_q(a) = D_q^{(0)}(a) + \frac{q}{q-1} \frac{4-5x}{6} \frac{\rho^2}{\log \omega^{-1}} + \mathcal{O}(\rho^4).
+\end{equation}
+Indeed, the next-to-leading order corrections are $q$-dependant: they encode the multifractality of the wavefunctions.
 
-\section{Fractal dimensions in the perturbative limit}
+We now check our theoritical predictions against numerical results.
+
+\begin{figure}[htp]
+
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\textwidth]{img/local_dim_wf.pdf}
+  \caption{The fractal dimension $D_2(a)$ for every wavefunction. In accordance with theoretical predictions, the fractal dimensions organize in lines, each line corresponding to a given value of $x_a$.}
+  \label{fig:dqpsia}
+\end{subfigure}%
+~
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.\textwidth]{img/local_wf.pdf}
+  \caption{Dots: fractal dimension $D_2(a)$ averaged over states $a$ having a given $x_a$. Dashed line: theoretical prediction at leading order (eq. \eqref{eq:dqpsi0}). Solid line: theoretical prediction including multifractal corrections (eq. \eqref{eq:dqpsi2}).}
+  \label{fig:dqpsix}
+\end{subfigure} \\
+
+\caption{Numerical results and theoretical predictions for the fractal dimensions of the wavefunctions, in the $\rho \rightarrow 0$ limit. Numerically we took $\rho = 1/10$, and worked on the approximant $n=19$ (4181 sites). On figure \eqref{fig:dqpsia} we chose the approximant $n = 16$ for the sake of clarity.}
+\label{fig:dqpsi}
+\end{figure}
+
+Figure \eqref{fig:dqpsia} shows how the fractal dimension for a given $q$ (here we chose abitrarily $q=2$) depend on the the chosen state $a$.
+we observe that the value of the fractal dimension organizes in lines. On each line $D_q(a)$ is constant up to small variations. Moreover, a given line is formed of all the points $(a, D_q(a))$ having a given value $x_a = x$. 
+So, we conclude that, up to small variations that should vanish in the limit $\rho \rightarrow 0$, the fractal dimension of a given wavefunction does not depend on the associated state $a$, but only on $x_a$. This is in agreement with the theoretical predictions \eqref{eq:dqpsi2}.
+
+It is therefore meaningful to compute numerically the fractal dimensions averaged over each state $a$ having a given $x_a$ value. We thus obtain the fractal dimensions as a function of the relevant parameter, $x$.
+Figure \eqref{fig:dqpsix} shows the $x$ dependance of the fractal dimension for $q=2$. 
+The numerical results are in good agreement with the theoretical predictions.
+Most interestingly, we see that taking into account the next-to-leading order corrections is required to obtain a good agreement with the numerical results.
+So indeed, the multifractal properties of the wavefunctions -- wich are not captured at leading order in $\rho$ -- are relevant, even for fairly small couplings ($\rho \sim 1/10$).
+As fig. \eqref{fig:dqpsix} shows, the multifractal corrections are most relevant for $x \rightarrow 0$.
+This is easily understandable: for $x=0$ the first order contribution to the fractal dimensions vanishes, so that only the multifractal correction term remains. 
+Therefore the multifractal corrections completely dominate the spatial structure of the corresponding wavefunction (the most atomic one, associated to the renormalization path $00...$).
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/local_wf_q.pdf}
+  \caption{The fractal dimensions $D_q(x)$ of the wavefunctions for the two lowest values of $x$ accessible numerically ($x = 0$ and $x = 1/19$ for the approximant $n=19$ considered here). Dots are numerically computed data points, at solid lines are the theoretical predictions (eq. \eqref{eq:dqpsi2}).}
+\label{fig:dqpsiq}
+\end{figure}
+
+To conclude this section, we show the $q$ dependance of the fractal dimensions for fixed values of $x$ (fig. \eqref{fig:dqpsiq}).
+On the figure we show only the two lowest values of $x$ accessible numerically, because it is for these values close to zero that the $q$ dependance is the most visible. 
+Again, the agreement with the theoretical predictions at the next-to-leading order is good, although we note that the theoretical values are systematically overestimating the numerical ones.
+This demonstrates that our theoretical analysis indeed captures the $q$ dependance of the fractal dimensions.
+Since it is the multifractality of the wavefunctions that is responsible for the nontrivial $q$ dependance of the fractal dimensions, we conclude again that the multifractal corrections are relevant even at small coupling.
 
 \section{Relations between fractal dimensions and universality}
 
