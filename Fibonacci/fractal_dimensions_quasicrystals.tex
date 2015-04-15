@@ -1,5 +1,6 @@
-\documentclass[11pt]{article}
+\documentclass[aps,prl,preprint]{revtex4-1}
 
+\usepackage{natbib}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english, french]{babel} %français
@@ -21,8 +22,8 @@
 \usepackage{standalone}
 
 % subfigure
-\usepackage{caption}
 \usepackage{subcaption}
+%\usepackage{subcaption}
 
 % the equal sign I use to define something
 \newcommand{\define}{\ensuremath{ \overset{\text{def}}{=} }}
@@ -37,17 +38,25 @@
 \newcommand{\lb}{\ensuremath{\overline{\lambda}}}
 \newcommand{\zb}{\ensuremath{\overline{z}}}
 
-\title{\textbf{Fractal dimensions of quasicrystalline chains \emph{via} a perturbative renormalization group.}}
-\author{}
-\date{}
 \begin{document}
+
+\title{Fractal dimensions of electronic wavefunctions for a tight-binding model on the Fibonacci chain.}
+\author{Nicolas Macé}
+\author{Anuradha Jagannathan}
+\author{Frédéric Piéchon}
+\affiliation{Laboratoire de physique des Solides, Université Paris-Saclay, 91400 Orsay, France}
 
 \selectlanguage{english}
 
+\date{\today}
+
+\begin{abstract}
+% insert abstract here
+\end{abstract}
+
 \maketitle
 
-%\abstract{}
-
+\section*{Introduction}
 We focus on tight-binding Hamiltonians on one-dimensional quasiperiodic tilings.
 Notable examples include the Harper model, and the family of quasiperiodic Hamiltonians constructed by the cut and project method. 
 Each of the latter is associated with an irrational number, $\alpha$.
@@ -120,7 +129,6 @@ The $n^\text{th}$ Fibonacci approximant consists of a block of $F_{n-2} + F_{n-1
 Figure \eqref{fig:fib8} shows the molecules and atoms of the fifth Fibonacci approximant, together with the co-numbering of the sites.
 
 \begin{figure}[htp]
-	\centering
 	\subfile{img/fibonacci_approximant.tex}
 	\caption{The periodically repeated block of the fifth approximant to the Fibonacci chain. Weak couplings $t_w$ are represented by a single line, and strong couplings $t_s$ by a double line. Below each site is its co-numbered label.}
 \label{fig:fib8}
@@ -155,7 +163,6 @@ decimates all sites except molecular ones. Fig. \eqref{fig:mol_defl} examplifies
 Crucially, the deflated chain is again a Fibonacci chain. More precisely, the molecular deflation relates the approximant of size $n$ to the approximant of size $n-2$: $d_m(C_n C_n \dots) = C_{n-2} C_{n-2} \dots$.
 
 \begin{figure}[htp]
-	\centering
 	\subfile{img/molecular_deflation.tex}
 	\caption{The molecular deflation rule illustrated. Here we relate the fifth approximant to the third.}
 \label{fig:mol_defl}
@@ -167,7 +174,6 @@ The atomic decimation relates the approximant of size $n$ to the approximant of 
 Fig. \eqref{fig:at_defl} examplifies the procedure.
 
 \begin{figure}[htp]
-	\centering
 	\subfile{img/atomic_deflation.tex}
 	\caption{The atomic deflation rule illustrated. Here we relate the fifth approximant to the second.}
 \label{fig:at_defl}
@@ -251,8 +257,7 @@ But then, the cluster our energy level belongs to is again the spectrum of some 
 We can plot these sequences on a trifurcating tree (fig. \eqref{fig:tree_en}), as was already pointed out \cite{KaluginKitaevLevitov} \cite{Piechon95}.
 
 \begin{figure}[htp]
-\centering
-    	\includestandalone{img/energy_tree}
+    \includestandalone{img/energy_tree}
 \caption{Trifurcating tree of energies. Each dot symbolizes an energy level. To the right of the deepest energy levels is written their renormalization path.}
 \label{fig:tree_en}
 \end{figure}
