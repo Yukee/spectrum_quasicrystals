@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    166729,       3927]
-NotebookOptionsPosition[    162556,       3793]
-NotebookOutlinePosition[    162890,       3808]
-CellTagsIndexPosition[    162847,       3805]
+NotebookDataLength[    169667,       4002]
+NotebookOptionsPosition[    165210,       3859]
+NotebookOutlinePosition[    165544,       3874]
+CellTagsIndexPosition[    165501,       3871]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -3350,7 +3350,7 @@ Harper model using the golden ratio as the irrational (see subsection below).\
 \>", "Text",
  CellChangeTimes->{{3.638793157921402*^9, 3.638793233760907*^9}},
  Background->RGBColor[0.94, 0.91, 0.88]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3365,20 +3365,16 @@ Cell[BoxData[
     " ", "by", " ", "increasing", " ", "energy"}], " ", "*)"}], 
   "\[IndentingNewLine]", 
   RowBox[{
-   RowBox[{"IntBandsHarp", "[", 
-    RowBox[{"n_", ",", "\[Rho]_"}], "]"}], ":=", 
+   RowBox[{"IntBandsHarp", "[", "n_", "]"}], ":=", 
    RowBox[{
-    RowBox[{"IntBandsHarp", "[", 
-     RowBox[{"n", ",", "\[Rho]"}], "]"}], "=", 
+    RowBox[{"IntBandsHarp", "[", "n", "]"}], "=", 
     RowBox[{"Block", "[", 
      RowBox[{
       RowBox[{"{", 
        RowBox[{
-        RowBox[{"ts", "=", "1."}], ",", 
-        RowBox[{"tw", "=", "\[Rho]"}], ",", "vpp", ",", "vpa", ",", "wfp", 
-        ",", "wfa", ",", "o", ",", "intensities", ",", "intp", ",", "inta", 
-        ",", "bands"}], "}"}], ",", "\[IndentingNewLine]", 
-      "\[IndentingNewLine]", 
+       "vpp", ",", "vpa", ",", "wfp", ",", "wfa", ",", "o", ",", 
+        "intensities", ",", "intp", ",", "inta", ",", "bands"}], "}"}], ",", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
       RowBox[{"(*", " ", 
        RowBox[{
         RowBox[{
@@ -3461,7 +3457,8 @@ Cell[BoxData[
    3.6338656219671173`*^9}, {3.633868107793435*^9, 3.6338681310708113`*^9}, 
    3.634029627471177*^9, {3.6387899522056437`*^9, 3.638790019803317*^9}, {
    3.638792583181432*^9, 3.638792586460359*^9}, {3.638792712620565*^9, 
-   3.638792731963705*^9}, 3.6392022075139637`*^9}],
+   3.638792731963705*^9}, 3.6392022075139637`*^9, {3.6409401930344477`*^9, 
+   3.64094019655385*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -3472,22 +3469,22 @@ Cell[BoxData[
   RowBox[{
    RowBox[{
     RowBox[{"avqIntHarp", "[", 
-     RowBox[{"q_", ",", "n_", ",", "\[Rho]_"}], "]"}], ":=", 
+     RowBox[{"q_", ",", "n_"}], "]"}], ":=", 
     RowBox[{
      RowBox[{"avqIntHarp", "[", 
-      RowBox[{"q", ",", "n", ",", "\[Rho]"}], "]"}], "=", 
+      RowBox[{"q", ",", "n"}], "]"}], "=", 
      RowBox[{
       RowBox[{"Total", "[", 
        RowBox[{
         RowBox[{
          RowBox[{
-          RowBox[{"IntBandsHarp", "[", 
-           RowBox[{"n", ",", "\[Rho]"}], "]"}], "[", 
+          RowBox[{"IntBandsHarp", "[", "n", "]"}], "[", 
           RowBox[{"[", "1", "]"}], "]"}], "^", "q"}], ",", "2"}], "]"}], "/", 
       
       RowBox[{"Fibonacci", "[", "n", "]"}]}]}]}], ";"}]}]], "Input",
  CellChangeTimes->{{3.6387903168578157`*^9, 3.6387904975080957`*^9}, {
-  3.638792773348711*^9, 3.6387927792366753`*^9}}],
+  3.638792773348711*^9, 3.6387927792366753`*^9}, {3.64094020155462*^9, 
+  3.640940208834527*^9}}],
 
 Cell[CellGroupData[{
 
@@ -3502,8 +3499,8 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{
       RowBox[{"avqIntHarp", "[", 
-       RowBox[{"15.", ",", "#", ",", "0.1"}], "]"}], "&"}], ",", "nValues"}], 
-    "]"}]}], ";"}], "\[IndentingNewLine]", 
+       RowBox[{"15.", ",", "#"}], "]"}], "&"}], ",", "nValues"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{"ListPlot", "[", 
   RowBox[{"Log", "@", 
    RowBox[{"glue", "[", 
@@ -3518,7 +3515,8 @@ Cell[BoxData[{
   3.6387915928524446`*^9, 3.6387916451232243`*^9}, {3.638792749236163*^9, 
   3.638792766436413*^9}, {3.6387930951900387`*^9, 3.63879314770403*^9}, {
   3.639129803130342*^9, 3.6391298067943153`*^9}, {3.639129868284979*^9, 
-  3.63912986842732*^9}, {3.6391303283485823`*^9, 3.639130335580117*^9}}],
+  3.63912986842732*^9}, {3.6391303283485823`*^9, 3.639130335580117*^9}, {
+  3.640940215282299*^9, 3.640940215490097*^9}}],
 
 Cell[BoxData[
  GraphicsBox[{{}, {{}, 
@@ -3529,7 +3527,7 @@ Cell[BoxData[
       1.6094379124341003`, -4.073903397916114}, {
       2.0794415416798357`, -5.524621255609219}, {
       2.5649493574615367`, -6.668168026750781}, {
-      3.044522437723423, -8.96179793174233}, {
+      3.044522437723423, -8.961797931742332}, {
       3.5263605246161616`, -10.712026963472645`}, {
       4.007333185232471, -11.687320130646965`}, {
       4.48863636973214, -14.093576938595413`}, {
@@ -3564,7 +3562,7 @@ Cell[BoxData[
  CellChangeTimes->{
   3.638792795896812*^9, {3.6387930958408957`*^9, 3.638793148130229*^9}, 
    3.638851595467684*^9, 3.639129827442865*^9, 3.639129893188744*^9, {
-   3.639130328944179*^9, 3.6391303372934933`*^9}}]
+   3.639130328944179*^9, 3.6391303372934933`*^9}, 3.640940225581086*^9}]
 }, Open  ]],
 
 Cell[TextData[{
@@ -3584,7 +3582,7 @@ Cell[TextData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"linFitHarp", "[", 
-   RowBox[{"q_", ",", "\[Rho]_", ",", "nv_"}], "]"}], ":=", 
+   RowBox[{"q_", ",", "nv_"}], "]"}], ":=", 
   RowBox[{"Block", "[", 
    RowBox[{
     RowBox[{"{", 
@@ -3595,8 +3593,8 @@ Cell[BoxData[
        RowBox[{
         RowBox[{
          RowBox[{"avqIntHarp", "[", 
-          RowBox[{"q", ",", "#", ",", "\[Rho]"}], "]"}], "&"}], ",", "nv"}], 
-       "]"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"q", ",", "#"}], "]"}], "&"}], ",", "nv"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"data", "=", 
       RowBox[{"glue", "[", 
        RowBox[{
@@ -3608,7 +3606,10 @@ Cell[BoxData[
       RowBox[{"data", ",", "n", ",", "n"}], "]"}]}]}], "\[IndentingNewLine]", 
    "]"}]}]], "Input",
  CellChangeTimes->{{3.6387943612061357`*^9, 3.638794483189991*^9}, {
-  3.6391300219807453`*^9, 3.639130036731717*^9}}],
+  3.6391300219807453`*^9, 3.639130036731717*^9}, {3.640940231939519*^9, 
+  3.640940234066831*^9}}],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -3631,7 +3632,7 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{
      RowBox[{"linFitHarp", "[", 
-      RowBox[{"#", ",", "0.1", ",", "nValues"}], "]"}], "&"}], "/@", 
+      RowBox[{"#", ",", "nValuesHarp"}], "]"}], "&"}], "/@", 
     "qValuesHarp"}]}], ";"}]}], "Input",
  CellChangeTimes->{{3.638794486975334*^9, 3.6387945321143713`*^9}, {
    3.638794563124834*^9, 3.6387945633640614`*^9}, 3.6387947892358313`*^9, {
@@ -3639,7 +3640,14 @@ Cell[BoxData[{
    3.638871189655429*^9}, {3.6388715168259277`*^9, 3.638871518168088*^9}, {
    3.639129271883354*^9, 3.639129313099586*^9}, {3.63913000378795*^9, 
    3.639130046698415*^9}, {3.639130165276963*^9, 3.639130182650362*^9}, {
-   3.639130256621193*^9, 3.639130257547888*^9}}],
+   3.639130256621193*^9, 3.639130257547888*^9}, {3.640940130577168*^9, 
+   3.6409401310411654`*^9}, {3.640940240194318*^9, 3.640940240433539*^9}}],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.6409403276727457`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
@@ -3678,6 +3686,64 @@ Cell[BoxData[
   3.6387952198642263`*^9}, {3.638795307222921*^9, 3.638795339608634*^9}, {
   3.639130187694229*^9, 3.639130192926097*^9}, {3.63913022476505*^9, 
   3.6391302419957247`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(\\(\\(\\(\\(linFitHarp[\
+\\(\\(0.`, 0.1`, \\(\\({10, 13, 16, 19}\\)\\)\\)\\)]\\)\\)[\\\"ParameterTable\
+\\\"]\\)\\) \[LeftDoubleBracket] \\(\\(1, 3, 2\\)\\) \[RightDoubleBracket]\\)\
+\[NoBreak] is longer than depth of object. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.640940136338945*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(\\(\\(\\(\\(linFitHarp[\
+\\(\\(0.05`, 0.1`, \\(\\({10, 13, 16, \
+19}\\)\\)\\)\\)]\\)\\)[\\\"ParameterTable\\\"]\\)\\) \[LeftDoubleBracket] \\(\
+\\(1, 3, 2\\)\\) \[RightDoubleBracket]\\)\[NoBreak] is longer than depth of \
+object. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.640940136412695*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Part", "::", "partd"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Part specification \[NoBreak]\\!\\(\\(\\(\\(\\(linFitHarp[\
+\\(\\(0.1`, 0.1`, \\(\\({10, 13, 16, \
+19}\\)\\)\\)\\)]\\)\\)[\\\"ParameterTable\\\"]\\)\\) \[LeftDoubleBracket] \\(\
+\\(1, 3, 2\\)\\) \[RightDoubleBracket]\\)\[NoBreak] is longer than depth of \
+object. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/partd\\\", ButtonNote -> \
+\\\"Part::partd\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.640940136475226*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(Part :: \
+partd\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
+calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.640940136537437*^9}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -3791,8 +3857,8 @@ Harper/data/average_wf_dimension.pdf\"\>"], "Output",
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1680, 991},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowSize->{1280, 965},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.1 for Linux x86 (64-bit) (March 23, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -3824,10 +3890,10 @@ Cell[CellGroupData[{
 Cell[20488, 577, 104, 1, 64, "Section"],
 Cell[CellGroupData[{
 Cell[20617, 582, 122, 1, 44, "Subsection"],
-Cell[20742, 585, 3823, 121, 260, "Text"],
+Cell[20742, 585, 3823, 121, 300, "Text"],
 Cell[24568, 708, 1008, 33, 81, "Input"],
 Cell[CellGroupData[{
-Cell[25601, 745, 4407, 121, 389, "Input"],
+Cell[25601, 745, 4407, 121, 390, "Input"],
 Cell[30011, 868, 45170, 751, 239, "Output"]
 }, Open  ]],
 Cell[75196, 1622, 704, 20, 66, "Text"],
@@ -3840,7 +3906,7 @@ Cell[77035, 1678, 1045, 34, 75, "Text"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[78117, 1717, 155, 2, 44, "Subsection"],
-Cell[78275, 1721, 4314, 130, 336, "Text"],
+Cell[78275, 1721, 4314, 130, 356, "Text"],
 Cell[82592, 1853, 4868, 107, 547, "Input"],
 Cell[CellGroupData[{
 Cell[87485, 1964, 309, 7, 32, "Input"],
@@ -3854,14 +3920,14 @@ Cell[91383, 2072, 1820, 39, 240, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[93240, 2116, 131, 4, 32, "Input"],
-Cell[93374, 2122, 1485, 39, 55, "Output"]
+Cell[93374, 2122, 1485, 39, 77, "Output"]
 }, Open  ]],
-Cell[94874, 2164, 1357, 30, 87, "Text"],
+Cell[94874, 2164, 1357, 30, 107, "Text"],
 Cell[CellGroupData[{
 Cell[96256, 2198, 1125, 26, 77, "Input"],
 Cell[97384, 2226, 1928, 44, 229, "Output"]
 }, Open  ]],
-Cell[99327, 2273, 544, 13, 50, "Text"],
+Cell[99327, 2273, 544, 13, 70, "Text"],
 Cell[CellGroupData[{
 Cell[99896, 2290, 2057, 54, 209, "Input"],
 Cell[101956, 2346, 3276, 65, 240, "Output"],
@@ -3906,26 +3972,35 @@ Cell[144207, 3329, 319, 8, 32, "Input"],
 Cell[144529, 3339, 218, 3, 32, "Output"]
 }, Open  ]],
 Cell[144762, 3345, 284, 6, 47, "Text"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[145083, 3356, 100, 1, 36, "Subsection"],
+Cell[145186, 3359, 4749, 101, 547, "Input"],
+Cell[149938, 3462, 848, 24, 55, "Input"],
+Cell[CellGroupData[{
+Cell[150811, 3490, 1286, 28, 77, "Input"],
+Cell[152100, 3520, 1912, 44, 229, "Output"]
+}, Open  ]],
+Cell[154027, 3567, 522, 12, 50, "Text"],
+Cell[154552, 3581, 1038, 28, 121, "Input"],
+Cell[CellGroupData[{
+Cell[155615, 3613, 1322, 30, 77, "Input"],
+Cell[156940, 3645, 79, 1, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[145083, 3356, 100, 1, 44, "Subsection"],
-Cell[145186, 3359, 4847, 104, 547, "Input"],
-Cell[150036, 3465, 868, 24, 55, "Input"],
-Cell[CellGroupData[{
-Cell[150929, 3493, 1251, 27, 77, "Input"],
-Cell[152183, 3522, 1889, 44, 229, "Output"]
-}, Open  ]],
-Cell[154087, 3569, 522, 12, 50, "Text"],
-Cell[154612, 3583, 1022, 27, 121, "Input"],
-Cell[155637, 3612, 1232, 29, 77, "Input"],
-Cell[156872, 3643, 1333, 36, 133, "Input"],
-Cell[CellGroupData[{
-Cell[158230, 3683, 1567, 37, 38, "Input"],
-Cell[159800, 3722, 2114, 48, 244, "Output"]
+Cell[157056, 3651, 1333, 36, 133, "Input"],
+Cell[158392, 3689, 637, 12, 23, "Message"],
+Cell[159032, 3703, 641, 13, 23, "Message"],
+Cell[159676, 3718, 640, 13, 23, "Message"],
+Cell[160319, 3733, 528, 11, 23, "Message"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[161951, 3775, 367, 9, 32, "Input"],
-Cell[162321, 3786, 195, 2, 32, "Output"]
+Cell[160884, 3749, 1567, 37, 65, "Input"],
+Cell[162454, 3788, 2114, 48, 244, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[164605, 3841, 367, 9, 32, "Input"],
+Cell[164975, 3852, 195, 2, 32, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
