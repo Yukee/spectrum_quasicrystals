@@ -37,6 +37,14 @@
 \newcommand{\om}{\ensuremath{\omega}}
 \newcommand{\lb}{\ensuremath{\overline{\lambda}}}
 \newcommand{\zb}{\ensuremath{\overline{z}}}
+% wavefunction dimensions
+\newcommand{\wf}{\ensuremath{D^\psi}}
+% averaged wavefunction dimensions
+\newcommand{\avwf}{\ensuremath{D^\psi}}
+% local spectral dimensions
+\newcommand{\locspec}{\ensuremath{D^\mu}}
+% averaged local spectral dimensions
+\newcommand{\avspec}{\ensuremath{D^\mu}}
 
 \begin{document}
 
@@ -308,9 +316,10 @@ Now that we have completely characterized the spectrum and the wavefunction to l
 
 We compute the fractal dimensions of the spectrum using the thermodynamical formalism \cite{Halsey1986}. We define the partition function
 \begin{equation}
+	\label{eq:gamma_spec}
 	\Gamma^n(q,\tau) = \sum_{a} \frac{\left( 1/F_n \right)^q}{(\Delta_a^n)^\tau}
 \end{equation}
-where $\Delta_a^n$ is taken to be the width of the energy band associated to the energy level labelled $a$.
+where $\Delta_a^n$ is taken to be the width of the energy band associated to the energy level labeled $a$.
 One can show \cite{Halsey1986} that the generalized fractal dimensions of the spectrum $D_q$ are given by $D_q = \tau_q/(q-1)$ where $\tau_q$ is defined by
 \begin{align}
 	\Gamma^n(q,\tau > \tau_q) &\rightarrow +\infty \\
@@ -325,6 +334,7 @@ An intermediate value $0 < D_0 < 1$ is the signature of a fractal spectrum, whos
 At leading order, the recursion relation between energies \eqref{eq:recur_spectrum} translates into a recursion relation between partition functions. 
 This makes it easy to find the fractal dimensions of the spectrum \cite{Piechon95} \emph{via} the implicit equation
 \begin{equation}
+	\label{eq:spec}
 	2 \omega^{2 q} z^{-(q-1)D_q}+\omega^{3 q} \zb^{-(q-1)D_q} = 1.
 \end{equation}
 Thus, we have
@@ -333,6 +343,7 @@ Thus, we have
 \end{equation}
 In particular, we find for the Hausdorff dimension
 \begin{equation}
+	\label{eq:dqspec}
 	D_0 = \frac{\log( \sqrt{2} -1 )}{\log \rho} + \mathcal{O}\left( \frac{1}{(\log \rho)^2} \right)
 \end{equation}
 in agreement with the result of Damanik \& Gorodetski \cite{DamanikGorodetski}, using trace-map-based methods.
@@ -342,22 +353,22 @@ Therefore we recover the well-established result that the spectrum of the Fibona
 
 \subsection{Fractal dimensions of the wavefunctions}
 
-The fractal dimensions $D_q(a)$ of the wavefunction associated to the energy level $a$ are defined by
+The fractal dimensions $\wf_q(a)$ of the wavefunction associated to the energy level $a$ are defined by
 \begin{equation}
-	\chi_q^n(a) = \sum_i |\psi_i^n(a)|^{2q} \simlim{n}{\infty} \left( \frac{1}{F_n} \right)^{(q-1)D_q(a)}
+	\chi_q^n(a) = \sum_i |\psi_i^n(a)|^{2q} \simlim{n}{\infty} \left( \frac{1}{F_n} \right)^{(q-1)\wf_q(a)}
 \end{equation}
-Note that $D_2(a)$ is the inverse participation ratio.
-$D_2(a) = 1$ indicates that the state $a$ is extended, while $D_2(a) = 0$ characterizes a localized state.
-An intermediate value $0 < D_2(a) < 1$ is the signature of a critical state, whose multifractal properties can be probed by varying $q$.
+Note that $\wf_2(a)$ is the inverse participation ratio.
+$\wf_2(a) = 1$ indicates that the state $a$ is extended, while $\wf_2(a) = 0$ characterizes a localized state.
+An intermediate value $0 < \wf_2(a) < 1$ is the signature of a critical state, whose multifractal properties can be probed by varying $q$.
 
 At leading order in $\rho$ the renormalization of the eigenstates is trivial. 
 On a site whose renormalization path matches the one of the energy level we consider, the amplitude at step $n$ is just the amplitude at step $n-3$ if the energy is in the atomic cluster, while the amplitude is the one at step $n-2$ divided by a factor $\sqrt{2}$ if the energy is in the molecular cluster.
 The division by a factor of $\sqrt{2}$ simply comes from the fact that molecular sites are in pairs.
 
-Therefore, we have for the fractal dimensions of the wavefunction of the energy level labelled by $a$,
+Therefore, we have for the fractal dimensions of the wavefunction of the energy level labeled by $a$,
 \begin{equation}
 \label{eq:dqpsi0}
-	D_q(a) = x_a \frac{\log 2}{\log \omega^{-1}} + \mathcal{O}(\rho^2),
+	\wf_q(a) = x_a \frac{\log 2}{\log \omega^{-1}} + \mathcal{O}(\rho^2),
 \end{equation}
 where
 \begin{equation}
@@ -366,7 +377,7 @@ where
 with $n_\pm(a)$ the number of $+$/$-$ letters in the renormalization path of $a$.
 In other words, $x_a$ is the fraction of renormalization steps in which the level $a$ was in a molecular cluster.
 
-Since $x_a \leq 1/2$, we have $0 < D_q(a) < 1$: the wavefunctions are critical, as we expect for a quasiperiodic system.
+Since $x_a \leq 1/2$, we have $0 < \wf_q(a) < 1$: the wavefunctions are critical, as we expect for a quasiperiodic system.
 We have $x_a = 0$ for the level that has the renormalization path $00...$, ie for the energy level $E=0$, at the center of the atomic cluster. The corresponding eigenstate has a zero fractal dimension, and is thus completely localized. As we approach the $E=0$ level, $x_a$ approaches monotonously $0$ and the wavefunctions becomes more and more localized.
 $x_a$ reaches its maximal value, $1/2$, for the levels having the renormalization path $++...$ and $--...$, ie for the levels $E=E_\text{min}, E_\text{max} = \pm 1/(1+z)$ at the edges of the spectrum.
 The corresponding eigenstates are the most extended. They occupy a fraction $(1/F_n)^{\frac{\log 2}{\log \omega^{-2}}}$ of the sites.
@@ -433,17 +444,17 @@ We are able to compute $\lb$ and $\lambda$ (see the appendix \eqref{app:renorm} 
 \end{equation}
 Furthermore, we are able to solve the reccurence relation \eqref{eq:rec_chi} completely. We find
 \begin{equation}
-	D_q(a) = D_q^{(0)}(a) - \frac{q}{q-1} \left( x_a \frac{\log \lambda}{\log \omega^{-1}} + \frac{1-2x_a}{3}\frac{\log \lb}{\log \omega^{-1}} \right).
+	\wf_q(a) = D_q^{\psi,(0)}(a) - \frac{q}{q-1} \left( x_a \frac{\log \lambda}{\log \omega^{-1}} + \frac{1-2x_a}{3}\frac{\log \lb}{\log \omega^{-1}} \right).
 \end{equation}
 Note that this result is indenpendant of the specific values of $\lb$ and $\lambda$.
 Plugging in the values \eqref{eq:lamb}, we get
 \begin{equation}
 \label{eq:dqpsi2}
-	D_q(a) = D_q^{(0)}(a) + \frac{q}{q-1} \frac{4-5x}{6} \frac{\rho^2}{\log \omega^{-1}} + \mathcal{O}(\rho^4).
+	\wf_q(a) =  D_q^{\psi,(0)}(a) + \frac{q}{q-1} \frac{4-5x}{6} \frac{\rho^2}{\log \omega^{-1}} + \mathcal{O}(\rho^4).
 \end{equation}
 Indeed, the next-to-leading order corrections are $q$-dependant: they encode the multifractality of the wavefunctions.
 
-We now check our theoritical predictions against numerical results.
+We now check our theoretical predictions against numerical results.
 
 \begin{figure}[htp]
 
@@ -451,14 +462,14 @@ We now check our theoritical predictions against numerical results.
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1.\textwidth]{img/local_dim_wf.pdf}
-  \caption{The fractal dimension $D_2(a)$ for every wavefunction. In accordance with theoretical predictions, the fractal dimensions organize in lines, each line corresponding to a given value of $x_a$.}
+  \caption{The fractal dimension $\wf_2(a)$ for every wavefunction. In accordance with theoretical predictions, the fractal dimensions organize in lines, each line corresponding to a given value of $x_a$.}
   \label{fig:dqpsia}
 \end{subfigure}%
 ~
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=1.\textwidth]{img/local_wf.pdf}
-  \caption{Dots: fractal dimension $D_2(a)$ averaged over states $a$ having a given $x_a$. Dashed line: theoretical prediction at leading order (eq. \eqref{eq:dqpsi0}). Solid line: theoretical prediction including multifractal corrections (eq. \eqref{eq:dqpsi2}).}
+  \caption{Dots: fractal dimension $\wf_2(a)$ averaged over states $a$ having a given $x_a$. Dashed line: theoretical prediction at leading order (eq. \eqref{eq:dqpsi0}). Solid line: theoretical prediction including multifractal corrections (eq. \eqref{eq:dqpsi2}).}
   \label{fig:dqpsix}
 \end{subfigure} \\
 
@@ -467,7 +478,7 @@ We now check our theoritical predictions against numerical results.
 \end{figure}
 
 Figure \eqref{fig:dqpsia} shows how the fractal dimension for a given $q$ (here we chose abitrarily $q=2$) depend on the the chosen state $a$.
-we observe that the value of the fractal dimension organizes in lines. On each line $D_q(a)$ is constant up to small variations. Moreover, a given line is formed of all the points $(a, D_q(a))$ having a given value $x_a = x$. 
+we observe that the value of the fractal dimension organizes in lines. On each line $\wf_q(a)$ is constant up to small variations. Moreover, a given line is formed of all the points $(a, \wf_q(a))$ having a given value $x_a = x$. 
 So, we conclude that, up to small variations that should vanish in the limit $\rho \rightarrow 0$, the fractal dimension of a given wavefunction does not depend on the associated state $a$, but only on $x_a$. This is in agreement with the theoretical predictions \eqref{eq:dqpsi2}.
 
 It is therefore meaningful to compute numerically the fractal dimensions averaged over each state $a$ having a given $x_a$ value. We thus obtain the fractal dimensions as a function of the relevant parameter, $x$.
@@ -482,7 +493,7 @@ Therefore the multifractal corrections completely dominate the spatial structure
 \begin{figure}[htp]
   \centering
   \includegraphics[width=.5\textwidth]{img/local_wf_q.pdf}
-  \caption{The fractal dimensions $D_q(x)$ of the wavefunctions for the two lowest values of $x$ accessible numerically ($x = 0$ and $x = 1/19$ for the approximant $n=19$ considered here). Dots are numerically computed data points, at solid lines are the theoretical predictions (eq. \eqref{eq:dqpsi2}).}
+  \caption{The fractal dimensions $\wf_q(x)$ of the wavefunctions for the two lowest values of $x$ accessible numerically ($x = 0$ and $x = 1/19$ for the approximant $n=19$ considered here). Dots are numerically computed data points, at solid lines are the theoretical predictions (eq. \eqref{eq:dqpsi2}).}
 \label{fig:dqpsiq}
 \end{figure}
 
@@ -492,11 +503,86 @@ Again, the agreement with the theoretical predictions at the next-to-leading ord
 This demonstrates that our theoretical analysis indeed captures the $q$ dependance of the fractal dimensions.
 Since it is the multifractality of the wavefunctions that is responsible for the nontrivial $q$ dependance of the fractal dimensions, we conclude again that the multifractal corrections are relevant even at small coupling.
 
-\section{Relations between fractal dimensions and universality}
+\subsection{Averaged wavefunction dimensions}
 
-\subsection{Fractality of the local density of states}
-Having characterized the spectrum and the wavefunctions in the pertubative limit, we have access to the local density of states, and in particular to the associated fractal dimensions. We shall 
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.5\textwidth]{img/average_wf_dimension_rho_10.pdf}
+	\caption{The averaged wavefunction dimensions $\avwf_q$ as a function of the multifractal parameter $q$. Solid line: numerical results, dashed line: theoretical predictions (eq. \eqref{eq:avwf}).}
+	\label{fig:avwf}
+\end{figure}
 
+Associating fractal dimensions to each individual wavefunction has given us the opportunity to study the different scaling of different wavefunctions. We have seen that to that respect the relevant parameter $x$. It classifies wavefunction according to their scaling, and moreover, it has a natural interpretation in the renormalization group picture.
+Now, we would like to characterize \emph{globally} the wavefunctions. For that, we define an averaged fractal dimension $\avwf_q$ by
+\begin{equation}
+	\langle \chi_q \rangle = \frac{1}{F_n} \sum_{a=1}^{F_n} \chi_q(a) \sim \left( \frac{1}{F_n} \right)^{(q-1)\avwf_q}
+\end{equation}
+This is a quantity is also frequently used in order to analyze the wavefunctions of a disordered system at the Anderson localization transition \cite{Mirlin2006}.
+Using our perturbative Ansatz, we can easily obtain an implicit equation on this averaged fractal dimension:
+\begin{equation}
+	\label{eq:avwf}
+	2\left( \frac{\lambda}{2}\right)^q \omega^{2(1-(q-1)\avwf_q)} + \lb^q \omega^{3(1-(q-1)\avwf_q)} = 1
+\end{equation}
+The authors in \cite{Thiem2013} obtained a similar relation. Contrary to theirs, our study takes into account second order corrections contained in the $\lambda$ and $\lb$ terms.
+Using our explicit expression for the fractal dimensions of the wavefunctions, we can also derive an explicit expression for the averaged wavefunction dimensions {\color{red} TODO: do it!}
+
+We compared these theoretical predictions to numerical results on a finite size system (fig. \eqref{fig:avwf}). The agreement is excellent for $q \ll 1$. This is just what we expect, as for $q < 1$ the fractal dimension probes the small components of the wavefunctions, which our analysis neglects. 
+We note that our theoretical predictions compare much better to numerical results than the predictions of \cite{Thiem2013}, who neglected the second order corrections to the wavefunctions. We conclude again that the second order corrections, which are responsible for the multifractality of the individual wavefunctions, also play a crucial role in the multifractal behavior of their average.
+
+\subsection{Local spectral dimensions and their average}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.5\textwidth]{img/average_local_spectral_dimension_rho_10.pdf}
+	\caption{The averaged local spectral dimensions $\avspec_q$ as a function of the multifractal parameter $q$. Solid line: numerical results, dashed line: theoretical predictions (eq. \eqref{eq:avspec}).}
+	\label{fig:avspec}
+\end{figure}
+
+Having characterized the spectrum and the wavefunctions in the pertubative limit, we have access to the local density of states, and in particular to the associated fractal dimensions.
+For a finite-size system, the local density of states at site $i$ is just a sum of Dirac deltas:
+\begin{equation}
+	\d{\mu_{i}}(E) = \frac{1}{F_n} \sum_{a=1}^{F_n} \delta(E-E_a) |\psi_{i}(a)|^2 \d{E}
+\end{equation}
+Note that the sum over all sites of the local density of states is nothing but the (global) density of states.
+The local density of states defines $\mu_i$, the local spectral weight at site $i$ associated to an energy interval $[E,E']$:
+\begin{equation}
+	\mu_i\left( [E,E'] \right)  = \int_{E'' \in [E,E']} \d{\mu_i}(E'')
+\end{equation}
+For the $n^\text{th}$ approximant, we note $\mu_i(\Delta^n_a)$ the local spectral weight at site $i$ associated to the $a^\text{th}$ energy band. 
+This quantity contains all the information about the spectral and wavefunction properties of the Hamiltonian. In other words, its knowledge is equivalent to the knowledge of the Hamiltonian itself. Furthermore, it has a simple physical interpretation: $\mu_i(\Delta^n_a)$ is the local density of states at site $i$ that are in the band $a$.
+It is thus natural to probe the multifractality of the local density of states. To achieve that, we associate to each site $i$ a gamma function
+\begin{equation}
+	\Gamma^n(q,\tau;i) = \sum_{a} \frac{\left( \mu_i(\Delta^n_a) \right)^q}{(\Delta_a^n)^\tau}
+\end{equation}
+This gamma function can be viewed as a local version of the spectral gamma function \eqref{eq:gamma_spec}.
+Using this gamma function, we can compute the local spectral fractal dimensions. In oder to characterize the whole system, we define an averaged gamma function:
+\begin{equation}
+	\langle \Gamma^n(q,\tau) \rangle = \frac{1}{F_n} \sum_{i} \Gamma^n(q,\tau;i)
+\end{equation}
+The associate fractal dimensions, the averaged local spectral dimensions $\avspec_q$, obey the implicit equation:
+\begin{equation}
+	\label{eq:avspec}
+	2\left( \frac{\lambda}{2}\right)^q \omega^2 z^{(1-q)\avspec_q} + \lb^q \omega^3 \zb^{(1-q)\avspec_q} = 1
+\end{equation}
+We compare these theoretical predictions valid in the perturbative limit with numerical data (fig. \eqref{fig:avspec}). The agreement is again excellent for $q \ll 1$, as expected. It is also worth noting that $\avspec_0$ is equal to the Hausdorff dimension, for which we have a theoretical prediction \eqref{eq:dqspec}. The agreement is once again very good.
+
+\section{Relations between fractal dimensions}
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.5\textwidth]{img/spectrum_wf_relation.pdf}
+	\caption{This plot shows the averaged local spectral dimensions superimposed with the product of the global spectral and averaged wavefunction dimensions.}
+	\label{fig:relation}
+\end{figure}
+
+The similarity of the relations \eqref{eq:spec}, \eqref{eq:avspec} and \eqref{eq:avwf} giving respectively the global spectral, the local spectral and the wavefunction dimensions suggests that there might be a relation between the three. At $q=0$, the local and global spectral dimensions coincides, and the wavefunction dimension is 1, so that we have $\avspec_0 = \avwf_0 D_0$. We find that this relations extends to any positive value of $q$ to
+\begin{equation}
+	\label{eq:relation}
+	\avspec_q = \avwf_q D_{1+(q-1)\avwf_q}
+\end{equation}
+Numerically (fig. \eqref{fig:relation}), the agreement is perfect. 
+Remarkably, the relation stills holds even in the range of values of $q$ where perturbation theory fails. These gives us hope that the relation is actually nonperturbative, and even holds for other one-dimensional models where no such perturbation theory exist.
+{\color{red} TODO: check for Fibonacci for other values of coupling, check for other cut and project chains, and investigate further the Harper case...}
 
 \newpage
 \appendix
