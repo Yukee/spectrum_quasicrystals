@@ -171,77 +171,77 @@ def av_qWeight(vec, epsilon, q):
 
 # diagonalize
 rho = 0.1
-n = 16
+n = 19
 val, vec = linalg.eigh(hp(n, rho))
 
 """ Averaged fractal dimensions of the wavefunctions """
+q = -10.
 
-#q = -10.
-#    
-## smallest box size (in the form smallest_espilon = 10**(-t))
-#t = 3.5
-## for some reason, there are problems with 3, so we exclude it from the list of primes
-#primes = [2,5,6,7,10]
-#epsilonRange = sorted([1/n**delta for n in primes for delta in range(1,int(t*math.log(10.)/math.log(n))+1)])
-#
-#qwList = [av_qWeight(vec, epsilon, q) for epsilon in epsilonRange]
+    
+# smallest box size (in the form smallest_espilon = 10**(-t))
+t = 3.5
+# for some reason, there are problems with 3, so we exclude it from the list of primes
+primes = [2,5,6,7,10]
+epsilonRange = sorted([1/n**delta for n in primes for delta in range(1,int(t*math.log(10.)/math.log(n))+1)])
+
+qwList = [av_qWeight(vec, epsilon, q) for epsilon in epsilonRange]
 
 """ data plot and linear regression """
 
-#def loglogplot(min, max):
-#    
-#    # plot
-#    epsilonRange2 = epsilonRange[min:max]
-#    qwList2 = qwList[min:max]
-#
-#    plt.title('The q-weigth for the wavfunctions for q = ' + str(q))
-#    plt.xlabel('log epsilon')
-#    plt.ylabel('log chi')
-#    plt.loglog(epsilonRange, qwList,'-,r',markersize=3., linewidth=2.)
-#    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
-#    plt.show()
-#    
-#    # regression
-#    logQW = [math.log(qw) for qw in qwList2]
-#    logEps = [math.log(eps) for eps in epsilonRange2]
-#
-#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
-#    print(slope, r_value)
+def loglogplot(min, max):
+    
+    # plot
+    epsilonRange2 = epsilonRange[min:max]
+    qwList2 = qwList[min:max]
+
+    plt.title('The q-weigth for the wavfunctions for q = ' + str(q))
+    plt.xlabel('log epsilon')
+    plt.ylabel('log chi')
+    plt.loglog(epsilonRange, qwList,'-,r',markersize=3., linewidth=2.)
+    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
+    plt.show()
+    
+    # regression
+    logQW = [math.log(qw) for qw in qwList2]
+    logEps = [math.log(eps) for eps in epsilonRange2]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
+    print(slope, r_value)
     
 """ iterate over q """
 
-# smallest box size (in the form smallest_espilon = 10**(-t))
-#t = 2.5
-t = 3.5
-primes = [2,5,7,10]
-epsilonRange = sorted([1/n**delta for n in primes for delta in range(1,int(t*math.log(10.)/math.log(n))+1)])
-#epsilonRange = epsilonRange[3:-1]
-epsilonRange = epsilonRange[8:-1]
-
-# range of values of q
-qRange = np.arange(-10.,10.,0.1)
-    
-# compute tau
-def tau(q):
-    qwList = [av_qWeight(vec, epsilon, q) for epsilon in epsilonRange]
-    
-    # regression
-    logQW = [math.log(qw) for qw in qwList]
-    logEps = [math.log(eps) for eps in epsilonRange]
-
-    tau, intercept, r_value, p_value, std_err  = stats.linregress(logEps,logQW)
-    return tau
-
-# launch kernels
-pool = Pool(4)
-
-# parallel mapping
-lin_reg = list(pool.map(tau, qRange))
-    
-#dq = [tau/(q-1) for q, tau in zip(qRange, lin_reg)]
-
-""" saving to a file """
-
-qtau = [list(it) for it in zip(qRange,lin_reg)]
-# save to a file readable by Mathematica using Import and by Python using np.loadtxt
-np.savetxt('data/tauqpsi_python_rho_'+str(rho)+'_n_'+str(n)+'.dat',qtau)
+## smallest box size (in the form smallest_espilon = 10**(-t))
+##t = 2.5
+#t = 3.5
+#primes = [2,5,7,10]
+#epsilonRange = sorted([1/n**delta for n in primes for delta in range(1,int(t*math.log(10.)/math.log(n))+1)])
+##epsilonRange = epsilonRange[3:-1]
+#epsilonRange = epsilonRange[8:-1]
+#
+## range of values of q
+#qRange = np.arange(-10.,10.,0.1)
+#    
+## compute tau
+#def tau(q):
+#    qwList = [av_qWeight(vec, epsilon, q) for epsilon in epsilonRange]
+#    
+#    # regression
+#    logQW = [math.log(qw) for qw in qwList]
+#    logEps = [math.log(eps) for eps in epsilonRange]
+#
+#    tau, intercept, r_value, p_value, std_err  = stats.linregress(logEps,logQW)
+#    return tau
+#
+## launch kernels
+#pool = Pool(4)
+#
+## parallel mapping
+#lin_reg = list(pool.map(tau, qRange))
+#    
+##dq = [tau/(q-1) for q, tau in zip(qRange, lin_reg)]
+#
+#""" saving to a file """
+#
+#qtau = [list(it) for it in zip(qRange,lin_reg)]
+## save to a file readable by Mathematica using Import and by Python using np.loadtxt
+#np.savetxt('data/tauqpsi_python_rho_'+str(rho)+'_n_'+str(n)+'.dat',qtau)
