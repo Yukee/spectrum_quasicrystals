@@ -157,7 +157,7 @@ def conum(vec, n):
 """ compute the eigenvalues """
 
 # diagonalize
-rho = .1
+rho = .5
 n = 15
 val, vec = linalg.eigh(hp(n, rho))
 
@@ -176,6 +176,8 @@ a = 200
 # weights are presence probabilities
 w = abs(vec[:,a])**2
 cow = abs(covec[:,a])**2
+# test whether permuting randomly the positions has an impact on the behaviour of the q norm
+np.random.shuffle(cow)
     
 # smallest box size (in the form smallest_espilon = 10**(-t))
 t = 3.5
