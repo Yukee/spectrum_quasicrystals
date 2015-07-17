@@ -139,33 +139,7 @@ def hp(n, rho):
         hp[L-1,0] = hp[0,L-1]
     return hp
 
-# ## Averaged fractal dimensions of the wavefunctions
-# 
-# Now we wish to quantify the averaged fractal dimensions of the wavefunctions. 
-# For that, we define theoretically the averaged $q$-weight function:
-# $$ \overline{\chi}_q(L) = \langle \chi_{q, E}(L) \rangle = \frac{1}{L} \sum_{E} \chi_{q,E}(L) $$
-# where $\chi_{q,E}(L) = \sum_i |\psi_{i,E}|^2$.
-# 
-# The box-counting counterpart of $\chi_{q,E}(L)$ is $\chi_{q,E}(\epsilon)$.
-# We can either consider that 
-# $$ \overline{\chi}_q(\epsilon) = \langle \chi_{q, E}(\epsilon) \rangle $$
-# which seems natural, or that
-# $$ \log \overline{\chi}_q(\epsilon) = \langle \log \chi_{q, E}(\epsilon) \rangle $$
-# which is the definition used by Thiem.
-
-""" Averaged q-weight function """
-
-# averaged directly the q-weight function, not following Thiem
-def av_qWeight(vec, epsilon, q):
-    L = len(vec)
-    # positions are uniform on the line
-    s = np.arange(0,L,1.)
-    # averaged q-weight
-    avQw = 0
-    # sum q-weights over energies
-    for e in range(L):
-        avQw += qWeight(s, abs(vec[:,e])**2, epsilon, q)
-    return avQw/L
+# ## Local fractal dimensions of the wavefunctions
 
 """ compute the eigenvalues """
 
