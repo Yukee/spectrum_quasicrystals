@@ -114,7 +114,7 @@ def fib(n):
 om = 2./(1.+math.sqrt(5))     
 
 # jump amplitudes
-def jump(i, tw, ts):
+def jump(n, i, tw, ts):
     p = fib(n-2)    
     q = fib(n-1)
     L = fib(n)    
@@ -126,7 +126,7 @@ def h(n, rho):
     L = fib(n)
     h = np.zeros((L,L))
     for i in range(L-1): 
-        h[i,i+1] = jump(i, rho, 1.)
+        h[i,i+1] = jump(n, i, rho, 1.)
         h[i+1,i] = h[i,i+1]
     return h
     
@@ -135,21 +135,35 @@ def hp(n, rho):
     L = fib(n)    
     hp = np.zeros((L,L))
     for i in range(L-1): 
-        hp[i,i+1] = jump(i, rho, 1.)
+        hp[i,i+1] = jump(n, i, rho, 1.)
         hp[i+1,i] = hp[i,i+1]
-        hp[0,L-1] = jump(L-1, rho, 1.)
+        hp[0,L-1] = jump(n, L-1, rho, 1.)
         hp[L-1,0] = hp[0,L-1]
     return hp
-    
+
 """ Pass to conumbering """
 
+# takes a label (a position along the chain), return the associated colabel (position in perp space)
+def co(label, n):
+    q = fib(n-1)
+    L = fib(n)
+    return q*label % L
+
+# takes a colabel (position in perp space), return the associated label (position in para space)
+def label(co, n):
+    q = fib(n-1)
+    L = fib(n)
+    sgn = -2*(n % 2)+1
+    return sgn*q*co % L
+
+# takes a matrix written in position basis, return the same matrix in the conumbered basis
 def conum(vec, n):
     q = fib(n-1)
     L = fib(n)
     # compute the permutation matrix associated to approximant n
-    p = np.fromfunction(lambda i,j: i == q*j % L, (L, L))
+    perm_mat = np.fromfunction(lambda i,j: i == q*j % L, (L, L))
     # permute elements in vec
-    perm_vec = np.dot(p,np.dot(vec,np.transpose(p)))
+    perm_vec = np.dot(perm_mat,np.dot(vec,np.transpose(perm_mat)))
     return perm_vec
 
 # ## Local fractal dimensions of the wavefunctions
@@ -157,7 +171,7 @@ def conum(vec, n):
 """ compute the eigenvalues """
 
 # diagonalize
-rho = .5
+rho = .1
 n = 15
 val, vec = linalg.eigh(hp(n, rho))
 
@@ -171,11 +185,14 @@ q = 2.
 s = np.arange(0,fib(n),1.)
 
 # wavefunction index 
-a = 200
+a = label(306,n)
+# in conumbering, wavefunction indexes are also relabelled
+coa = co(a, n)
 
 # weights are presence probabilities
 w = abs(vec[:,a])**2
-cow = abs(covec[:,a])**2
+cow = abs(covec[:,coa])**2
+#cow = np.copy(w)
 # test whether permuting randomly the positions has an impact on the behaviour of the q norm
 np.random.shuffle(cow)
     
