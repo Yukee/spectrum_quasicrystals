@@ -10,7 +10,7 @@ from scipy import linalg, stats
 import matplotlib.pyplot as plt
 import math
 from cmath import exp
-import time
+from timeit import default_timer as timer
 
 """ build the Fibonacci tight-binding hamiltonian """
 
@@ -80,8 +80,8 @@ def conum(vec, n):
 """ compute the eigenvalues """
 
 # diagonalize
-rho = .5
-n = 4
+rho = 1.
+n = 12
 L = fib(n)
 val, vec = linalg.eigh(hp(n, rho))
 
@@ -102,19 +102,12 @@ def P(orig,t,q):
     dist = np.array([(min(abs(x-orig),L-abs(x-orig))/float(L))**q for x in range(L)])
     return dist.dot(I(t,orig))
     
-tRange = 10**np.arange(-1,4,.02)
+tRange = 10**np.arange(-1,4,.2)
 #tRange = np.arange(0,30,.2)
 orig = 0
 q = 2.
-plist = [P(orig,t,q) for t in tRange]
+#plist = [P(orig,t,q) for t in tRange]
 #p2 = [P(0,t,q) for t in tRange]
-    
-
-plt.title('The mean displacement on the Fibonacci chain, n = ' + str(n) + ' at site ' + str(orig))
-plt.xlabel('t')
-plt.ylabel('P(t)')
-plt.loglog(tRange, plist,'-',markersize=3.)
-plt.show()
 
 """ average over all starting sites """
 
@@ -125,14 +118,28 @@ def avP(t,dists):
     # construct the matrix of intensities at time t
     Is = np.array([I(t,j) for j in range(L)])
     
-    return np.trace(np.dot(Is, dists))
+    return np.trace(np.dot(Is, dists))/L
     
 # brute force averaging (for testing purposes)
 def brute_avP(t,q):
     avp = 0
     for x in range(L):
         avp += P(x,t,q)
-    return avp
+    return avp/L
+    
+""" timing tests """
+
+start = timer()
+p1 = [avP(t,q_dists) for t in tRange]
+elapsed = timer() - start
+print("averaged diffuction (matrix multiplications): ",elapsed)
+
+start = timer()
+p2 = [brute_avP(t,2) for t in tRange]
+elapsed = timer() - start
+print("averaged diffuction (simple iteration): ",elapsed)
+
+# TODO: average over some positions (randomly picked?) instead of averaging over all positions
 
 def fit(pmin,pmax):
     tRangeFit = tRange[pmin:pmax]
