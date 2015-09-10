@@ -165,18 +165,41 @@ def conum(vec, n):
     # permute elements in vec
     perm_vec = np.dot(perm_mat,np.dot(vec,np.transpose(perm_mat)))
     return perm_vec
+    
+""" Compute x recursively using conumbering """
+
+# return the x associated to a given conumber co
+def x(co, n, ren):
+    if(co >= fib(n-1)):
+        ren += 1
+        co -= fib(n-1)
+        n -= 2
+    elif(co >= fib(n-2)):
+        co -= fib(n-2)
+        n -= 3
+    else:
+        ren += 1
+        n -= 2
+        
+    if(n<3): return ren
+    else: return x(co,n,ren)
+
+#n = 17
+#xlist = [x(label(co,n),n,0) for co in range(fib(n))]
+#plt.plot(xlist)
+#plt.show()
 
 # ## Local fractal dimensions of the wavefunctions
 
 """ compute the eigenvalues """
 
 # diagonalize
-rho = .1
-n = 15
+rho = .15
+n = 16
 val, vec = linalg.eigh(hp(n, rho))
 
 # in conumbering!
-covec = conum(vec,n)
+#covec = conum(vec,n)
 
 """ Averaged fractal dimensions of the wavefunctions """
 q = 2.
@@ -185,26 +208,26 @@ q = 2.
 s = np.arange(0,fib(n),1.)
 
 # wavefunction index 
-a = label(306,n)
+a = label(304,n)
 # in conumbering, wavefunction indexes are also relabelled
-coa = co(a, n)
+#coa = co(a, n)
 
 # weights are presence probabilities
 w = abs(vec[:,a])**2
-cow = abs(covec[:,coa])**2
-#cow = np.copy(w)
+#cow = abs(covec[:,coa])**2
 # test whether permuting randomly the positions has an impact on the behaviour of the q norm
-np.random.shuffle(cow)
+#np.random.shuffle(cow)
     
 # smallest box size (in the form smallest_espilon = 10**(-t))
 t = 3.5
 # for some reason, there are problems with 3, so we exclude it from the list of primes
-primes = [2,5,6,7,10]
-epsilonRange = sorted([1/n**delta for n in primes for delta in range(1,int(t*math.log(10.)/math.log(n))+1)])
+primes = [2,6,10]
+epsilonRange = sorted([1/n**delta for n in primes for delta in range(0,int(t*math.log(10.)/math.log(n))+1)])
+# n=15: choosing 9;17 is good!
 #epsilonRange = 2**np.arange(-21.,0.,1.)
 
 qwList = [qWeight(s, w, epsilon, q) for epsilon in epsilonRange]
-coqwList = [qWeight(s, cow, epsilon, q) for epsilon in epsilonRange]
+#coqwList = [qWeight(s, cow, epsilon, q) for epsilon in epsilonRange]
 
 """ data plot and linear regression """
 
@@ -228,47 +251,47 @@ def loglogplot(min, max):
     slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
     print(slope, r_value)
 
-def cologlogplot(min, max):
-    
-    # plot
-    epsilonRange2 = epsilonRange[min:max]
-    qwList2 = coqwList[min:max]
-
-    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
-    plt.xlabel('log epsilon')
-    plt.ylabel('log chi')
-    plt.loglog(epsilonRange, coqwList,'-,r',markersize=3., linewidth=2.)
-    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
-    plt.show()
-    
-    # regression
-    logQW = [math.log(qw) for qw in qwList2]
-    logEps = [math.log(eps) for eps in epsilonRange2]
-
-    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
-    print(slope, r_value)
-    
-def comp(min, max):
-    
-    # plot
-    epsilonRange2 = epsilonRange[min:max]
-    coqwList2 = coqwList[min:max]
-    qwList2 = qwList[min:max]
-
-    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
-    plt.xlabel('log epsilon')
-    plt.ylabel('log chi')
-    plt.loglog(epsilonRange, qwList,'-',markersize=3., linewidth=2.)
-    plt.loglog(epsilonRange, coqwList,'-',markersize=3., linewidth=2.)
-    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
-    plt.loglog(epsilonRange2, coqwList2,'o',markersize=3., linewidth=2.)
-    plt.show()
-    
-    # regression
-    logQW = [math.log(qw) for qw in qwList2]
-    cologQW = [math.log(qw) for qw in coqwList2]
-    logEps = [math.log(eps) for eps in epsilonRange2]
-
-    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
-    coslope, intercept, r_value, p_value, std_err = stats.linregress(logEps,cologQW)    
-    print(slope, coslope)
+#def cologlogplot(min, max):
+#    
+#    # plot
+#    epsilonRange2 = epsilonRange[min:max]
+#    qwList2 = coqwList[min:max]
+#
+#    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
+#    plt.xlabel('log epsilon')
+#    plt.ylabel('log chi')
+#    plt.loglog(epsilonRange, coqwList,'-,r',markersize=3., linewidth=2.)
+#    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
+#    plt.show()
+#    
+#    # regression
+#    logQW = [math.log(qw) for qw in qwList2]
+#    logEps = [math.log(eps) for eps in epsilonRange2]
+#
+#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
+#    print(slope, r_value)
+#    
+#def comp(min, max):
+#    
+#    # plot
+#    epsilonRange2 = epsilonRange[min:max]
+#    coqwList2 = coqwList[min:max]
+#    qwList2 = qwList[min:max]
+#
+#    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
+#    plt.xlabel('log epsilon')
+#    plt.ylabel('log chi')
+#    plt.loglog(epsilonRange, qwList,'-',markersize=3., linewidth=2.)
+#    plt.loglog(epsilonRange, coqwList,'-',markersize=3., linewidth=2.)
+#    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
+#    plt.loglog(epsilonRange2, coqwList2,'o',markersize=3., linewidth=2.)
+#    plt.show()
+#    
+#    # regression
+#    logQW = [math.log(qw) for qw in qwList2]
+#    cologQW = [math.log(qw) for qw in coqwList2]
+#    logEps = [math.log(eps) for eps in epsilonRange2]
+#
+#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
+#    coslope, intercept, r_value, p_value, std_err = stats.linregress(logEps,cologQW)    
+#    print(slope, coslope)
