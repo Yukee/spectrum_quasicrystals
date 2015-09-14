@@ -37,6 +37,7 @@ import numpy as np
 from scipy import linalg, stats
 import matplotlib.pyplot as plt
 import math
+import cmath
 from multiprocessing import Pool
 
 # rescale S between m and M
@@ -140,6 +141,31 @@ def hp(n, rho):
         hp[0,L-1] = jump(n, L-1, rho, 1.)
         hp[L-1,0] = hp[0,L-1]
     return hp
+    
+# build the hamiltonian (k flux boundary conditions)
+def hk(n, rho, k):
+    L = fib(n)    
+    hp = np.zeros((L,L), dtype=complex)
+    for i in range(L-1): 
+        hp[i,i+1] = jump(n, i, rho, 1.)
+        hp[i+1,i] = hp[i,i+1]
+        hp[0,L-1] = jump(n, L-1, rho, 1.)*cmath.exp(1j*k)
+        hp[L-1,0] = jump(n, L-1, rho, 1.)*cmath.exp(-1j*k)
+    return hp
+    
+# build the hamiltonian (conumbering, periodic boundary conditions)
+def hpco(n, rho):
+    p = fib(n-2)
+    q = fib(n-1)
+    h = np.zeros((p+q,p+q))
+    for i in range(p):
+        h[i,i+q] = 1.
+        h[i+q,i] = 1.
+    for i in range(q):
+        h[i,i+p] = rho
+        h[i+p,i] = rho
+    return h
+
 
 """ Pass to conumbering """
 
@@ -191,43 +217,80 @@ def x(co, n, ren):
 
 # ## Local fractal dimensions of the wavefunctions
 
-""" compute the eigenvalues """
+""" compute the eigenvalues and write them to a file """
 
 # diagonalize
-rho = .15
-n = 16
-val, vec = linalg.eigh(hp(n, rho))
-
-# in conumbering!
-#covec = conum(vec,n)
+#rho = .1
+#n = 16
+#valco, vecco = linalg.eigh(hpco(n,rho))
+#np.save("data/wf_conum_n" + str(n) +"_rho" + str(rho), vecco)
+#val0, vec0 = linalg.eigh(hk(n, rho, 0))
+#valpi2, vecpi2 = linalg.eigh(hk(n, rho, 0.5*cmath.pi))
+#valpi, vecpi = linalg.eigh(hk(n, rho, cmath.pi))
+#int0 = abs(vec0)**2
+#intpi2 = abs(vecpi2)**2
+#intpi = abs(vecpi)**2
+## average over boundary conditions
+#vec = (int0 + 4*intpi2 + intpi)/6
+#
+## write to file
+#np.save("data/wf_averaged_n" + str(n) +"_rho" + str(rho), vec)
 
 """ Averaged fractal dimensions of the wavefunctions """
-q = 2.
-
-# position set
-s = np.arange(0,fib(n),1.)
-
-# wavefunction index 
-a = label(304,n)
-# in conumbering, wavefunction indexes are also relabelled
-#coa = co(a, n)
-
-# weights are presence probabilities
-w = abs(vec[:,a])**2
-#cow = abs(covec[:,coa])**2
-# test whether permuting randomly the positions has an impact on the behaviour of the q norm
-#np.random.shuffle(cow)
-    
+#q = 2.
+#
+## position set
+#s = np.arange(0,fib(n),1.)
+#    
 # smallest box size (in the form smallest_espilon = 10**(-t))
 t = 3.5
 # for some reason, there are problems with 3, so we exclude it from the list of primes
 primes = [2,6,10]
 epsilonRange = sorted([1/n**delta for n in primes for delta in range(0,int(t*math.log(10.)/math.log(n))+1)])
-# n=15: choosing 9;17 is good!
+# n=16: choosing 4;-4 is good!
+realRange = epsilonRange[4:-7]
 #epsilonRange = 2**np.arange(-21.,0.,1.)
 
-qwList = [qWeight(s, w, epsilon, q) for epsilon in epsilonRange]
+#a = label(304,n)
+#w = abs(vec[:,a])**2
+#qwList = [qWeight(s, w, epsilon, q) for epsilon in epsilonRange]
 #coqwList = [qWeight(s, cow, epsilon, q) for epsilon in epsilonRange]
+
+""" linear regression for every energy """
+## loading wavefunctions
+#n = 16
+#vec = np.load("data/wf_conum_n16_rho0.1.npy")
+#
+## position set
+#s = np.arange(0,fib(n),1.)
+#
+#q = 2
+#w = abs(vec)**2
+#    
+#def linreg(a):
+#    logWeights = [math.log(qWeight(s, w[:,a], epsilon, q)) for epsilon in realRange]
+#    logEps = [math.log(eps) for eps in realRange]
+#    
+#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logWeights)
+#    return slope
+#
+#""" computations """
+#pool = Pool(4)
+#dim = list(pool.map(linreg, range(fib(n))))
+#
+#""" plot dimension vs a at fixed q """
+#plt.plot(dim,'o', markersize=3.)
+## x(a)
+#xList = np.array([x(a,n,0) for a in range(fib(n))])
+#plt.plot(0.8*xList/7,'+',markersize=3.)
+#plt.show()
+
+""" test gamma functions """
+
+n = 16
+vec = np.load("data/wf_conum_n16_rho0.1.npy")
+
+
 
 """ data plot and linear regression """
 
@@ -251,47 +314,22 @@ def loglogplot(min, max):
     slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
     print(slope, r_value)
 
-#def cologlogplot(min, max):
-#    
-#    # plot
-#    epsilonRange2 = epsilonRange[min:max]
-#    qwList2 = coqwList[min:max]
-#
-#    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
-#    plt.xlabel('log epsilon')
-#    plt.ylabel('log chi')
-#    plt.loglog(epsilonRange, coqwList,'-,r',markersize=3., linewidth=2.)
-#    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
-#    plt.show()
-#    
-#    # regression
-#    logQW = [math.log(qw) for qw in qwList2]
-#    logEps = [math.log(eps) for eps in epsilonRange2]
-#
-#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
-#    print(slope, r_value)
-#    
-#def comp(min, max):
-#    
-#    # plot
-#    epsilonRange2 = epsilonRange[min:max]
-#    coqwList2 = coqwList[min:max]
-#    qwList2 = qwList[min:max]
-#
-#    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
-#    plt.xlabel('log epsilon')
-#    plt.ylabel('log chi')
-#    plt.loglog(epsilonRange, qwList,'-',markersize=3., linewidth=2.)
-#    plt.loglog(epsilonRange, coqwList,'-',markersize=3., linewidth=2.)
-#    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
-#    plt.loglog(epsilonRange2, coqwList2,'o',markersize=3., linewidth=2.)
-#    plt.show()
-#    
-#    # regression
-#    logQW = [math.log(qw) for qw in qwList2]
-#    cologQW = [math.log(qw) for qw in coqwList2]
-#    logEps = [math.log(eps) for eps in epsilonRange2]
-#
-#    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
-#    coslope, intercept, r_value, p_value, std_err = stats.linregress(logEps,cologQW)    
-#    print(slope, coslope)
+def simple_plot(q, a, min, max):
+    # plot
+    epsilonRange2 = epsilonRange[min:max]
+    qwList = [qWeight(s, w[:,a], epsilon, q) for epsilon in epsilonRange]
+    qwList2 = qwList[min:max]
+
+    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
+    plt.xlabel('log epsilon')
+    plt.ylabel('log chi')
+    plt.loglog(epsilonRange, qwList,'-,r',markersize=3., linewidth=2.)
+    plt.loglog(epsilonRange2, qwList2,'o',markersize=3., linewidth=2.)
+    plt.show()
+    
+    # regression
+    logQW = [math.log(qw) for qw in qwList2]
+    logEps = [math.log(eps) for eps in epsilonRange2]
+
+    slope, intercept, r_value, p_value, std_err = stats.linregress(logEps,logQW)
+    print(slope, r_value)
