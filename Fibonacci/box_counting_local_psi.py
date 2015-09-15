@@ -210,6 +210,23 @@ def x(co, n, ren):
     if(n<3): return ren
     else: return x(co,n,ren)
 
+# return the renormalization path
+def path(co, n, pth):
+    if(co >= fib(n-1)):
+        pth += '+'
+        co -= fib(n-1)
+        n -= 2
+    elif(co >= fib(n-2)):
+        pth += '0'
+        co -= fib(n-2)
+        n -= 3
+    else:
+        pth += '-'
+        n -= 2
+        
+    if(n<3): return pth
+    else: return path(co,n,pth)
+
 #n = 17
 #xlist = [x(label(co,n),n,0) for co in range(fib(n))]
 #plt.plot(xlist)
@@ -285,11 +302,84 @@ realRange = epsilonRange[4:-7]
 #plt.plot(0.8*xList/7,'+',markersize=3.)
 #plt.show()
 
-""" test gamma functions """
+""" box counting using Fibonacci boxes """
 
 n = 16
 vec = np.load("data/wf_conum_n16_rho0.1.npy")
 
+# p: step of the subdivision, w: weight list, n: size
+def chi(w, n, q, p):
+    if(p == 0):
+        return sum(w)**q
+    else:
+        # divide w for the subsequent summations
+        w1 = w[:fib(n-2)]
+        w2 = w[fib(n-2):fib(n-1)]
+        w3 = w[fib(n-1):]
+        
+        p -= 1
+        return chi(w1,n-2,q,p) + chi(w2,n-3,q,p) + chi(w3,n-2,q,p)
+
+def gamma(w, n, q, tau, p):
+    if(p == 0):
+        return sum(w)**q/fib(n)**tau
+    else:
+        # divide w for the subsequent summations
+        w1 = w[:fib(n-2)]
+        w2 = w[fib(n-2):fib(n-1)]
+        w3 = w[fib(n-1):]
+        
+        p -= 1
+        return gamma(w1,n-2,q,p) + gamma(w2,n-3,q,p) + gamma(w3,n-2,q,p)
+
+# compute the q-weight as a function of the number of boxes        
+q = 2.
+# weights
+w = abs(vec)**2
+# energy label
+a = 31
+# associated path
+pa = path(a,n,'')
+# list of steps
+steps = range(0,len(pa)+1)
+# list of q-weights
+chiList = [chi(w[:,a],n,q,p) for p in steps]
+logChi = [math.log(chi) for chi in chiList]
+
+# evaluate the slope of log chi(n)
+slope, intercept, r_value, p_value, std_err = stats.linregress(steps, logChi)
+# evaluate the fit function
+values = np.arange(steps[0], steps[-1]+1, .5)
+logFit = [slope*i + intercept for i in values]
+# plots!
+plt.plot(values, logFit)
+plt.plot(logChi,'o')
+plt.title('The q-weight for the wavefunction ' + pa)
+
+""" fit for every individual wf """
+#chisUnif = np.array([chi(w,n,q,p) for p in steps])
+
+#def chis_at(a, n, q):
+#    p = 
+#    if(p == 0):
+#        return sum(w)**q
+#    else:
+#        # divide w for the subsequent summations
+#        w1 = w[:fib(n-2)]
+#        w2 = w[fib(n-2):fib(n-1)]
+#        w3 = w[fib(n-1):]
+#        
+#        p -= 1
+#        return chi(w1,n-2,q,p) + chi(w2,n-3,q,p) + chi(w3,n-2,q,p)
+
+# for each wf, compute the number of steps we can use
+#steps = np.array([range(0,len(path(a,n,''))+1) for a in range(fib(n))])
+# chi for every step, and every individual wf
+#chis = np.array([[chi(w[:,a],n,q,p) for p in steps] for a in range(fib(n))])
+#chis = np.array([chi(wa,n,q,p) for wa, p in zip(w, steps)])
+# goin' log scale baby
+#log = np.vectorize(math.log)
+#logChis = log(chis)
 
 
 """ data plot and linear regression """
@@ -300,7 +390,7 @@ def loglogplot(min, max):
     epsilonRange2 = epsilonRange[min:max]
     qwList2 = qwList[min:max]
 
-    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
+    plt.title('The q-weight for the wavefunction '+str(a)+' for q = ' + str(q))
     plt.xlabel('log epsilon')
     plt.ylabel('log chi')
     plt.loglog(epsilonRange, qwList,'-,r',markersize=3., linewidth=2.)
