@@ -290,6 +290,18 @@ realRange = epsilonRange[4:-7]
 n = 16
 vec = np.load("data/wf_conum_n16_rho0.1.npy")
 
+# p: step of the subdivision, w: weight list, n: size
+def chi(w, n, q, p):
+    if(p == 0):
+        return sum(w)**q
+    else:
+        # divide w for the subsequent summations
+        w1 = w[:fib(n-2)]
+        w2 = w[fib(n-2):fib(n-1)]
+        w3 = w[fib(n-1):]
+        
+        p -= 1
+        return chi(w1,n-2,q,p) + chi(w2,n-3,q,p) + chi(w3,n-2,q,p)
 
 
 """ data plot and linear regression """
@@ -300,7 +312,7 @@ def loglogplot(min, max):
     epsilonRange2 = epsilonRange[min:max]
     qwList2 = qwList[min:max]
 
-    plt.title('The q-weigth for the wavefunction '+str(a)+' for q = ' + str(q))
+    plt.title('The q-weight for the wavefunction '+str(a)+' for q = ' + str(q))
     plt.xlabel('log epsilon')
     plt.ylabel('log chi')
     plt.loglog(epsilonRange, qwList,'-,r',markersize=3., linewidth=2.)
