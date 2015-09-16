@@ -224,7 +224,7 @@ def path(co, n, pth):
         pth += '-'
         n -= 2
         
-    if(n<3): return pth
+    if(n<2): return pth
     else: return path(co,n,pth)
 
 #n = 17
@@ -337,7 +337,7 @@ q = 2.
 # weights
 w = abs(vec)**2
 # energy label
-a = 31
+a = 23
 # associated path
 pa = path(a,n,'')
 # list of steps
@@ -357,29 +357,30 @@ plt.plot(logChi,'o')
 plt.title('The q-weight for the wavefunction ' + pa)
 
 """ fit for every individual wf """
-#chisUnif = np.array([chi(w,n,q,p) for p in steps])
 
-#def chis_at(a, n, q):
-#    p = 
-#    if(p == 0):
-#        return sum(w)**q
-#    else:
-#        # divide w for the subsequent summations
-#        w1 = w[:fib(n-2)]
-#        w2 = w[fib(n-2):fib(n-1)]
-#        w3 = w[fib(n-1):]
-#        
-#        p -= 1
-#        return chi(w1,n-2,q,p) + chi(w2,n-3,q,p) + chi(w3,n-2,q,p)
-
-# for each wf, compute the number of steps we can use
-#steps = np.array([range(0,len(path(a,n,''))+1) for a in range(fib(n))])
-# chi for every step, and every individual wf
-#chis = np.array([[chi(w[:,a],n,q,p) for p in steps] for a in range(fib(n))])
-#chis = np.array([chi(wa,n,q,p) for wa, p in zip(w, steps)])
+# the max number of steps is n/2 (every decimation is molecular)
+steps = range(int(n/2)+1)
+# for every wf, compute chi for the max number of steps possible
+chis = np.ma.array([chi(w,n,q,p) for p in steps])
+# compute all path lengthes
+pths = np.array([len(path(a,n,'')) for a in range(fib(n))])
+# mask the extra steps
+for en in range(fib(n)):
+    chis[pths[en]+1:,en] = np.ma.masked
 # goin' log scale baby
-#log = np.vectorize(math.log)
-#logChis = log(chis)
+log = np.vectorize(math.log)
+logChis = log(chis)
+
+# evaluate the slope of log chi(n)
+fits = []
+for en in range(fib(n)):
+    fits.append(list(stats.linregress(range(0,pths[en]+1), logChis[:,en].compressed())[0:2]))
+fits = np.array(fits)
+# evaluate the fit function
+values = np.arange(steps[0], steps[-1]+1, .5)
+logFit = [fits[a,0]*i + fits[a,1] for i in values]
+# plots!
+plt.plot(values, logFit, '+')
 
 
 """ data plot and linear regression """
