@@ -80,8 +80,8 @@ def conum(vec, n):
 """ compute the eigenvalues """
 
 # diagonalize
-rho = 1.
-n = 12
+rho = .9
+n = 13
 L = fib(n)
 val, vec = linalg.eigh(hp(n, rho))
 
@@ -104,7 +104,7 @@ def P(orig,t,q):
     
 tRange = 10**np.arange(-1,4,.2)
 #tRange = np.arange(0,30,.2)
-orig = 0
+orig = 280.
 q = 2.
 #plist = [P(orig,t,q) for t in tRange]
 #p2 = [P(0,t,q) for t in tRange]
@@ -120,7 +120,7 @@ def avP(t,dists):
     
     return np.trace(np.dot(Is, dists))/L
     
-# brute force averaging (for testing purposes)
+# brute force averaging (for testing purposes: check OK)
 def brute_avP(t,q):
     avp = 0
     for x in range(L):
@@ -132,16 +132,19 @@ def brute_avP(t,q):
 start = timer()
 p1 = [avP(t,q_dists) for t in tRange]
 elapsed = timer() - start
-print("averaged diffuction (matrix multiplications): ",elapsed)
+print("averaged diffusion (matrix multiplications): ",elapsed)
 
-start = timer()
-p2 = [brute_avP(t,2) for t in tRange]
-elapsed = timer() - start
-print("averaged diffuction (simple iteration): ",elapsed)
+#start = timer()
+#p2 = [brute_avP(t,2) for t in tRange]
+#elapsed = timer() - start
+#print("averaged diffusion (simple iteration): ",elapsed)
 
 # TODO: average over some positions (randomly picked?) instead of averaging over all positions
 
-def fit(pmin,pmax):
+def fit(plist,pmin,pmax):
+    """
+    /!\ return sigma = slope/q, ie sigma defined as <x(t)^q> ~ t^{q*sigma}
+    """
     tRangeFit = tRange[pmin:pmax]
     plistFit = plist[pmin:pmax]
     
@@ -155,3 +158,6 @@ def fit(pmin,pmax):
     slope, intercept, r_value, p_value, std_err = stats.linregress(logT,logP)
     
     return slope/q, r_value
+
+if __name__ == "__main__":
+    plt.loglog(tRange, p1, 'o')
